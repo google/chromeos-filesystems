@@ -9,12 +9,14 @@
 
 # Generated files
 */extension/*.js
+*/extension/build.*
 */test/build
 */test/browser/build
-third_party/aws-sdk
 
 # Example files
 example
 
 log.*
 webdavfs/test/manual/build.js
+third_party/*
+!third_party/bindfix
