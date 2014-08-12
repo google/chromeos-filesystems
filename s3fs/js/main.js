@@ -36,14 +36,19 @@ var mount = function(options) {
   var key = credentials.key;
   var secret = credentials.secret;
 
-  options = options || {};
+  if (!options) {
+    console.error('No options provided for the mount function.');
+    return;
+  }
 
   if (!options.region) {
     console.error('Please provide a region.');
+    return;
   }
 
   if (!options.bucket) {
     console.error('Please provide a bucket.');
+    return;
   }
 
   window.s3fs = new S3FS(key, secret, options.region, options.bucket);
@@ -63,11 +68,11 @@ var mount = function(options) {
       if (error) {
         console.error(error);
         options.onError(error);
+        return;
       }
-      else {
-        if (options.onSuccess) {
-          options.onSuccess();
-        }
+
+      if (options.onSuccess) {
+        options.onSuccess();
       }
     });
   };
@@ -101,6 +106,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       type: 'error',
       message: 'No request type provided.'
     });
+
     return;
   }
 
