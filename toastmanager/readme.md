@@ -8,4 +8,4 @@ bower install --save toastmanager
 
 ## License
 
-Apache 2
+BSD

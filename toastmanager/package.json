@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "Apache 2",
+  "license": "BSD",
   "devDependencies": {
     "chai": "^1.9.1",
     "grunt": "^0.4.5",

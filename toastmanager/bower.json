@@ -6,7 +6,7 @@
     "Giles Lavelle <lavelle@chromium.org>"
   ],
   "description": "Manage Polymer toasts",
-  "license": "Apache 2",
+  "license": "BSD",
   "ignore": [
     "**/.*",
     "node_modules",
