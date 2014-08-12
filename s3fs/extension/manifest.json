@@ -16,6 +16,7 @@
     "128": "icon/128.png"
   },
   "permissions": [
-    "fileSystemProvider"
+    "fileSystemProvider",
+    "storage"
   ]
 }

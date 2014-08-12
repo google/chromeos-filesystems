@@ -1,0 +1,24 @@
+<!--
+Copyright 2014 Google Inc. All rights reserved.
+
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file or at
+https://developers.google.com/open-source/licenses/bsd
+-->
+
+<link rel="import" href="../../../third_party/paper-button/paper-button.html">
+<link rel="import" href="../../../third_party/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../third_party/paper-dialog/paper-dialog-transition.html">
+
+<polymer-element name="confirm-unmount-dialog" attributes="show" on-open="{{open}}">
+  <template>
+    <!-- TODO(lavelle): the transition doesn't seem to do anything. -->
+    <paper-dialog heading="Confirm unmount" id="dialog" transition="paper-transition-center" layered="true">
+      <p>Are you sure you want to unmount this bucket?</p>
+      <paper-button id="no" on-click="{{onNoClicked}}" label="No" affirmative></paper-button>
+      <paper-button id="yes" on-click="{{onYesClicked}}" label="Yes" affirmative autofocus></paper-button>
+    </paper-dialog>
+  </template>
+
+  <script src"../js/confirm-unmount-dialog.js"></script>
+</polymer-element>

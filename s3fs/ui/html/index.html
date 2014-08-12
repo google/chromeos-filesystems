@@ -1,0 +1,92 @@
+﻿<!--
+Copyright 2014 Google Inc. All rights reserved.
+
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file or at
+https://developers.google.com/open-source/licenses/bsd
+-->
+
+<!doctype html>
+<html>
+
+<head>
+  <title>Amazon S3 file system options</title>
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <!-- Polymer core platform. -->
+  <script src="../../../third_party/platform/platform.js"></script>
+
+  <!-- Core components. -->
+  <link rel="import" href="../../../third_party/core-drawer-panel/core-drawer-panel.html">
+  <link rel="import" href="../../../third_party/core-icon-button/core-icon-button.html">
+
+  <!-- Paper components. -->
+  <link rel="import" href="../../../third_party/paper-input/paper-input.html">
+  <link rel="import" href="../../../third_party/paper-button/paper-button.html">
+  <link rel="import" href="../../../third_party/paper-toast/paper-toast.html">
+
+  <!-- Custom components. -->
+  <link rel="import" href="side-drawer.html">
+  <link rel="import" href="confirm-unmount-dialog.html">
+  <link rel="import" href="add-button.html">
+
+  <!-- Global styles. -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body unresolved touch-action="auto">
+  <!-- Toasts. -->
+  <paper-toast text="Please enter a valid access key." id="toast-access-key"></paper-toast>
+  <paper-toast text="Please enter a valid secret key." id="toast-secret-key"></paper-toast>
+  <paper-toast text="Please enter a valid bucket name." id="toast-bucket-name"></paper-toast>
+  <paper-toast text="Please enter a valid region." id="toast-region"></paper-toast>
+  <paper-toast text="Credentials saved successfully." id="toast-credentials-saved"></paper-toast>
+  <paper-toast text="Bucket updated successfullly." id="toast-bucket-updated"></paper-toast>
+  <paper-toast text="Please select a bucket to remount." id="toast-nothing-mounted"></paper-toast>
+  <paper-toast text="A bucket with this name is already mounted." id="toast-bucket-already-mounted"></paper-toast>
+  <paper-toast text="There was a problem connecting to the S3 bucket. Check that your bucket name is correct and that you have permission to access it." id="toast-networking-error"></paper-toast>
+
+  <confirm-unmount-dialog></confirm-unmount-dialog>
+
+  <!-- Main page content. -->
+  <core-drawer-panel>
+    <side-drawer drawer>
+      <div class="top">
+        <h2>Current buckets</h2>
+        <add-button></add-button>
+      </div>
+
+      <div class="cf"></div>
+
+      <bucket-list id="list" on-remove="onRemove"></bucket-list>
+    </side-drawer>
+
+    <div main>
+      <div class="container" layout vertical center>
+        <h2>Bucket details</h2>
+
+        <paper-input id="name" floatingLabel placeholder="Bucket name"></paper-input>
+        <paper-input id="region" floatingLabel placeholder="Region"></paper-input>
+
+        <paper-button raisedButton id="mount" label="mount"></paper-button>
+
+        <hr>
+
+        <h2>Credentials</h2>
+
+        <paper-input id="key" floatingLabel placeholder="Access key"></paper-input>
+        <paper-input id="secret" floatingLabel placeholder="Secret key"></paper-input>
+
+        <paper-button raisedButton id="update" label="update"></paper-button>
+
+      </div>
+    </div>
+  </core-drawer-panel>
+
+  <script src="../../../third_party/underscore/underscore.js"></script>
+  <script src="../../../third_party/jquery/dist/jquery.js"></script>
+  <script src="../build/main.js"></script>
+</body>
+
+</html>

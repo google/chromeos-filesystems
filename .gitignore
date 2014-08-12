@@ -18,3 +18,5 @@ example
 
 log.*
 webdavfs/test/manual/build.js
+third_party/*
+!third_party/bindfix

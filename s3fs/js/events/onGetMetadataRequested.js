@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 Google Inc. All rights reserved.
 
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file or at
@@ -19,7 +19,7 @@ var util = require('../util');
  */
 module.exports = function(options, onSuccess, onError) {
   // Remove the leading slash from the path -- this isn't used in S3 keys.
-  var path = options.entryPath.substring(1);;
+  var path = options.entryPath.substring(1);
 
   var metadata;
   // Handle the special case for the root directory.
