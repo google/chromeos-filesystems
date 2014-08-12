@@ -1,0 +1,22 @@
+.PHONY: zip clean build grunt test install
+
+NAME=s3fs
+ZIP=$(NAME).zip
+
+libs:
+	cp ../third_party/aws-sdk/dist/aws-sdk.min.js extension/aws-sdk.js
+
+zip: grunt
+	zip $(ZIP) extension/*
+
+grunt: libs
+	grunt
+
+test:
+	grunt test
+
+clean:
+	rm -rf $(ZIP) extension/vendor extension/*.js test/build
+
+install:
+	npm install

@@ -1,0 +1,20 @@
+# File types
+*.crx
+*.old
+*.zip
+*.DS_Store
+
+# Library directories
+*/node_modules
+
+# Generated files
+*/extension/*.js
+*/test/build
+*/test/browser/build
+third_party/aws-sdk
+
+# Example files
+example
+
+log.*
+webdavfs/test/manual/build.js

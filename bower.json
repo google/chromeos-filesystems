@@ -1,0 +1,20 @@
+{
+  "name": "chromeos-filesystems",
+  "version": "0.0.1",
+  "authors": [
+    "Giles Lavelle <lavelle@chromium.org>",
+    "Jun Mukai <mukai@chromium.org>"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "third_party",
+    "*/test",
+    "*/tests"
+  ],
+  "dependencies": {
+    "aws-sdk": "~2.0.9"
+  }
+}
