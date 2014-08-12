@@ -1,0 +1,19 @@
+{
+  "name": "toastmanager",
+  "version": "0.0.1",
+  "description": "## Install",
+  "main": "toastmanager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache 2",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^2.1.4",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-mocha": "^0.4.11",
+    "load-grunt-tasks": "^0.6.0"
+  }
+}
