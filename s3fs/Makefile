@@ -1,4 +1,4 @@
-.PHONY: zip clean build grunt test install
+.PHONY: zip clean grunt test install libs
 
 NAME=s3fs
 ZIP=$(NAME).zip
