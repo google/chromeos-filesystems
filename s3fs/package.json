@@ -18,5 +18,5 @@
     "test": "grunt test"
   },
   "author": "Giles Lavelle <lavelle@chromium.org>",
-  "license": "Apache 2"
+  "license": "BSD"
 }
