@@ -1,0 +1,15 @@
+{
+  "name": "testserver",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "Apache 2",
+  "dependencies": {
+    "jsDAV": "^0.3.2"
+  }
+}

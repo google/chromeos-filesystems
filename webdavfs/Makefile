@@ -21,7 +21,7 @@ test: copytest
 
 # Removes any automatically generated files.
 clean:
-	rm -rf $(ZIP) extension.crx extension/vendor extension/*.js test/build
+	rm -rf $(ZIP) extension.crx extension/vendor extension/*.js test/build extension/build.*
 
 # Installs build tools.
 install:

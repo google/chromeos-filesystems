@@ -35,8 +35,6 @@ All types of testing need a WebDAV server to connect to. A Node.js WebDAV server
 
 To test the extension itself, start the server and install the extension as above. Click on the WebDAV entry in the sidebar of the Files app and explore the directories.
 
-To experiment with the API, run the WebDAV server in the same way and then open `test/manual/index.html` in a browser. You can run a local HTTP server by running `grunt connect`, and then visit the page at `http://localhost:9000/test/manual`. You can then make API calls from the browser console using the WebDAV client library and inspect the repsonses.
-
 ### Automatic
 
 To run the unit test suite, start the server and then run `grunt test`. The results will appear in your console.

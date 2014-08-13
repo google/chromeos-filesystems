@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 Google Inc. All rights reserved.
 
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file or at
@@ -8,7 +8,7 @@
 
 /* jshint -W027 */
 
-var onUnmountRequested = require('../../../js/events').onUnmountRequested;
+var onUnmountRequested = require('../../js/events').onUnmountRequested;
 
 describe('onUnmountRequested', function() {
   it('should return the file system ID after a successful unmount',

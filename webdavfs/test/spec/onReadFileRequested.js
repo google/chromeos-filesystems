@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 Google Inc. All rights reserved.
 
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file or at
@@ -8,8 +8,8 @@
 
 /* jshint -W027 */
 
-var onReadFileRequested = require('../../../js/events').onReadFileRequested;
-var onOpenFileRequested = require('../../../js/events').onOpenFileRequested;
+var onReadFileRequested = require('../../js/events').onReadFileRequested;
+var onOpenFileRequested = require('../../js/events').onOpenFileRequested;
 
 describe('onReadFileRequested', function() {
   it('should fail for files that have not been opened yet', function(done) {

@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 Google Inc. All rights reserved.
 
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file or at
@@ -28,4 +28,19 @@ chrome.runtime.onInstalled.addListener(function() {
 
   // Mount the file system.
   chrome.fileSystemProvider.mount(webDAVFS.options, onSuccess, onError);
+});
+
+chrome.app.runtime.onLaunched.addListener(function(launchData) {
+  console.log('launched');
+
+  var windowOptions = {
+    outerBounds: {
+      left: 10,
+      top: 10,
+      width: 800,
+      height: 700
+    }
+  };
+
+  chrome.app.window.create('build.html', windowOptions);
 });

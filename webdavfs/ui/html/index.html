@@ -1,0 +1,81 @@
+﻿<!--
+Copyright 2014 Google Inc. All rights reserved.
+
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file or at
+https://developers.google.com/open-source/licenses/bsd
+-->
+
+<!doctype html>
+<html>
+
+<head>
+  <title>WebDAV file system options</title>
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <!-- Polymer core platform. -->
+  <script src="../../third_party/platform/platform.js"></script>
+
+  <!-- Core components. -->
+  <link rel="import" href="../../third_party/core-drawer-panel/core-drawer-panel.html">
+  <link rel="import" href="../../third_party/core-icon-button/core-icon-button.html">
+
+  <!-- Paper components. -->
+  <link rel="import" href="../../third_party/paper-input/paper-input.html">
+  <link rel="import" href="../../third_party/paper-button/paper-button.html">
+  <link rel="import" href="../../third_party/paper-toast/paper-toast.html">
+
+  <!-- Custom components. -->
+  <link rel="import" href="side-drawer.html">
+  <link rel="import" href="confirm-unmount-dialog.html">
+  <link rel="import" href="add-button.html">
+
+  <!-- Global styles. -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body unresolved touch-action="auto">
+  <!-- Main page content. -->
+  <core-drawer-panel>
+    <side-drawer drawer>
+      <div class="top">
+        <h2>Current servers</h2>
+        <add-button></add-button>
+      </div>
+
+      <div class="cf"></div>
+
+      <bucket-list id="list" on-remove="onRemove"></bucket-list>
+    </side-drawer>
+
+    <div main>
+      <div class="container" layout vertical center>
+        <h2>Server details</h2>
+
+        <paper-input id="name" floatingLabel placeholder="Name"></paper-input>
+        <paper-input id="scheme" floatingLabel placeholder="Scheme"></paper-input>
+        <paper-input id="host" floatingLabel placeholder="Host"></paper-input>
+        <paper-input id="port" floatingLabel placeholder="Port"></paper-input>
+
+        <paper-button raisedButton id="mount" label="mount"></paper-button>
+
+        <hr>
+
+        <h2>Credentials</h2>
+
+        <paper-input id="username" floatingLabel placeholder="Username"></paper-input>
+        <paper-input id="password" floatingLabel placeholder="Password"></paper-input>
+
+        <paper-button raisedButton id="update" label="update"></paper-button>
+
+      </div>
+    </div>
+  </core-drawer-panel>
+
+  <script src="../../third_party/underscore/underscore.js"></script>
+  <script src="../../third_party/jquery/dist/jquery.js"></script>
+  <script src="../build/main.js"></script>
+</body>
+
+</html>

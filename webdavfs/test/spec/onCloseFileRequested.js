@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 Google Inc. All rights reserved.
 
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file or at
@@ -8,7 +8,7 @@
 
 /* jshint -W027 */
 
-var onCloseFileRequested = require('../../../js/events').onCloseFileRequested;
+var onCloseFileRequested = require('../../js/events').onCloseFileRequested;
 
 describe('onCloseFileRequested', function() {
   it('should reject attempts to close unopened files', function(done) {

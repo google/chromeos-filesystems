@@ -1,0 +1,42 @@
+<!--
+Copyright 2014 Google Inc. All rights reserved.
+
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file or at
+https://developers.google.com/open-source/licenses/bsd
+-->
+
+<link rel="import" href="bucket-list.html">
+
+<polymer-element name="side-drawer">
+  <template>
+    <style>
+      :host {
+        width: 400px;
+        background: #333;
+        color: white;
+        padding: 10px 0;
+        display: block;
+      }
+
+      content::content h2 {
+        float: left;
+        font-size: 20px;
+      }
+
+      content::content .top {
+        padding: 0 20px;
+        border-bottom: 1px solid #222;
+        height: 60px;
+      }
+    </style>
+
+    <div drawer>
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer('side-drawer', {});
+  </script>
+</polymer-element>
