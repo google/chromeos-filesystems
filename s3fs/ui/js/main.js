@@ -70,6 +70,16 @@ $(function() {
     // Get the bucket name and region from the text fields.
     var name = s3fs.fields.name.val();
     var region = s3fs.fields.region.val();
+    var key = s3fs.fields.key.val();
+    var secret = s3fs.fields.secret.val();
+
+    if (!s3fs.validator.accessKey(key)) {
+      s3fs.tm.show('accessKey');
+    }
+
+    if (!s3fs.validator.secretKey(secret)) {
+      s3fs.tm.show('secretKey');
+    }
 
     // Ensure the bucket name is present and valid.
     if (!s3fs.validator.bucketName(name)) {
@@ -90,7 +100,9 @@ $(function() {
     var request = {
       type: 'mount',
       bucket: name,
-      region: region
+      region: region,
+      key: key,
+      secret: secret
     };
 
     // Send the request to the background script to mount the bucket.
@@ -115,7 +127,6 @@ $(function() {
 
   // Saves the new secret and access keys.
   $('#update').on('click', function() {
-    // Get the values from the fields.
     var key = s3fs.fields.key.val();
     var secret = s3fs.fields.secret.val();
 

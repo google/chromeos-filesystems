@@ -28,7 +28,6 @@ Polymer('bucket-item', {
     s3fs.dialogs.confirmUnmount.fire('open', {caller: this});
   },
   deleteConfirmed: function() {
-    console.log('delete confirmed');
     var name = this.getName();
     this.list.fire('remove-bucket', {name: name});
   }

@@ -9,7 +9,6 @@
 'use strict';
 
 var S3FS = require('./s3fs');
-var credentials = require('./credentials');
 
 // Import all the functions to handle the various file system events.
 var events = {
@@ -27,31 +26,35 @@ var events = {
  * @param {Object} options
  *     @param {string} bucket The name of the bucket.
  *     @param {string} region The AWS region of the bucket.
+ *     @param {string} key The AWS access key ID for the user who is accessing
+ *         the bucket.
+ *     @param {string} secret The AWS secret key for the user who is accessing
+ *         the bucket.
  *     @param {function} onSuccess The function to be called when the bucket is
  *         mounted successfully.
  *     @param {function} onError The function to be called if the bucket fails
  *         to mount;
  */
 var mount = function(options) {
-  var key = credentials.key;
-  var secret = credentials.secret;
-
   if (!options) {
     console.error('No options provided for the mount function.');
     return;
   }
 
-  if (!options.region) {
-    console.error('Please provide a region.');
-    return;
+  var required = ['key', 'secret', 'bucket', 'region'];
+
+  for (var i = 0; i < required.length; i++) {
+    if (!options[option]) {
+      // If these options are not present the internal API is not being used
+      // correctly, so log it to the console as a developer error rather than
+      // displaying the message to the user.
+      console.error('Missing argument for mount: ' + option + '.');
+      return;
+    }
   }
 
-  if (!options.bucket) {
-    console.error('Please provide a bucket.');
-    return;
-  }
-
-  window.s3fs = new S3FS(key, secret, options.region, options.bucket);
+  window.s3fs = new S3FS(options.key, options.secret, options.region,
+    options.bucket);
 
   // Register each of the event listeners to the FSP.
   for (var name in events) {
@@ -127,6 +130,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       mount({
         bucket: request.bucket,
         region: request.region,
+        key: request.key,
+        secret: request.secret,
         onSuccess: function() {
           sendResponse({
             type: 'mount',
