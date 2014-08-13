@@ -119,18 +119,12 @@ $(function() {
     var key = s3fs.fields.key.val();
     var secret = s3fs.fields.secret.val();
 
-    // Ensure there is a valid access key to save.
     if (!s3fs.validator.accessKey(key)) {
-      // Show an error message if it fails.
       s3fs.tm.show('accessKey');
-      return;
     }
 
-    // Ensure there is a valid secret key to save.
     if (!s3fs.validator.secretKey(secret)) {
-      // Show an error message if it fails.
       s3fs.tm.show('secretKey');
-      return;
     }
 
     // Save the credentials to persistent storage.
