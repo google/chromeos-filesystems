@@ -90,8 +90,8 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
     outerBounds: {
       left: 10,
       top: 10,
-      width: 800,
-      height: 700
+      minWidth: 800,
+      minHeight: 700
     }
   };
 
@@ -109,8 +109,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
     return;
   }
-
-  console.log('Recieved a ' + request.type + ' request.');
 
   switch (request.type) {
     case 'mount':
@@ -143,9 +141,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           });
         }
       });
-      break;
-    case 'debug':
-      console.log(request);
       break;
     default:
       console.error('Invalid message type: ' + request.type);
