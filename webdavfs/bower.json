@@ -4,7 +4,7 @@
   "authors": [
     "Giles Lavelle <lavelle@chromium.org>"
   ],
-  "license": "Apache 2",
+  "license": "BSD",
   "ignore": [
     "**/.*",
     "node_modules",
