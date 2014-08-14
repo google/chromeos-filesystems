@@ -1,0 +1,65 @@
+<!--
+Copyright 2014 The Chromium Authors. All rights reserved.
+
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file or at
+https://developers.google.com/open-source/licenses/bsd
+-->
+
+<link rel="import" href="../../../third_party/core-icon-button/core-icon-button.html">
+
+<polymer-element name="bucket-item" attributes="show" on-delete-confirmed="{{deleteConfirmed}}">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 20px;
+        border-bottom: 1px solid #222;
+        cursor: pointer;
+        height: 40px;
+      }
+
+      :host(:hover) {
+        background-color: #555;
+      }
+
+      content::content .name {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+
+      content::content .region {
+        color: #999;
+        font-style: italic;
+      }
+
+      .text {
+        float: left;
+        overflow-x: scroll;
+        max-width: 150px;
+      }
+
+      core-icon-button {
+        float: right;
+        fill: white;
+      }
+
+      core-icon-button:hover {
+        fill: rgb(255, 56, 56);
+      }
+    </style>
+
+    <div class="item {{ {selected: selected} | tokenList }}">
+      <div class="text" id="text" on-click="{{textClicked}}">
+        <content></content>
+      </div>
+
+      <core-icon-button id="delete" icon="delete" on-click="{{deleteClicked}}"></core-icon-button>
+    </div>
+
+    <div class="cf"></div>
+  </template>
+
+  <script src="../build/bucket-item.js"></script>
+</polymer-element>

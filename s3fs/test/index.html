@@ -10,7 +10,7 @@
 <body>
   <div id="mocha"></div>
   <!-- Import vendor files. -->
-  <script src="../extension/aws-sdk.js"></script>
+  <script src="../../third_party/aws-sdk/dist/aws-sdk.js"></script>
 
   <!-- Import test harness files. -->
   <script src="../node_modules/grunt-mocha/node_modules/mocha/mocha.js"></script>
@@ -26,8 +26,15 @@
   <script src="build/helper.js"></script>
 
   <!-- Import test cases. -->
+
+  <!-- Backend classes. -->
   <script src="build/util.js"></script>
   <script src="build/s3fs.js"></script>
+
+  <!-- UI Classes. -->
+  <script src="build/awsvalidator.js"></script>
+
+  <!-- File system events. -->
   <script src="build/onGetMetadataRequested.js"></script>
   <script src="build/onReadDirectoryRequested.js"></script>
   <script src="build/onReadFileRequested.js"></script>
