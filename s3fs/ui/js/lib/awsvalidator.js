@@ -17,32 +17,27 @@ var AWSValidator = function() {
 
 /**
  * Returns whether or not a given string is a valid AWS access key ID.
+ * Current access key format is exactly 20 uppercase alphanumeric characters.
+ * See: http://blogs.aws.amazon.com/security/post/Tx1XG3FX6VMU6O5/A-safer-way-to-distribute-AWS-credentials-to-EC2
+ *
  * @param {string} key The key to validate.
  * @return {boolean} Whether or not the key is valid.
  */
 AWSValidator.prototype.accessKey = function(key) {
-  // Access key must be a string.
-  if (typeof key !== 'string') { return false; }
-
-  // Access keys must be 20 characters long.
-  if (key.length !== 20) { return false; }
-
-  // Access keys must start with the string 'AKIA'.
-  if (key.substring(0, 4) !== 'AKIA') { return false; }
-
-  // The remaining 16 characters must all be digits or uppercase letters.
-  return /^[0-9A-Z]{16}$/.test(key.substring(4, 20));
+  return /^[0-9A-Z]{20}$/.test(key);
 };
 
 /**
  * Returns whether or not a given string is a valid AWS secret key.
+ * Current format is exactly 40 base-64 characters (upper and lower case
+ * letters, digits, slashes, pluses and equals).
+ * See: http://blogs.aws.amazon.com/security/post/Tx1XG3FX6VMU6O5/A-safer-way-to-distribute-AWS-credentials-to-EC2
+ *
  * @param {string} key The key to validate.
  * @return {boolean} Whether or not the key is valid.
  */
 AWSValidator.prototype.secretKey = function(key) {
-  // Secret keys must be 40 characters long, and composed of upper and lower
-  // case letters, digits, forward slashes and pluses.
-  return /^([a-zA-Z0-9]|\/|\+){40}$/.test(key);
+  return /^([a-zA-Z0-9]|\/|\+|\=){40}$/.test(key);
 };
 
 /**

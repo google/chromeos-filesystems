@@ -44,6 +44,8 @@ var mount = function(options) {
   var required = ['key', 'secret', 'bucket', 'region'];
 
   for (var i = 0; i < required.length; i++) {
+    var option = required[i];
+
     if (!options[option]) {
       // If these options are not present the internal API is not being used
       // correctly, so log it to the console as a developer error rather than
