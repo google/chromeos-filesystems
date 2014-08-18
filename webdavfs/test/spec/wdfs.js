@@ -8,7 +8,7 @@
 
 /* jshint -W027 */
 
-var config = require('../../../config');
+var config = require('../../../testserver/config');
 
 describe('WebDAV Filesystem', function() {
   it('should have the correct ID', function() {

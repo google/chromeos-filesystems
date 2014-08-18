@@ -8,7 +8,7 @@
 
 /* jshint -W027 */
 
-var onOpenFileRequested = require('../../../js/events').onOpenFileRequested;
+var onOpenFileRequested = require('../../js/events').onOpenFileRequested;
 
 describe('onOpenFileRequested', function() {
   it('should reject attempts to create files', function(done) {

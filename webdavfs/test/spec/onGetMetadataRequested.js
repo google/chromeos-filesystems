@@ -9,7 +9,7 @@
 /* jshint -W027 */
 
 var onGetMetadataRequested =
-  require('../../../js/events').onGetMetadataRequested;
+  require('../../js/events').onGetMetadataRequested;
 var assert = require('assert');
 
 describe('onGetMetadataRequested', function() {

@@ -8,7 +8,7 @@
 
 /* jshint -W027 */
 
-var onUnmountRequested = require('../../../js/events').onUnmountRequested;
+var onUnmountRequested = require('../../js/events').onUnmountRequested;
 
 describe('onUnmountRequested', function() {
   it('should return the file system ID after a successful unmount',

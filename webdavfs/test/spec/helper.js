@@ -6,8 +6,8 @@
 
 'use strict';
 
-var WebDAVFS = require('../../../js/wdfs');
-var config = require('../../../config');
+var WebDAVFS = require('../../js/wdfs');
+var config = require('../../../testserver/config');
 
 window.webDAVFS = new WebDAVFS(config.URL);
 
@@ -43,7 +43,7 @@ before(function(){
     onSuccess: function(data) { },
     onError: function(error) {
       var message = 'Could not connect to server.\nPlease start it by ' +
-        'typing `node server.js &`';
+        'typing `node server.js &` from the testserver directory.';
       throw new Error(message);
     }
   });

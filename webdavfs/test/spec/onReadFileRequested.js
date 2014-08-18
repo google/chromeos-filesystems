@@ -8,8 +8,8 @@
 
 /* jshint -W027 */
 
-var onReadFileRequested = require('../../../js/events').onReadFileRequested;
-var onOpenFileRequested = require('../../../js/events').onOpenFileRequested;
+var onReadFileRequested = require('../../js/events').onReadFileRequested;
+var onOpenFileRequested = require('../../js/events').onOpenFileRequested;
 
 describe('onReadFileRequested', function() {
   it('should fail for files that have not been opened yet', function(done) {

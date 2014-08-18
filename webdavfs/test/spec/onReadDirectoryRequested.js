@@ -9,7 +9,7 @@
 /* jshint -W027 */
 
 var onReadDirectoryRequested =
-  require('../../../js/events').onReadDirectoryRequested;
+  require('../../js/events').onReadDirectoryRequested;
 
 describe('onReadDirectoryRequested', function() {
   it('should return the correct contents for the given directory',

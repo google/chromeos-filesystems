@@ -8,7 +8,7 @@
 
 /* jshint -W027 */
 
-var onCloseFileRequested = require('../../../js/events').onCloseFileRequested;
+var onCloseFileRequested = require('../../js/events').onCloseFileRequested;
 
 describe('onCloseFileRequested', function() {
   it('should reject attempts to close unopened files', function(done) {

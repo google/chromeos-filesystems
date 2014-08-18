@@ -32,7 +32,7 @@ module.exports = function(grunt) {
         src: ['js/**/*.js']
       },
       test: {
-        src: ['test/browser/spec/*.js'],
+        src: ['test/spec/*.js'],
         options: {
           expr: true,
           globals: {
@@ -44,19 +44,25 @@ module.exports = function(grunt) {
             arrayBufferToString: true
           }
         }
-      }
-    },
-    // Runs a local HTTP server to access static files in the directory for
-    // manual testing.
-    connect: {
-      server: {
+      },
+      ui: {
+        src: ['ui/js/**/*.js'],
         options: {
-          port: 9000,
-          base: '.',
-          keepalive: true
+          unused: false,
+          // Polymer is capitalised and so treated as a constructor by jshint,
+          // but should not be used with `new`.
+          newcap: false,
+          globals: {
+            Polymer: true,
+            $: true,
+            _: true,
+            s3fs: true,
+            chrome: true
+          }
         }
       }
     },
+
     // Automatically resolves dependencies and bundles modules into a single
     // JavaScript file for deployment.
     browserify: {
@@ -67,20 +73,42 @@ module.exports = function(grunt) {
       },
       test: {
         expand: true,
-        cwd: 'test/browser/spec',
+        cwd: 'test/spec',
         src: '**/*.js',
-        dest: 'test/browser/build',
+        dest: 'test/build',
+        ext: '.js',
+        options: {}
+      },
+      // Bundles scripts used for the file system UI.
+      ui: {
+        expand: true,
+        cwd: 'ui/js',
+        src: '*.js',
+        dest: 'ui/build',
         ext: '.js',
         options: {}
       }
     },
     // Runs the unit test suite in a headless Webkit instance.
     mocha: {
-      src: ['test/browser/index.html'],
+      src: ['test/index.html'],
       options: {
         reporter: 'Spec',
         log: true,
         logErrors: true
+      }
+    },
+
+    // Combines Polymer web components into a single file.
+    vulcanize: {
+      main: {
+        options: {
+          csp: true,
+          inline: true
+        },
+        files: {
+          'extension/build.html': 'ui/html/index.html'
+        }
       }
     }
   });
@@ -89,6 +117,8 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Register task aliases.
-  grunt.registerTask('default', ['jshint:src', 'browserify:src']);
+  grunt.registerTask('src', ['jshint:src', 'browserify:src']);
   grunt.registerTask('test', ['jshint:test', 'browserify:test', 'mocha']);
+  grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
+  grunt.registerTask('default', ['src', 'ui']);
 };
