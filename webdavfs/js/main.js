@@ -29,18 +29,3 @@ chrome.runtime.onInstalled.addListener(function() {
   // Mount the file system.
   chrome.fileSystemProvider.mount(webDAVFS.options, onSuccess, onError);
 });
-
-chrome.app.runtime.onLaunched.addListener(function(launchData) {
-  console.log('launched');
-
-  var windowOptions = {
-    outerBounds: {
-      left: 10,
-      top: 10,
-      width: 800,
-      height: 700
-    }
-  };
-
-  chrome.app.window.create('build.html', windowOptions);
-});
