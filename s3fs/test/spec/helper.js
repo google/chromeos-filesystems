@@ -12,7 +12,6 @@ var S3FS = require('../../js/s3fs');
 var bindFix = require('../../../third_party/bindfix/bindfix');
 // Mock the S3 API.
 window.AWS = require('./s3mock');
-require('arraybuffer-slice');
 
 var key = 'fake-key';
 var secret = 'fake-secret';
