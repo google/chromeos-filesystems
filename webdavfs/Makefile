@@ -1,4 +1,4 @@
-.PHONY: zip clean grunt test install copytest
+.PHONY: zip clean grunt test install
 
 # Name of this file system provider.
 NAME=webdavfs
@@ -16,7 +16,7 @@ grunt:
 	grunt
 
 # Runs the test suite.
-test: copytest
+test:
 	grunt test
 
 # Removes any automatically generated files.
