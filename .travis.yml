@@ -4,8 +4,8 @@ node_js:
 env:
   - DIR=s3fs
   - DIR=webdavfs
-before_install: npm install -g grunt-cli bower && bower install
-install: cd $DIR && make install
-script: cd $DIR && grunt test
+before_install: npm install -g grunt-cli bower && bower install &&
+install: sh -c 'cd $DIR' && make install
+script: sh -c 'cd $DIR' && make test
 notifications:
   email: false
