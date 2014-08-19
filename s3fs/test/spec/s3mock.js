@@ -28,7 +28,7 @@ AWS.config = {
 /**
  * Dummy class to mock the interface of the S3 response body object.
  * @constructs
- * @param ArrayBuffer buffer An ArrayBuffer holding the contents of the file.
+ * @param {ArrayBuffer} buffer An ArrayBuffer holding the contents of the file.
  */
 var ResponseBody = function(buffer) {
   this.buffer = buffer;
@@ -51,8 +51,8 @@ var S3 = function() {};
  * Implements the S3 listObjects method in terms of WebDAVFS's readDirectory.
  * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjects-property
  *
- * @param Object parameters The S3 API parameters for this function.
- * @param function callback The callback to be executed when the operation
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
  *     finishes.
  */
 S3.prototype.listObjects = function(parameters, callback) {
@@ -97,8 +97,8 @@ S3.prototype.listObjects = function(parameters, callback) {
  * Implements the S3 getObject method in terms of WebDAVFS's readFile.
  * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
  *
- * @param Object parameters The S3 API parameters for this function.
- * @param function callback The callback to be executed when the operation
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
  *     finishes.
  */
 S3.prototype.getObject = function(parameters, callback) {
