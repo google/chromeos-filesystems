@@ -8,6 +8,7 @@ before_install:
   - npm install -g grunt-cli bower
   - bower install
   - node testserver/server.js &
+  - sleep 5
 install:
   - cd $DIR
   - make install
