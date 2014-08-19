@@ -51,7 +51,6 @@ module.exports = function(options, onSuccess, onError) {
       // If there's still an error, it's not a file or a directory, so call
       // the error callback.
       if (error) {
-        console.log(error);
         onError('NOT_FOUND');
         return;
       }
