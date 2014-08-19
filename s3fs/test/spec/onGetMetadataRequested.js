@@ -13,13 +13,13 @@ var onGetMetadataRequested = require('../../js/events/onGetMetadataRequested');
 describe('onGetMetadataRequested', function() {
   it('should return the correct metadata object for files', function(done) {
     var options = {
-      entryPath: '/hi.txt'
+      entryPath: '/1.txt'
     };
 
     var onSuccess = function(metadata, hasMore) {
       metadata.should.have.property('isDirectory', false);
-      metadata.should.have.property('name', 'hi.txt');
-      metadata.should.have.property('size', 6);
+      metadata.should.have.property('name', '1.txt');
+      metadata.should.have.property('size', 1);
       metadata.should.have.property('mimeType', 'text/plain');
       metadata.should.have.property('modificationTime')
         .that.is.an.instanceof(Date);

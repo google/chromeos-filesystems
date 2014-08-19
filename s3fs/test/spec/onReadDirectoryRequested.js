@@ -17,20 +17,20 @@ describe('onReadDirectoryRequested', function() {
       };
 
       var onSuccess = function(list, hasMore) {
-        list.should.have.length(3);
+        list.should.have.length(11);
 
         var directory = list[0];
         directory.should.have.property('isDirectory', true);
-        directory.should.have.property('name', 'foo');
+        directory.should.have.property('name', 'dir1');
         directory.should.have.property('size', 0);
         directory.should.have.property('modificationTime')
           .that.is.an.instanceof(Date);
 
-        var file = list[2];
+        var file = list[5];
         file.should.have.property('isDirectory', false);
-        file.should.have.property('name', 'hi.txt');
+        file.should.have.property('name', '1.txt');
         file.should.have.property('mimeType', 'text/plain');
-        file.should.have.property('size', 6);
+        file.should.have.property('size', 0);
         file.should.have.property('modificationTime')
           .that.is.an.instanceof(Date);
 

@@ -37,7 +37,7 @@ module.exports = function(options, onSuccess, onError) {
   });
 
   s3fs.s3.listObjects(parameters, function(error, data) {
-    if (data.Contents.length > 0) {
+    if (data && data.Contents.length > 0) {
       metadata = util.makeDirectory(path);
       onSuccess(metadata, false);
       return;
@@ -51,6 +51,7 @@ module.exports = function(options, onSuccess, onError) {
       // If there's still an error, it's not a file or a directory, so call
       // the error callback.
       if (error) {
+        console.log(error);
         onError('NOT_FOUND');
         return;
       }
