@@ -6,6 +6,6 @@ env:
   - DIR=webdavfs
 before_install: npm install -g grunt-cli bower && bower install
 install: cd $DIR && make install
-script: cd $DIR && make test
+script: cd $DIR && grunt test
 notifications:
   email: false
