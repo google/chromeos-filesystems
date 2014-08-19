@@ -30,9 +30,11 @@ var WebDAVFS = function(url) {
 /**
  * Returns the contents of the specified file as an ArrayBuffer.
  * @param {Object} options Input options.
- *     @param {Function} onSuccess Function to be called with the contents
+ *     @param {string} path Path to the file to be read, relative to the server
+ *         root.
+ *     @param {function} onSuccess Function to be called with the contents
  *         of the file if the request succeeds.
- *     @param {Function} onError Function to be called with the error if
+ *     @param {function} onError Function to be called with the error if
  *         the request fails.
  */
 WebDAVFS.prototype.readFile = function(options) {
@@ -42,9 +44,11 @@ WebDAVFS.prototype.readFile = function(options) {
 /**
  * Returns the metadata of the specified file or directory.
  * @param {Object} options Input options.
- *     @param {Function} onSuccess Function to be called with the metadata
+ *     @param {string} path Path to the file to retrieve the metadata for,
+ *         relative to the server root.
+ *     @param {function} onSuccess Function to be called with the metadata
  *         if the request succeeds.
- *     @param {Function} onError Function to be called with the error if
+ *     @param {function} onError Function to be called with the error if
  *         the request fails.
  */
 WebDAVFS.prototype.getMetadata = function(options) {
@@ -63,9 +67,11 @@ WebDAVFS.prototype.getMetadata = function(options) {
  * Returns all files and folders that are immediate children of the specified
  *  directory.
  * @param {Object} options Input options.
- *     @param {Function} onSuccess Function to be called with the array of
+ *     @param {string} path Path to the directory to list the contents of,
+ *         relative to the server root.
+ *     @param {function} onSuccess Function to be called with the array of
  *         child entries if the request succeeds.
- *     @param {Function} onError Function to be called with the error if
+ *     @param {function} onError Function to be called with the error if
  *         the request fails.
  */
 WebDAVFS.prototype.readDirectory = function(options) {
