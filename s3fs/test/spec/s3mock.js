@@ -58,6 +58,13 @@ var S3 = function() {};
 S3.prototype.listObjects = function(parameters, callback) {
   var path = '/' + parameters.Prefix;
 
+  if (parameters.Delimiter !== '/') {
+    var message = 'Missing or invalid delimiter for listObjects call. ' +
+      'Always use \'/\'.';
+    callback(message, null);
+    return;
+  }
+
   wdfs.readDirectory({
     path: path,
     onSuccess: function(response) {
