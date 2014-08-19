@@ -30,3 +30,6 @@ window.chrome = {
     }
   }
 };
+
+// Mock the S3 API.
+window.AWS = require('./s3mock');
