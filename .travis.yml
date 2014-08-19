@@ -7,6 +7,9 @@ env:
 before_install:
   - npm install -g grunt-cli bower
   - bower install
+  - cd testserver
+  - npm install
+  - cd ..
   - node testserver/server.js &
   - sleep 5
 install:
