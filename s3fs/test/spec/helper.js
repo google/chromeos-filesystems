@@ -8,16 +8,17 @@
 
 'use strict';
 
-// Register a global S3 client used by all the tests.
 var S3FS = require('../../js/s3fs');
-var credentials = require('../../js/credentials');
 var bindFix = require('../../../third_party/bindfix/bindfix');
+// Mock the S3 API.
+window.AWS = require('./s3mock');
 
-var key = credentials.key;
-var secret = credentials.secret;
+var key = 'fake-key';
+var secret = 'fake-secret';
 var region = 'us-west-2';
 var bucket = 'chromeostest';
 
+// Register a global S3 client used by all the tests.
 window.s3fs = new S3FS(key, secret, region, bucket);
 
 bindFix();

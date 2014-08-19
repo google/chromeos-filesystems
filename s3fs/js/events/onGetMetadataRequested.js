@@ -37,7 +37,7 @@ module.exports = function(options, onSuccess, onError) {
   });
 
   s3fs.s3.listObjects(parameters, function(error, data) {
-    if (data.Contents.length > 0) {
+    if (data && data.Contents.length > 0) {
       metadata = util.makeDirectory(path);
       onSuccess(metadata, false);
       return;

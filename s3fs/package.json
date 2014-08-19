@@ -6,6 +6,7 @@
   "version": "0.0.1",
   "main": "js/main.js",
   "devDependencies": {
+    "arraybuffer-slice": "^0.1.2",
     "chai": "^1.9.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "^2.1.3",

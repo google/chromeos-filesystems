@@ -26,7 +26,7 @@ describe('onReadFileRequested', function() {
   it('should fail for files that have not been opened yet', function(done) {
     var options = {
       openRequestId: 1,
-      filePath: '/hi.txt'
+      filePath: '/1.txt'
     };
 
     var onSuccess = function(contents, hasMore) {
@@ -45,13 +45,13 @@ describe('onReadFileRequested', function() {
 
   it('should return the correct contents for an opened file', function(done) {
     var options = {
-      filePath: '/hi.txt',
+      filePath: '/1.txt',
       mode: 'READ',
       create: false,
       requestId: 1
     };
 
-    var expected = 'hello\n';
+    var expected = '1';
 
     var onOpenSuccess = function() {
       var options = {
@@ -63,7 +63,7 @@ describe('onReadFileRequested', function() {
       var onReadSuccess = function(contents, hasMore) {
         contents.should.be.an.instanceof(ArrayBuffer);
 
-        contents.byteLength.should.equal(6);
+        contents.byteLength.should.equal(1);
 
         var string = arrayBufferToString(contents);
         string.substring(0, 6).should.equal(expected);
