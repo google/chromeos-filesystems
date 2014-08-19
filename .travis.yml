@@ -17,5 +17,3 @@ install:
   - make install
 script:
   - make test
-notifications:
-  email: false
