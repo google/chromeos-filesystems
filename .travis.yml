@@ -11,7 +11,6 @@ install:
   - cd $DIR
   - make install
 script:
-  - cd $DIR
   - make test
 notifications:
   email: false
