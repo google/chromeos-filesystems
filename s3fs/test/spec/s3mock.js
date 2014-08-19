@@ -112,8 +112,15 @@ S3.prototype.getObject = function(parameters, callback) {
       if (parameters.Range) {
         var range = parameters.Range.replace('bytes=', '').split('-');
         var start = parseInt(range[0], 10);
-        var end = parseInt(range[1], 10) + 1;
-        buffer = buffer.slice(start, end);
+
+        var end = range[1];
+        if (end.length > 0) {
+          end = parseInt(end, 10) + 1;
+          buffer = buffer.slice(start, end);
+        }
+        else {
+          buffer = buffer.slice(start);
+        }
       }
 
       var data = {
