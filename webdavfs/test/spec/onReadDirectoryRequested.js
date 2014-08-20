@@ -19,7 +19,7 @@ describe('onReadDirectoryRequested', function() {
       };
 
       var onSuccess = function(list, hasMore) {
-        list.should.have.length(10);
+        list.should.have.length(11);
         list[0].should.have.property('isDirectory').that.is.a('boolean');
         list[0].should.have.property('name').that.is.a('string');
         list[0].should.have.property('size').that.is.a('number');

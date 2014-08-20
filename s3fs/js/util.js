@@ -6,6 +6,8 @@
 
 'use strict';
 
+/* jshint unused: false */
+
 /**
  * Extends a destination object with the properties of one or more source
  * objects.
