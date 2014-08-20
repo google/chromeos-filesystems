@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "0.10"
+env:
+  - DIR=s3fs
+  - DIR=webdavfs
+before_install:
+  - npm install -g grunt-cli bower
+  - bower install
+  - cd testserver
+  - npm install
+  - cd ..
+  - node testserver/server.js &
+  - sleep 5
+install:
+  - cd $DIR
+  - make install
+script:
+  - make test
