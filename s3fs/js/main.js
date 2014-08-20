@@ -17,6 +17,8 @@ var events = {
   onReadDirectoryRequested: require('./events/onReadDirectoryRequested')
 };
 
+var keys = ['bucket', 'region', 'access', 'secret'];
+
 /**
  * Mounts an S3 bucket with the given name and region as a file system in the
  * file browser.
@@ -24,7 +26,7 @@ var events = {
  * @param {Object} options
  *     @param {string} bucket The name of the bucket.
  *     @param {string} region The AWS region of the bucket.
- *     @param {string} key The AWS access key ID for the user who is accessing
+ *     @param {string} access The AWS access key ID for the user who is accessing
  *         the bucket.
  *     @param {string} secret The AWS secret key for the user who is accessing
  *         the bucket.
@@ -39,10 +41,8 @@ var mount = function(options) {
     return;
   }
 
-  var required = ['key', 'secret', 'bucket', 'region'];
-
-  for (var i = 0; i < required.length; i++) {
-    var option = required[i];
+  for (var i = 0; i < keys.length; i++) {
+    var option = keys[i];
 
     if (!options[option]) {
       // If these options are not present the internal API is not being used
@@ -53,7 +53,7 @@ var mount = function(options) {
     }
   }
 
-  window.s3fs = new S3FS(options.key, options.secret, options.region,
+  window.s3fs = new S3FS(options.access, options.secret, options.region,
     options.bucket);
 
   // Set a default error handler that logs the error for developer use.
@@ -71,8 +71,8 @@ var mount = function(options) {
     // Store the credentials so the bucket can be automatically remounted
     // after a Chrome relaunch.
     chrome.storage.sync.set({
-      accessKey: options.key,
-      secretKey: options.secret,
+      access: options.access,
+      secret: options.secret,
       bucket: options.bucket,
       region: options.region
     });
@@ -90,8 +90,6 @@ window.onload = function() {
   // Remount the instance when Chrome is relaunched. If there are credentials
   // saved, use them straight away to mount an instance.
 
-  var keys = ['bucket', 'region', 'accessKey', 'secretKey'];
-
   chrome.storage.sync.get(keys, function(items) {
     // If any of the 4 required values are missing, abort.
     for (var i = 0; i < keys.length; i++) {
@@ -102,8 +100,8 @@ window.onload = function() {
     mount({
       bucket: items.bucket,
       region: items.region,
-      key: items.accessKey,
-      secret: items.secretKey
+      key: items.access,
+      secret: items.secret
     });
   });
 };
@@ -151,7 +149,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       mount({
         bucket: request.bucket,
         region: request.region,
-        key: request.key,
+        access: request.access,
         secret: request.secret,
         onSuccess: function() {
           sendResponse({
