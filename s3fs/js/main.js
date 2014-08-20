@@ -67,7 +67,7 @@ var mount = function(options) {
   };
 
   var onSuccess = function() {
-    s3fs.s3.headBucket(s3fs.parameters(), function(error, data) {
+    s3fs.s3.headBucket(s3fs.parameters(), function(error) {
       if (error) {
         console.error(error);
         options.onError(error);
@@ -86,7 +86,7 @@ var mount = function(options) {
 
 // Open the settings UI when the user clicks on the app icon in the Chrome
 // app launcher.
-chrome.app.runtime.onLaunched.addListener(function(launchData) {
+chrome.app.runtime.onLaunched.addListener(function() {
   console.log('launched');
 
   var windowOptions = {
