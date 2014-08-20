@@ -123,17 +123,6 @@ chrome.app.runtime.onLaunched.addListener(function() {
 
 // Main function to handle requests from the settings UI.
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  // Enforce the presence of a request type
-  if (!request.type) {
-    sendResponse({
-      type: 'error',
-      success: false,
-      message: 'No request type provided.'
-    });
-
-    return;
-  }
-
   switch (request.type) {
     case 'mount':
       // TODO(lavelle): at this point bucket and region are syntactically valid
@@ -165,10 +154,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       });
       break;
     default:
+      var message;
+      if (request.type) {
+        message = 'Invalid request type: ' + request.type + '.';
+      } else {
+        message = 'No request type provided.';
+      }
+
       sendResponse({
         type: 'error',
         success: false,
-        message: 'Invalid request type: ' + request.type
+        message: message
       });
       break;
   }
