@@ -76,10 +76,32 @@ var mount = function(options) {
   chrome.fileSystemProvider.mount(s3fs.options, onSuccess, onError);
 };
 
-// Open the settings UI when the user clicks on the app icon in the Chrome
-// app launcher.
+window.onload = function() {
+  // Remount the instance when Chrome is relaunched. If there are credentials
+  // saved, use them straight away to mount an instance.
+
+  var keys = ['bucket', 'region', 'accessKey', 'secretKey'];
+
+  chrome.storage.sync.get(keys, function(items) {
+    // If any of the 4 required values are missing, abort.
+    for (var i = 0; i < keys.length; i++) {
+      if (!items[keys[i]]) { return; }
+    }
+
+    // Mount the instance using saved credentials.
+    mount({
+      bucket: items.bucket,
+      region: items.region,
+      key: items.accessKey,
+      secret: items.secretKey
+    });
+  });
+};
+
+
 chrome.app.runtime.onLaunched.addListener(function() {
-  console.log('launched');
+  // Open the settings UI when the user clicks on the app icon in the Chrome
+  // app launcher.
 
   var windowOptions = {
     outerBounds: {
