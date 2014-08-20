@@ -2,12 +2,9 @@
   box-sizing: border-box;
 }
 
-html, body {
+body {
   margin: 0px;
   padding: 0px;
-}
-
-body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
