@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Amazon S3 file system authentication</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <form>
-    <input type="text" id="bucket" placeholder="Bucket name">
-    <input type="text" id="region" placeholder="Bucket region">
-    <input type="text" id="key" placeholder="IAM user access key ID">
-    <input type="password" id="secret" placeholder="IAM user secret access key">
-    <input type="button" id="mount" value="Mount">
-  </form>
+  <div class="container">
+    <h1>Mount a new Amazon S3 bucket</h1>
+
+    <form>
+      <input type="text" id="bucket" placeholder="Bucket name">
+      <input type="text" id="region" placeholder="Bucket region">
+      <input type="text" id="key" placeholder="IAM user access key ID">
+      <input type="password" id="secret" placeholder="IAM user secret access key">
+      <button id="mount">Mount</button>
+    </form>
+  </div>
 
   <script src="auth.js"></script>
 </body>

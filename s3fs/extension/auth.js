@@ -6,7 +6,9 @@ var fields = {};
 
 var button = document.getElementById('mount');
 
-mount.addEventListener('click', function() {
+mount.addEventListener('click', function(event) {
+  event.preventDefault();
+
   var request = {
     type: 'mount'
   };
@@ -14,6 +16,8 @@ mount.addEventListener('click', function() {
   for (var key in fields) {
     request[key] = fields[key].value;
   }
+
+  console.log(request);
 
   chrome.runtime.sendMessage(request, function(response) {
     console.log(response);
