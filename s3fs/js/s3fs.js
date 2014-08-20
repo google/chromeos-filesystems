@@ -12,14 +12,14 @@ var util = require('./util');
  * Class that encapsulates metadata for the S3 filesystem and the bucket to
  * which it connects.
  * @constructs
- * @param {string} key The AWS key used to authenticate.
- * @param {string} secret The AWS secret used to authenticate.
- * @param {string} region The AWS region of the bucket eg. 'us-west-2'.
  * @param {string} bucket The name of the S3 bucket to connect to.
+ * @param {string} region The AWS region of the bucket eg. 'us-west-2'.
+ * @param {string} access The AWS access key ID used to authenticate.
+ * @param {string} secret The AWS secret access key used to authenticate.
  */
-var S3FS = function(key, secret, region, bucket) {
+var S3FS = function(bucket, region, access, secret) {
   AWS.config.update({
-    accessKeyId: key,
+    accessKeyId: access,
     secretAccessKey: secret
   });
 

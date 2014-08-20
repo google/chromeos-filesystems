@@ -23,41 +23,25 @@ var keys = ['bucket', 'region', 'access', 'secret'];
  * Mounts an S3 bucket with the given name and region as a file system in the
  * file browser.
  *
- * @param {Object} options
- *     @param {string} bucket The name of the bucket.
- *     @param {string} region The AWS region of the bucket.
- *     @param {string} access The AWS access key ID for the user who is accessing
- *         the bucket.
- *     @param {string} secret The AWS secret key for the user who is accessing
- *         the bucket.
+ * @param {string} bucket The name of the bucket.
+ * @param {string} region The AWS region of the bucket.
+ * @param {string} access The AWS access key ID for the user who is accessing
+ *     the bucket.
+ * @param {string} secret The AWS secret key for the user who is accessing
+ *     the bucket.
+ * @param {Object=} callbacks
  *     @param {function} onSuccess The function to be called when the bucket is
  *         mounted successfully.
  *     @param {function} onError The function to be called if the bucket fails
- *         to mount;
+ *         to mount.
  */
-var mount = function(options) {
-  if (!options) {
-    console.error('No options provided for the mount function.');
-    return;
-  }
+var mount = function(bucket, region, access, secret, opt_callbacks) {
+  window.s3fs = new S3FS(bucket, region, access, secret);
 
-  for (var i = 0; i < keys.length; i++) {
-    var option = keys[i];
-
-    if (!options[option]) {
-      // If these options are not present the internal API is not being used
-      // correctly, so log it to the console as a developer error rather than
-      // displaying the message to the user.
-      console.error('Missing argument for mount: ' + option + '.');
-      return;
-    }
-  }
-
-  window.s3fs = new S3FS(options.access, options.secret, options.region,
-    options.bucket);
+  var callbacks = opt_callbacks || {};
 
   // Set a default error handler that logs the error for developer use.
-  var onError = options.onError || function(error) {
+  var onError = callbacks.onError || function(error) {
     console.error('Failed to mount the file system.');
     console.error(error);
   };
@@ -71,14 +55,14 @@ var mount = function(options) {
     // Store the credentials so the bucket can be automatically remounted
     // after a Chrome relaunch.
     chrome.storage.sync.set({
-      access: options.access,
-      secret: options.secret,
-      bucket: options.bucket,
-      region: options.region
+      access: access,
+      secret: secret,
+      bucket: bucket,
+      region: region
     });
 
-    if (options.onSuccess) {
-      options.onSuccess();
+    if (callbacks.onSuccess) {
+      callbacks.onSuccess();
     }
   };
 
