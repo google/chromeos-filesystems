@@ -1,5 +1,13 @@
 var keys = ['bucket', 'region', 'access', 'secret'];
 
+var ToastManager = require('../../third_party/toastmanager/toastmanager');
+
+var tm = new ToastManager({
+  names: [
+    'mounted-successfully', 'mount-failed'
+  ]
+});
+
 var fields = {};
 
 keys.forEach(function(name) {
@@ -19,7 +27,7 @@ chrome.storage.sync.get(keys, function(items) {
   }
 });
 
-mount.addEventListener('click', function(event) {
+button.addEventListener('click', function(event) {
   event.preventDefault();
 
   var request = {
@@ -36,15 +44,9 @@ mount.addEventListener('click', function(event) {
     console.log(response);
 
     if (response.success) {
-      // TODO(lavelle): show this to the user.
-      // Options:
-      //   - chrome.notifcations
-      //   - Polymer toast
-      console.log('Mounted successfully.');
-    }
-    else {
-      console.error(error);
-      console.log('Failed to mount with given credentials.');
+      tm.show('mountedSuccessfully');
+    } else {
+      tm.show('mountFailed');
     }
   });
 });

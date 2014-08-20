@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Amazon S3 file system authentication</title>
+
+  <script src="../../third_party/platform/platform.js"></script>
+  <link rel="import" href="../../third_party/paper-toast/paper-toast.html">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <paper-toast text="Failed to mount with given credentials." id="toast-mount-failed"></paper-toast>
+  <paper-toast text="Mounted successfully." id="toast-mounted-successfully"></paper-toast>
+
   <div class="container">
     <h1>Mount a new Amazon S3 bucket</h1>
 
@@ -18,6 +25,6 @@
     </form>
   </div>
 
-  <script src="auth.js"></script>
+  <script src="build.js"></script>
 </body>
 </html>

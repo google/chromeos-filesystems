@@ -120,7 +120,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
     }
   };
 
-  chrome.app.window.create('auth.html', windowOptions);
+  chrome.app.window.create('build.html', windowOptions);
 });
 
 // Main function to handle requests from the settings UI.
