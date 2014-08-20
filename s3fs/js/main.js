@@ -56,11 +56,6 @@ var mount = function(options) {
   window.s3fs = new S3FS(options.key, options.secret, options.region,
     options.bucket);
 
-  // Register each of the event listeners to the FSP.
-  for (var name in events) {
-    chrome.fileSystemProvider[name].addListener(events[name]);
-  }
-
   var onError = options.onError || function(error) {
     console.error('Failed to mount the file system.');
     console.error(error);
@@ -75,6 +70,11 @@ var mount = function(options) {
       }
 
       if (options.onSuccess) {
+        // Register each of the event listeners to the FSP.
+        for (var name in events) {
+          chrome.fileSystemProvider[name].addListener(events[name]);
+        }
+
         options.onSuccess();
       }
     });
