@@ -113,8 +113,6 @@ chrome.app.runtime.onLaunched.addListener(function() {
 
   var windowOptions = {
     outerBounds: {
-      left: 10,
-      top: 10,
       minWidth: 800,
       minHeight: 700
     }
