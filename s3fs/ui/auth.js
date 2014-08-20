@@ -30,6 +30,8 @@ chrome.storage.sync.get(keys, function(items) {
 button.addEventListener('click', function(event) {
   event.preventDefault();
 
+  button.setAttribute('disabled');
+
   var request = {
     type: 'mount'
   };
@@ -41,8 +43,12 @@ button.addEventListener('click', function(event) {
   chrome.runtime.sendMessage(request, function(response) {
     if (response.success) {
       tm.show('mountedSuccessfully');
+      window.setTimeout(function() {
+        window.close();
+      }, 2000);
     } else {
       tm.show('mountFailed');
+      button.removeAttribute('disabled');
     }
   });
 });
