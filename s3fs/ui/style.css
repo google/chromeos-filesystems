@@ -32,3 +32,8 @@ button {
   padding: 10px 20px;
   margin: 0 auto;
 }
+
+button[disabled] {
+  background-color: #333;
+  cursor: wait;
+}

@@ -4,9 +4,11 @@ var ToastManager = require('../../third_party/toastmanager/toastmanager');
 
 var tm = new ToastManager({
   names: [
-    'mounted-successfully', 'mount-failed'
+    'mount-success', 'mount-fail', 'mount-attempt'
   ]
 });
+
+tm.build();
 
 var fields = {};
 
@@ -30,7 +32,9 @@ chrome.storage.sync.get(keys, function(items) {
 button.addEventListener('click', function(event) {
   event.preventDefault();
 
-  button.setAttribute('disabled');
+  button.setAttribute('disabled', 'true');
+
+  tm.show('mountAttempt');
 
   var request = {
     type: 'mount'
