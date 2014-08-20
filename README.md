@@ -1,5 +1,7 @@
 # ChromeOS Filesystem Providers
 
+[![Build Status][travis image]][travis]
+
 This repository contains various filesystem providers for Chrome OS. They offer a way to access files stored on remote servers through the Files app, via a variety of protocols.
 
 Currently, the provider API itself is read-only, and therefore all of the providers are too. When the API is updated, they can be extended to support write operations.
@@ -28,3 +30,6 @@ There are many more providers we would like to implement, including
 
 All providers are licensed under Apache 2.0. See the LICENSE file for details.
 All original source code is Copyright 2014 The Chromium Authors.
+
+[travis image]: https://travis-ci.org/google/chromeos-filesystems.svg?branch=master
+[travis]: https://travis-ci.org/google/chromeos-filesystems
