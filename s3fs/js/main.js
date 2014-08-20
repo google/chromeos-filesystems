@@ -100,7 +100,7 @@ window.onload = function() {
     mount({
       bucket: items.bucket,
       region: items.region,
-      key: items.access,
+      access: items.access,
       secret: items.secret
     });
   });
