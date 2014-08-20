@@ -56,6 +56,7 @@ var mount = function(options) {
   window.s3fs = new S3FS(options.key, options.secret, options.region,
     options.bucket);
 
+  // Set a default error handler that logs the error for developer use.
   var onError = options.onError || function(error) {
     console.error('Failed to mount the file system.');
     console.error(error);
@@ -66,6 +67,15 @@ var mount = function(options) {
     for (var name in events) {
       chrome.fileSystemProvider[name].addListener(events[name]);
     }
+
+    // Store the credentials so the bucket can be automatically remounted
+    // after a Chrome relaunch.
+    chrome.storage.sync.set({
+      accessKey: options.key,
+      secretKey: options.secret,
+      bucket: options.bucket,
+      region: options.region
+    });
 
     if (options.onSuccess) {
       options.onSuccess();
@@ -121,6 +131,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (!request.type) {
     sendResponse({
       type: 'error',
+      success: false,
       message: 'No request type provided.'
     });
 
@@ -129,10 +140,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
   switch (request.type) {
     case 'mount':
-      // TODO(lavelle): this is technically a 'remount'. We want to unmount
-      // the previously mounted bucket here and then mount a new one with the
-      // new name/region.
-
       // TODO(lavelle): at this point bucket and region are syntactically valid
       // strings for their repsective types, but may still cause errors.
       // Errors to test for this before mounting:
@@ -164,6 +171,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     default:
       sendResponse({
         type: 'error',
+        success: false,
         message: 'Invalid request type: ' + request.type
       });
       break;
