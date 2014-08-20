@@ -62,22 +62,14 @@ var mount = function(options) {
   };
 
   var onSuccess = function() {
-    s3fs.s3.headBucket(s3fs.parameters(), function(error) {
-      if (error) {
-        console.error(error);
-        options.onError(error);
-        return;
-      }
+    // Register each of the event listeners to the FSP.
+    for (var name in events) {
+      chrome.fileSystemProvider[name].addListener(events[name]);
+    }
 
-      if (options.onSuccess) {
-        // Register each of the event listeners to the FSP.
-        for (var name in events) {
-          chrome.fileSystemProvider[name].addListener(events[name]);
-        }
-
-        options.onSuccess();
-      }
-    });
+    if (options.onSuccess) {
+      options.onSuccess();
+    }
   };
 
   // Mount the file system.
@@ -148,7 +140,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       });
       break;
     default:
-      console.error('Invalid message type: ' + request.type);
+      sendResponse({
+        type: 'error',
+        message: 'Invalid request type: ' + request.type
+      });
       break;
   }
+
+  // Return true from the event listener to indicate that we will be sending
+  // the response asynchronously, so that the sendResponse function is still
+  // valid at the time it's used.
+  return true;
 });

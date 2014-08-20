@@ -23,10 +23,15 @@ mount.addEventListener('click', function(event) {
     console.log(response);
 
     if (response.success) {
-      alert('Mounted successfully');
-    } else {
+      // TODO(lavelle): show this to the user.
+      // Options:
+      //   - chrome.notifcations
+      //   - Polymer toast
+      console.log('Mounted successfully.');
+    }
+    else {
       console.error(error);
-      alert('Failed to mount with given credentials');
+      console.log('Failed to mount with given credentials.');
     }
   });
 });
