@@ -38,11 +38,7 @@ button.addEventListener('click', function(event) {
     request[key] = fields[key].value;
   }
 
-  console.log(request);
-
   chrome.runtime.sendMessage(request, function(response) {
-    console.log(response);
-
     if (response.success) {
       tm.show('mountedSuccessfully');
     } else {
