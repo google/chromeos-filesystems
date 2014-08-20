@@ -6,8 +6,6 @@
 
 'use strict';
 
-var util = require('../util');
-
 /**
  * Responds to a request for the contents of a file.
  * @param {Object} options Input options.
