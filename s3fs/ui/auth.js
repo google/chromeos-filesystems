@@ -1,15 +1,5 @@
 var keys = ['bucket', 'region', 'access', 'secret'];
 
-var ToastManager = require('../../third_party/toastmanager/toastmanager');
-
-var tm = new ToastManager({
-  names: [
-    'mount-success', 'mount-fail', 'mount-attempt'
-  ]
-});
-
-tm.build();
-
 var fields = {};
 
 keys.forEach(function(name) {
@@ -34,7 +24,7 @@ button.addEventListener('click', function(event) {
 
   button.setAttribute('disabled', 'true');
 
-  tm.show('mountAttempt');
+  document.getElementById('toast-mount-attempt').show();
 
   var request = {
     type: 'mount'
@@ -46,12 +36,13 @@ button.addEventListener('click', function(event) {
 
   chrome.runtime.sendMessage(request, function(response) {
     if (response.success) {
-      tm.show('mountedSuccessfully');
+      document.getElementById('toast-mount-success').show();
+
       window.setTimeout(function() {
         window.close();
       }, 2000);
     } else {
-      tm.show('mountFailed');
+      document.getElementById('toast-mount-fail').show();
       button.removeAttribute('disabled');
     }
   });
