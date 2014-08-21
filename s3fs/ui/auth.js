@@ -1,3 +1,6 @@
+var AWSValidator = require('./awsvalidator');
+var validator = new AWSValidator();
+
 var keys = ['bucket', 'region', 'access', 'secret'];
 
 var fields = {};
@@ -22,8 +25,6 @@ chrome.storage.sync.get(keys, function(items) {
 button.addEventListener('click', function(event) {
   event.preventDefault();
 
-  button.setAttribute('disabled', 'true');
-
   document.getElementById('toast-mount-attempt').show();
 
   var request = {
@@ -31,8 +32,17 @@ button.addEventListener('click', function(event) {
   };
 
   for (var key in fields) {
-    request[key] = fields[key].value;
+    var value = fields[key].value;
+
+    if (!validator[key](value)) {
+      document.getElementById('toast-invalid-' + key).show();
+      return;
+    }
+
+    request[key] = value;
   }
+
+  button.setAttribute('disabled', 'true');
 
   chrome.runtime.sendMessage(request, function(response) {
     if (response.success) {
