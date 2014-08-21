@@ -1,8 +1,9 @@
 {
-  "name": "Amazon S3 File System",
-  "description": "Access the contents of an S3 bucket directly from the Files app.",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extName__",
   "version": "0.1",
   "manifest_version": 2,
+  "default_locale": "en",
   "app": {
     "background": {
       "scripts": [

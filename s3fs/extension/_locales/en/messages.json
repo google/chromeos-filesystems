@@ -1,0 +1,46 @@
+{
+  "extName": {
+    "message": "Amazon S3 File System",
+    "description": "Extension name."
+  },
+  "extDescription": {
+    "message": "Access the contents of an S3 bucket directly from the Files app.",
+    "description": "Extension description."
+  },
+  "mountAttempt": {
+    "message": "Attempting to mount bucket with given credentials...",
+    "description": "Popup notifcation that informs the user that the system is attempting to mount a new instance with the credentials they provided."
+  },
+  "mountSuccess": {
+    "message": "Mounted successfully.",
+    "description": "Popup notifcation that informs the user that the system successfully mounted a new instance with the credentials they provided."
+  },
+  "mountFail": {
+    "message": "Failed to mount with given credentials.",
+    "description": "Popup notifcation that informs the user that the system failed to mount a new instance with the credentials they provided."
+  },
+  "bucketName": {
+    "message": "Bucket name",
+    "description": "Placeholder for a text field that informs the user that they should enter the name of the bucket."
+  },
+  "bucketRegion": {
+    "message": "Bucket region",
+    "description": "Placeholder for a text field that informs the user that they should enter the region of the bucket."
+  },
+  "accessKey": {
+    "message": "IAM user access key ID",
+    "description": "Placeholder for a text field that informs the user that they should enter an Amazon IAM user access key ID."
+  },
+  "secretKey": {
+    "message": "IAM user secret access key",
+    "description": "Placeholder for a text field that informs the user that they should enter an Amazon IAM user secret access key."
+  },
+  "mountHeader": {
+    "message": "Mount a new Amazon S3 bucket",
+    "description": "Header describing the bucket mount form."
+  },
+  "mount": {
+    "message": "Mount",
+    "description": "Label for a button that triggers the mount action."
+  }
+}
