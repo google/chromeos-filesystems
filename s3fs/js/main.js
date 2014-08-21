@@ -81,12 +81,7 @@ window.onload = function() {
     }
 
     // Mount the instance using saved credentials.
-    mount({
-      bucket: items.bucket,
-      region: items.region,
-      access: items.access,
-      secret: items.secret
-    });
+    mount(items.bucket, items.region, items.access, items.secret);
   });
 };
 
@@ -117,11 +112,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       //   - Invalid credentials for bucket/access denied.
 
       // Mount the bucket with the given request data.
-      mount({
-        bucket: request.bucket,
-        region: request.region,
-        access: request.access,
-        secret: request.secret,
+      mount(request.bucket, request.region, request.access, request.secret, {
         onSuccess: function() {
           sendResponse({
             type: 'mount',
