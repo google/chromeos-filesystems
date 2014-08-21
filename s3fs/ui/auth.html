@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Amazon S3 file system authentication</title>
+  <title data-message="mountHeader"></title>
 
   <script src="../../third_party/platform/platform.js"></script>
   <link rel="import" href="../../third_party/paper-toast/paper-toast.html">
@@ -10,19 +10,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <paper-toast text="" id="toast-mount-attempt"></paper-toast>
-  <paper-toast text="" id="toast-mount-fail"></paper-toast>
-  <paper-toast text="" id="toast-mount-success"></paper-toast>
+  <paper-toast data-message="mountAttempt" id="toast-mount-attempt"></paper-toast>
+  <paper-toast data-message="mountFail" id="toast-mount-fail"></paper-toast>
+  <paper-toast data-message="mountSuccess" id="toast-mount-success"></paper-toast>
 
   <div class="container">
-    <h1></h1>
+    <h1 data-message="mountHeader"></h1>
 
     <form>
-      <input type="text" id="bucket" placeholder="">
-      <input type="text" id="region" placeholder="">
-      <input type="text" id="access" placeholder="">
-      <input type="password" id="secret" placeholder="">
-      <button id="mount"></button>
+      <input type="text" id="bucket" data-message="bucketName">
+      <input type="text" id="region" data-message="bucketRegion">
+      <input type="text" id="access" data-message="accessKey">
+      <input type="password" id="secret" data-message="secretKey">
+      <button id="mount" data-message="mount"></button>
     </form>
   </div>
 
