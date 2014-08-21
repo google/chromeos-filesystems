@@ -7,7 +7,6 @@
 'use strict';
 
 var S3FS = require('./s3fs');
-var credentials = require('./credentials');
 
 // Import all the functions to handle the various file system events.
 var events = {
@@ -18,30 +17,135 @@ var events = {
   onReadDirectoryRequested: require('./events/onReadDirectoryRequested')
 };
 
-window.onload = function() {
-  var key = credentials.key;
-  var secret = credentials.secret;
-  var region = 'us-west-2';
-  // TODO(lavelle): make this a parameter and connect to the bucket selection
-  // UI.
-  var bucket = 'chromeostest';
+var keys = ['bucket', 'region', 'access', 'secret'];
 
-  window.s3fs = new S3FS(key, secret, region, bucket);
+/**
+ * Mounts an S3 bucket with the given name and region as a file system in the
+ * file browser.
+ *
+ * @param {string} bucket The name of the bucket.
+ * @param {string} region The AWS region of the bucket.
+ * @param {string} access The AWS access key ID for the user who is accessing
+ *     the bucket.
+ * @param {string} secret The AWS secret key for the user who is accessing
+ *     the bucket.
+ * @param {Object=} callbacks
+ *     @param {function} onSuccess The function to be called when the bucket is
+ *         mounted successfully.
+ *     @param {function} onError The function to be called if the bucket fails
+ *         to mount.
+ */
+var mount = function(bucket, region, access, secret, opt_callbacks) {
+  window.s3fs = new S3FS(bucket, region, access, secret);
 
-  // Register each of the event listeners to the FSP.
-  for (var name in events) {
-    chrome.fileSystemProvider[name].addListener(events[name]);
-  }
+  var callbacks = opt_callbacks || {};
 
-  // Callback for when the file system has been successfully mounted.
-  // Builds the file system index for use by the directory listing event later.
-  var onSuccess = function() {};
-
-  var onError = function(error) {
+  // Set a default error handler that logs the error for developer use.
+  var onError = callbacks.onError || function(error) {
     console.error('Failed to mount the file system.');
     console.error(error);
+  };
+
+  var onSuccess = function() {
+    // Register each of the event listeners to the FSP.
+    for (var name in events) {
+      chrome.fileSystemProvider[name].addListener(events[name]);
+    }
+
+    // Store the credentials so the bucket can be automatically remounted
+    // after a Chrome relaunch.
+    chrome.storage.sync.set({
+      access: access,
+      secret: secret,
+      bucket: bucket,
+      region: region
+    });
+
+    if (callbacks.onSuccess) {
+      callbacks.onSuccess();
+    }
   };
 
   // Mount the file system.
   chrome.fileSystemProvider.mount(s3fs.options, onSuccess, onError);
 };
+
+window.onload = function() {
+  // Remount the instance when Chrome is relaunched. If there are credentials
+  // saved, use them straight away to mount an instance.
+
+  chrome.storage.sync.get(keys, function(items) {
+    // If any of the 4 required values are missing, abort.
+    for (var i = 0; i < keys.length; i++) {
+      if (!items[keys[i]]) { return; }
+    }
+
+    // Mount the instance using saved credentials.
+    mount(items.bucket, items.region, items.access, items.secret);
+  });
+};
+
+
+chrome.app.runtime.onLaunched.addListener(function() {
+  // Open the settings UI when the user clicks on the app icon in the Chrome
+  // app launcher.
+
+  var windowOptions = {
+    outerBounds: {
+      minWidth: 800,
+      minHeight: 700
+    }
+  };
+
+  chrome.app.window.create('build.html', windowOptions);
+});
+
+// Main function to handle requests from the settings UI.
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  switch (request.type) {
+    case 'mount':
+      // TODO(lavelle): at this point bucket and region are syntactically valid
+      // strings for their repsective types, but may still cause errors.
+      // Errors to test for this before mounting:
+      //   - Bucket does not exist.
+      //   - Wrong region for bucket.
+      //   - Invalid credentials for bucket/access denied.
+
+      // Mount the bucket with the given request data.
+      mount(request.bucket, request.region, request.access, request.secret, {
+        onSuccess: function() {
+          sendResponse({
+            type: 'mount',
+            success: true
+          });
+        },
+        onError: function(error) {
+          sendResponse({
+            type: 'mount',
+            success: false,
+            error: error
+          });
+        }
+      });
+      break;
+    default:
+      var message;
+      if (request.type) {
+        message = 'Invalid request type: ' + request.type + '.';
+      } else {
+        message = 'No request type provided.';
+      }
+
+      sendResponse({
+        type: 'error',
+        success: false,
+        message: message
+      });
+      break;
+  }
+
+  // Return true from the event listener to indicate that we will be sending
+  // the response asynchronously, so that the sendResponse function is still
+  // valid at the time it's used.
+  return true;
+});

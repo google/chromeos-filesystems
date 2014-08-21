@@ -13,13 +13,13 @@ var bindFix = require('../../../third_party/bindfix/bindfix');
 // Mock the S3 API.
 window.AWS = require('./s3mock');
 
-var key = 'fake-key';
+var access = 'fake-key';
 var secret = 'fake-secret';
 var region = 'us-west-2';
 var bucket = 'chromeostest';
 
 // Register a global S3 client used by all the tests.
-window.s3fs = new S3FS(key, secret, region, bucket);
+window.s3fs = new S3FS(bucket, region, access, secret);
 
 bindFix();
 

@@ -51,6 +51,19 @@ module.exports = function(grunt) {
             AWS: true
           }
         }
+      },
+      ui: {
+        src: ['ui/auth.js'],
+        options: {
+          unused: false,
+          // Polymer is capitalised and so treated as a constructor by jshint,
+          // but should not be used with `new`.
+          newcap: false,
+          globals: {
+            Polymer: true,
+            chrome: true
+          }
+        }
       }
     },
 
@@ -59,7 +72,7 @@ module.exports = function(grunt) {
     browserify: {
       // Bundles the main extension source code into a single file for
       // distribution.
-      compile: {
+      src: {
         files: {
           'extension/background.js': 'js/main.js'
         }
@@ -72,6 +85,11 @@ module.exports = function(grunt) {
         dest: 'test/build',
         ext: '.js',
         options: {}
+      },
+      ui: {
+        files: {
+          'ui/build.js': 'ui/auth.js'
+        }
       }
     },
 
@@ -87,6 +105,19 @@ module.exports = function(grunt) {
         // Show full error stack traces for debugging.
         logErrors: true
       }
+    },
+
+    // Combines Polymer web components into a single file.
+    vulcanize: {
+      main: {
+        options: {
+          csp: true,
+          inline: true
+        },
+        files: {
+          'extension/build.html': 'ui/auth.html'
+        }
+      }
     }
   });
 
@@ -94,10 +125,17 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Register aliases for common groups of tasks.
-  // Default task lints the source code and bundles it for distribution.
-  grunt.registerTask('default', ['jshint:src', 'browserify']);
+
+  // Src task lints the source code and bundles it for distribution.
+  grunt.registerTask('src', ['jshint:src', 'browserify:src']);
 
   // Test task lints the test specifications themselves, bundles them and runs
   // them.
   grunt.registerTask('test', ['jshint:test', 'browserify:test', 'mocha']);
+
+  // Lints the scripts for the UI, bundles them and then combines all the web
+  // component assets into a single file.
+  grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
+
+  grunt.registerTask('default', ['src', 'ui']);
 };

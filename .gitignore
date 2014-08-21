@@ -3,20 +3,17 @@
 *.old
 *.zip
 *.DS_Store
+log.*
 
 # Library directories
 */node_modules
+third_party/*
+!third_party/bindfix
 
 # Generated files
-*/extension/*.js
 */extension/build.*
+*/extension/background.js
 */test/build
-*/test/browser/build
 
 # Example files
 example
-
-log.*
-webdavfs/test/manual/build.js
-third_party/*
-!third_party/bindfix
