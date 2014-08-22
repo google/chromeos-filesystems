@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Copyright 2014 The Chromium Authors. All rights reserved.
 
 // Use of this source code is governed by a BSD-style
@@ -6,10 +7,13 @@
 
 'use strict';
 
+=======
+>>>>>>> set up integration testing with dalek.js
 var url = 'http://localhost:9000/build.html';
 
 module.exports = {
   'Page title is correct': function(test) {
+<<<<<<< HEAD
     test.open(url).assert.title('mountHeader', 'It has title').done();
   },
 
@@ -42,6 +46,14 @@ module.exports = {
     test
       .click('#mount')
       .assert.visible('#toast-mount-attempt')
+=======
+    test.open(url).assert.title().is('mountHeader', 'It has title').done();
+  },
+
+  'Bucket placeholder is correct': function(test) {
+    test.open(url)
+      .query('#bucket').assert.attr('placeholder', 'bucketName')
+>>>>>>> set up integration testing with dalek.js
       .done();
   }
 };
