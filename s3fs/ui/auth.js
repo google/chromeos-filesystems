@@ -31,6 +31,12 @@ var restoreCredentials = function() {
   });
 };
 
+chrome.i18n = {
+  getMessage: function() {
+    return 'Dummy';
+  }
+};
+
 var internationalise = function() {
   var selector = 'data-message';
   var elements = document.querySelectorAll('[' + selector + ']');
@@ -44,6 +50,9 @@ var internationalise = function() {
     switch(element.tagName.toLowerCase()) {
       case 'input':
         element.setAttribute('placeholder', messageText);
+        break;
+      case 'paper-input':
+        element.setAttribute('label', messageText);
         break;
       case 'paper-toast':
         element.setAttribute('text', messageText);
