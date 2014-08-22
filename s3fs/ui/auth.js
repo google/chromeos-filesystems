@@ -52,6 +52,7 @@ var internationalise = function() {
         element.setAttribute('placeholder', messageText);
         break;
       case 'paper-input':
+      case 'paper-button':
         element.setAttribute('label', messageText);
         break;
       case 'paper-toast':
