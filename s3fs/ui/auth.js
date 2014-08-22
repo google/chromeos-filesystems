@@ -1,3 +1,13 @@
+chrome = chrome || {};
+
+if (!chrome.i18n) {
+  chrome.i18n = {
+    getMessage: function(name) {
+      return name;
+    }
+  };
+}
+
 var keys = ['bucket', 'region', 'access', 'secret'];
 
 var fields = {};
