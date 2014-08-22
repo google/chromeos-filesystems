@@ -20,18 +20,8 @@ paper-input {
   width: 500px;
 }
 
-button {
-  background-color: rgb(0, 119, 213);
-  border: none;
-  color: white;
-  cursor: pointer;
+paper-button {
   display: block;
-  font-size: 20px;
-  padding: 10px 20px;
   margin: 0 auto;
-}
-
-button[disabled] {
-  background-color: #333;
-  cursor: wait;
+  width: 100px;
 }
