@@ -13,11 +13,9 @@ body {
   width: 500px;
 }
 
-input {
-  border: 1px solid #999;
+paper-input {
   display: block;
   font-size: 20px;
-  margin: 20px 0;
   padding: 15px;
   width: 500px;
 }
