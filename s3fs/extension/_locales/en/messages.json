@@ -42,5 +42,21 @@
   "mount": {
     "message": "Mount",
     "description": "Label for a button that triggers the mount action."
+  },
+  "invalidBucket": {
+    "message": "Bucket name is invalid.",
+    "description": "Error message shown when the user enters an invalid bucket name."
+  },
+  "invalidRegion": {
+    "message": "Bucket region is invalid.",
+    "description": "Error message shown when the user enters an invalid bucket region."
+  },
+  "invalidAccess": {
+    "message": "Warning: Access key ID is invalid. You may not be able to access your bucket.",
+    "description": "Warning message shown when the user enters an invalid access key."
+  },
+  "invalidSecret": {
+    "message": "Warning: Secret access key is invalid. You may not be able to access your bucket.",
+    "description": "Warning message shown when the user enters an invalid secret key."
   }
 }
