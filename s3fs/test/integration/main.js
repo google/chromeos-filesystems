@@ -38,10 +38,32 @@ module.exports = {
     test.assert.attr('#secret', 'label', 'secretKey').done();
   },
 
+  'Header is visible and displsys correct text': function(test) {
+    test.query('h1')
+      .assert.visible()
+      .assert.text('mountHeader')
+    .end().done();
+  },
+
+  'Mount button is visible and displays correct label': function(test) {
+    test.query('#mount')
+      .assert.visible()
+      .assert.attr('label', 'mount')
+    .end().done();
+  },
+
   'Message is shown when attempting to mount bucket': function(test) {
     test
       .click('#mount')
       .assert.visible('#toast-mount-attempt')
+      .done();
+  },
+
+  'Button should become disabled immediately after being clicked': function(test) {
+    test.open(url).query('#mount')
+      .assert.attr('disabled', null)
+      .click()
+      .assert.attr('disabled', 'true')
       .done();
   }
 };
