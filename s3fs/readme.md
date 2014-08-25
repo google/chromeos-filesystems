@@ -1,7 +1,5 @@
 # S3FS
 
-![S3FS Logo](ext/icon/128.png "S3FS Logo")
-
 S3FS is a Chrome extension for ChromeOS for accessing files stored in an Amazon S3 bucket directly through the Files app.
 
 ## Overview
@@ -10,11 +8,10 @@ The project provides the glue between the S3 API and Chrome's `fileSystemProvide
 
 ## Building
 
-First make sure you have Git, Node.js, Google Chrome and Make installed. Then run the following commands.
+First make sure you have Git, Node.js, Google Chrome and Make installed. Clone this repository as described in the main readme. Then run the following commands.
 
 ```
-npm install -g  grunt-cli
-git clone <repo url>
+npm install -g grunt-cli
 cd s3fs
 make install
 ```
