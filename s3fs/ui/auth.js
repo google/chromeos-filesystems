@@ -1,5 +1,13 @@
-chrome = chrome || {};
+// Copyright 2014 The Chromium Authors. All rights reserved.
 
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file or at
+// https://developers.google.com/open-source/licenses/bsd
+
+'use strict';
+
+// Create a function for the Chrome i18n API if it doesn't exist the allow the
+// page to be tested as a normal browser page.
 if (!chrome.i18n) {
   chrome.i18n = {
     getMessage: function(name) {
@@ -29,12 +37,6 @@ var restoreCredentials = function() {
       }
     }
   });
-};
-
-chrome.i18n = {
-  getMessage: function() {
-    return 'Dummy';
-  }
 };
 
 var internationalise = function() {
