@@ -50,9 +50,6 @@ var internationalise = function() {
     var messageText = chrome.i18n.getMessage(messageID);
 
     switch(element.tagName.toLowerCase()) {
-      case 'input':
-        element.setAttribute('placeholder', messageText);
-        break;
       case 'paper-input':
       case 'paper-button':
         element.setAttribute('label', messageText);
@@ -61,7 +58,6 @@ var internationalise = function() {
         element.setAttribute('text', messageText);
         break;
       case 'h1':
-      case 'button':
       case 'title':
         element.innerText = messageText;
         break;
