@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 500px;
+}
+
+paper-input {
+  display: block;
+  font-size: 20px;
+  padding: 15px;
+  width: 500px;
+}
+
+paper-button {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+}
