@@ -26,6 +26,34 @@ There are many more providers we would like to implement, including
 - Git
 - Box
 
+## Setup
+
+To work on any of these providers, you will need Git, Node.js, Google Chrome and Make installed. You should also install Grunt and Bower globally:
+
+```bash
+$ npm install -g grunt-cli bower
+```
+
+Then you can get the repository installed:
+
+```bash
+$ git clone https://github.com/google/chromeos-filesystems
+$ cd chromeos-filesystems
+$ bower install
+```
+
+## Testing
+
+All providers read the files needed by their unit tests from the server in the `testserver` directory. To start it:
+
+```bash
+$ cd testserver
+$ npm install
+$ node server.js &
+```
+
+It will then run indefinitely in the background on port 8000. This can be changed by modifying `config.js`.
+
 ## License
 
 All providers are licensed under Apache 2.0. See the LICENSE file for details.
