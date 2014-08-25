@@ -6,6 +6,8 @@
 
   <script src="../../third_party/platform/platform.js"></script>
   <link rel="import" href="../../third_party/paper-toast/paper-toast.html">
+  <link rel="import" href="../../third_party/paper-input/paper-input.html">
+  <link rel="import" href="../../third_party/paper-button/paper-button.html">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -18,11 +20,12 @@
     <h1 data-message="mountHeader"></h1>
 
     <form>
-      <input type="text" id="bucket" data-message="bucketName">
-      <input type="text" id="region" data-message="bucketRegion">
-      <input type="text" id="access" data-message="accessKey">
-      <input type="password" id="secret" data-message="secretKey">
-      <button id="mount" data-message="mount"></button>
+      <paper-input type="text" id="bucket" data-message="bucketName"></paper-input>
+      <paper-input type="text" id="region" data-message="bucketRegion"></paper-input>
+      <paper-input type="text" id="access" data-message="accessKey"></paper-input>
+      <paper-input type="password" id="secret" data-message="secretKey"></paper-input>
+
+      <paper-button raisedButton id="mount" data-message="mount"></paper-button>
     </form>
   </div>
 

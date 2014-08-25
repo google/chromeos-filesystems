@@ -1,3 +1,21 @@
+// Copyright 2014 The Chromium Authors. All rights reserved.
+
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file or at
+// https://developers.google.com/open-source/licenses/bsd
+
+'use strict';
+
+// Create a function for the Chrome i18n API if it doesn't exist the allow the
+// page to be tested as a normal browser page.
+if (!chrome.i18n) {
+  chrome.i18n = {
+    getMessage: function(name) {
+      return name;
+    }
+  };
+}
+
 var keys = ['bucket', 'region', 'access', 'secret'];
 
 var fields = {};
@@ -32,14 +50,14 @@ var internationalise = function() {
     var messageText = chrome.i18n.getMessage(messageID);
 
     switch(element.tagName.toLowerCase()) {
-      case 'input':
-        element.setAttribute('placeholder', messageText);
+      case 'paper-input':
+      case 'paper-button':
+        element.setAttribute('label', messageText);
         break;
       case 'paper-toast':
         element.setAttribute('text', messageText);
         break;
       case 'h1':
-      case 'button':
       case 'title':
         element.innerText = messageText;
         break;
