@@ -43,6 +43,19 @@ module.exports = function(grunt) {
             TextDecoder: true
           }
         }
+      },
+      ui: {
+        src: ['ui/auth.js'],
+        options: {
+          unused: false,
+          // Polymer is capitalised and so treated as a constructor by jshint,
+          // but should not be used with `new`.
+          newcap: false,
+          globals: {
+            Polymer: true,
+            chrome: true
+          }
+        }
       }
     },
 
@@ -61,6 +74,11 @@ module.exports = function(grunt) {
         dest: 'test/build',
         ext: '.js',
         options: {}
+      },
+      ui: {
+        files: {
+          'ui/build.js': 'ui/auth.js'
+        }
       }
     },
 
@@ -71,6 +89,19 @@ module.exports = function(grunt) {
         configFile: '../karma.conf.js'
       },
       unit: {}
+    },
+
+    // Combines Polymer web components into a single file.
+    vulcanize: {
+      main: {
+        options: {
+          csp: true,
+          inline: true
+        },
+        files: {
+          'extension/build.html': 'ui/auth.html'
+        }
+      }
     }
   });
 
@@ -80,5 +111,7 @@ module.exports = function(grunt) {
   // Register task aliases.
   grunt.registerTask('src', ['jshint:src', 'browserify:src']);
   grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
-  grunt.registerTask('default', ['src']);
+  grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
+
+  grunt.registerTask('default', ['src', 'ui']);
 };

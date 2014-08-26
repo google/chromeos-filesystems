@@ -16,7 +16,7 @@ if (!chrome.i18n) {
   };
 }
 
-var keys = ['bucket', 'region', 'access', 'secret'];
+var keys = ['url'];
 
 var fields = {};
 

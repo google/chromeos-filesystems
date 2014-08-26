@@ -8,6 +8,7 @@
 
 var AWSValidator = require('./awsvalidator');
 var validator = new AWSValidator();
+var internationalise = require('../../shared/i18n');
 
 // Create a function for the Chrome i18n API if it doesn't exist the allow the
 // page to be tested as a normal browser page.
@@ -53,35 +54,6 @@ var restoreCredentials = function() {
       }
     }
   });
-};
-
-// Pulls in UI strings for the user's locale and updates the UI elements to
-// display them.
-var internationalise = function() {
-  var selector = 'data-message';
-  var elements = document.querySelectorAll('[' + selector + ']');
-
-  for (var i = 0; i < elements.length; i++) {
-    var element = elements[i];
-
-    var messageID = element.getAttribute(selector);
-    var messageText = chrome.i18n.getMessage(messageID);
-
-    switch(element.tagName.toLowerCase()) {
-      case 'paper-input':
-      case 'paper-button':
-      case 'paper-dropdown':
-        element.setAttribute('label', messageText);
-        break;
-      case 'paper-toast':
-        element.setAttribute('text', messageText);
-        break;
-      case 'h1':
-      case 'title':
-        element.innerText = messageText;
-        break;
-    }
-  }
 };
 
 var validate = function() {
