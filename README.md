@@ -52,6 +52,10 @@ $ npm install
 $ node server.js &
 ```
 
+## Icons
+
+The Photoshop project files for the various sizes of icon for each provider are contained in the `psd` directory in the provider's directory. To edit these you will need to install [Photoshop][] or a [PSD-compatible image editor][psdeditor] to edit them. Rendered icons are stored in `extension/icon`.
+
 It will then run indefinitely in the background on port 8000. This can be changed by modifying `config.js`.
 
 ## License
@@ -61,3 +65,5 @@ All original source code is Copyright 2014 The Chromium Authors.
 
 [travis image]: https://travis-ci.org/google/chromeos-filesystems.svg?branch=master
 [travis]: https://travis-ci.org/google/chromeos-filesystems
+[photoshop]: http://www.photoshop.com/
+[psdeditor]: http://www.makeuseof.com/tag/the-best-ways-to-open-a-psd-file-without-photoshop/
