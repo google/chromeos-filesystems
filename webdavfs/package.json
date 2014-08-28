@@ -9,7 +9,7 @@
     "test": "grunt test"
   },
   "author": "Giles Lavelle <lavelle@chromium.org>",
-  "license": "BSD",
+  "license": "Apache 2",
   "devDependencies": {
     "chai": "^1.9.1",
     "chai-things": "^0.2.0",
