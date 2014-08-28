@@ -40,6 +40,10 @@ before(function(){
   // exist.
   webDAVFS.readFile({
     path: '/1.txt',
+    range: {
+      start: 0,
+      end: 512
+    },
     onSuccess: function(data) { },
     onError: function(error) {
       var message = 'Could not connect to server.\nPlease start it by ' +
