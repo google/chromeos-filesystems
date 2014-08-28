@@ -19,7 +19,8 @@ module.exports = function(onGetMetadataRequested) {
         metadata.should.have.property('isDirectory', false);
         metadata.should.have.property('name', '1.txt');
         metadata.should.have.property('size', 1);
-        metadata.should.have.property('mimeType').with.string('text/plain');
+        metadata.should.have.property('mimeType')
+        metadata.mimeType.should.match(/^text\/plain/);
         metadata.should.have.property('modificationTime')
           .that.is.an.instanceof(Date);
         done();
