@@ -17,7 +17,10 @@ module.exports = function(onReadDirectoryRequested) {
         var onSuccess = function(list, hasMore) {
           list.should.have.length(11);
 
-          var directory = list[0];
+          var directory = list.filter(function(entry) {
+            return entry.name === 'dir1';
+          })[0];
+          directory.should.exist;
           directory.should.have.property('isDirectory', true);
           directory.should.have.property('name', 'dir1');
           directory.should.have.property('size', 0);
@@ -25,11 +28,13 @@ module.exports = function(onReadDirectoryRequested) {
             .that.is.an.instanceof(Date);
           directory.should.not.have.property('mimeType');
 
-          var file = list[5];
+          var file = list.filter(function(entry) {
+            return entry.name === '1.txt';
+          })[0];
           file.should.have.property('isDirectory', false);
           file.should.have.property('name', '1.txt');
-          file.should.have.property('mimeType', 'text/plain');
-          file.should.have.property('size', 0);
+          file.should.have.property('mimeType', 'text/plain; charset=utf-8');
+          file.should.have.property('size', 1);
           file.should.have.property('modificationTime')
             .that.is.an.instanceof(Date);
 

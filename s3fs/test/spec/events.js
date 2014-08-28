@@ -17,10 +17,10 @@ var testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onOpenFileRequested');
-testSuite(s3fs, onOpenFileRequested);
+testSuite('s3fs', onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onCloseFileRequested');
-testSuite(s3fs, onCloseFileRequested);
+testSuite('s3fs', onCloseFileRequested);
 
 testSuite = require('../../../shared_tests/onGetMetadataRequested');
 testSuite(onGetMetadataRequested);

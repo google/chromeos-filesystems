@@ -38,9 +38,7 @@ module.exports = function(onGetMetadataRequested) {
           entryPath: '/'
         };
 
-
         var onSuccess = function(metadata, hasMore) {
-          console.log(JSON.stringify(metadata));
           metadata.should.have.property('isDirectory', true);
           metadata.should.have.property('name', '/');
           metadata.should.have.property('size', 0);

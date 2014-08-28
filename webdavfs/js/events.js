@@ -140,7 +140,7 @@ var onReadFileRequested = function(options, onSuccess, onError) {
     path: path,
     range: {
       start: options.offset,
-      end: options.offset + options.length - 1
+      end: options.offset + options.length
     },
     onSuccess: function(data) {
       onSuccess(data, false);

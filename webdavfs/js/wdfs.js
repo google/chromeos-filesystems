@@ -39,9 +39,22 @@ var WebDAVFS = function(url) {
  */
 WebDAVFS.prototype.readFile = function(options) {
   var url = this.url + options.path;
-  var headers = {
-    Range: 'bytes=' + options.range.start + '-' + options.range.end
-  };
+  var headers = null;
+
+  if (options.range && (options.range.start || options.range.end)) {
+    var rangeString = 'bytes=';
+    var start = options.range.start;
+    var end = options.range.end;
+
+    rangeString += start ? start : '';
+    rangeString += '-';
+    rangeString += end ? end : '';
+
+    headers = {
+      Range: rangeString
+    };
+  }
+
   client.get(url, headers, options.onSuccess, options.onError);
 };
 

@@ -72,10 +72,6 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
 
   var size = parseInt(this.select(node, 'getcontentlength'), 10);
 
-  if (name === '/') {
-   console.log(name + ':' + contentType + ':' + isDirectory);
-  }
-
   if (isNaN(size)) {
     size = 0;
   }

@@ -39,7 +39,7 @@ module.exports = function(options, onSuccess, onError) {
         size: item.Size,
         modificationTime: item.LastModified,
         // TODO(lavelle): correct MIME type.
-        mimeType: 'text/plain'
+        mimeType: 'text/plain; charset=utf-8'
       };
     });
 
