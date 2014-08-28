@@ -107,6 +107,24 @@ module.exports = function(grunt) {
       }
     },
 
+    connect: {
+      dalek: {
+        options: {
+          port: 9000,
+          base: 'extension'
+        }
+      }
+    },
+
+    dalek: {
+      main: {
+        options: {
+          browser: ['chrome']
+        },
+        src: ['test/integration/main.js']
+      }
+    },
+
     // Combines Polymer web components into a single file.
     vulcanize: {
       main: {
@@ -136,6 +154,9 @@ module.exports = function(grunt) {
   // Lints the scripts for the UI, bundles them and then combines all the web
   // component assets into a single file.
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
+
+  // Runs integration tests using DalekJS.
+  grunt.registerTask('itest', ['connect:dalek', 'dalek']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };
