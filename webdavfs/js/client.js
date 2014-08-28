@@ -6,7 +6,7 @@
 
 'use strict';
 
-var isNaN = function(obj) {
+window.isNaN = function(obj) {
   return typeof obj === 'number' && obj !== +obj;
 };
 
