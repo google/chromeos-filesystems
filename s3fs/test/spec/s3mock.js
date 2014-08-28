@@ -6,8 +6,6 @@
 
 'use strict';
 
-require('arraybuffer-slice');
-
 var WebDAVFS = require('../../../webdavfs/js/wdfs');
 var wdfs = new WebDAVFS('http://localhost:8000');
 
