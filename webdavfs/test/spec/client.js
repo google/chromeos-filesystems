@@ -65,6 +65,10 @@ describe('WebDAV Client', function() {
       it('should return the contents of the file', function(done) {
         webDAVFS.readFile({
           path: '/1.txt',
+          range: {
+            start: 0,
+            end: 512
+          },
           onSuccess: function(contents) {
             arrayBufferToString(contents).should.equal('1');
             done();

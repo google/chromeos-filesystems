@@ -14,14 +14,16 @@ var onCloseFileRequested = events.onOpenFileRequested;
 var onGetMetadataRequested = events.onGetMetadataRequested;
 var onReadDirectoryRequested = events.onReadDirectoryRequested;
 
-var testSuite = require('../../../shared_tests/onReadFileRequested');
+var testSuite;
+
+testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
 
-testSuite = require('../../../shared_tests/onOpenFileRequested');
-testSuite(webDAVFS, onOpenFileRequested);
-
 testSuite = require('../../../shared_tests/onCloseFileRequested');
-testSuite(webDAVFS, onCloseFileRequested);
+testSuite('webDAVFS', onCloseFileRequested);
+
+testSuite = require('../../../shared_tests/onOpenFileRequested');
+testSuite('webDAVFS', onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onGetMetadataRequested');
 testSuite(onGetMetadataRequested);

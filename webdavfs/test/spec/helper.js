@@ -8,7 +8,6 @@
 
 var WebDAVFS = require('../../js/wdfs');
 var config = require('../../../testserver/config');
-
 window.webDAVFS = new WebDAVFS(config.URL);
 
 // Convenience method to convert ArrayBuffer responses to strings for more

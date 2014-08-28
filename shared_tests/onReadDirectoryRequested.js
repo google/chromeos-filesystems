@@ -23,6 +23,7 @@ module.exports = function(onReadDirectoryRequested) {
           directory.should.have.property('size', 0);
           directory.should.have.property('modificationTime')
             .that.is.an.instanceof(Date);
+          directory.should.not.have.property('mimeType');
 
           var file = list[5];
           file.should.have.property('isDirectory', false);

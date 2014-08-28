@@ -7,7 +7,6 @@
 'use strict';
 
 /* jshint -W027 */
-
 var config = require('../../../testserver/config');
 
 describe('WebDAV Filesystem', function() {
