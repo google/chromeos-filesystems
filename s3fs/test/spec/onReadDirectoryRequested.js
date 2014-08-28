@@ -30,7 +30,7 @@ describe('onReadDirectoryRequested', function() {
         file.should.have.property('isDirectory', false);
         file.should.have.property('name', '1.txt');
         file.should.have.property('mimeType', 'text/plain');
-        file.should.have.property('size', 0);
+        file.should.have.property('size', 1);
         file.should.have.property('modificationTime')
           .that.is.an.instanceof(Date);
 

@@ -47,7 +47,7 @@ module.exports = function(options, onSuccess, onError) {
     // request to fetch the metadata for that.
     parameters = s3fs.parameters({Key: path});
 
-    s3fs.s3.getObject(parameters, function(error, data) {
+    s3fs.s3.headObject(parameters, function(error, data) {
       // If there's still an error, it's not a file or a directory, so call
       // the error callback.
       if (error) {
@@ -60,7 +60,7 @@ module.exports = function(options, onSuccess, onError) {
       metadata = {
         isDirectory: false,
         name: path,
-        size: data.Body.length,
+        size: data.ContentLength,
         modificationTime: new Date(data.LastModified),
         mimeType: data.ContentType
       };
