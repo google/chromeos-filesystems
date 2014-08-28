@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "",
+    "description": "Extension name."
+  },
+  "extDescription": {
+    "message": "{{ description }}",
+    "description": "Extension description."
+  }
+}

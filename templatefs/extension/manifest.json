@@ -1,0 +1,23 @@
+{
+  "name": "__MSG_extName__",
+  "description": "__MSG_extName__",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "app": {
+    "background": {
+      "scripts": [
+        "background.js"
+      ]
+    }
+  },
+  "icons": {
+    "16": "icon/16.png",
+    "32": "icon/32.png",
+    "48": "icon/48.png",
+    "128": "icon/128.png"
+  },
+  "permissions": [
+    "fileSystemProvider"
+  ]
+}
