@@ -2,9 +2,9 @@
 
 [![Build Status][travis image]][travis]
 
-This repository contains various filesystem providers for Chrome OS. They offer a way to access files stored on remote servers through the Files app, via a variety of protocols.
+This repository contains various filesystem providers for Chrome OS. They offer a way to access files stored on remote servers through the Files app, from a variety of sources. There are both *protocol* providers, that connect to arbitrary servers over a particular protocol, like WebDAV and FTP, and *cloud* providers that connect to accounts on various proprietary cloud storage services like Dropbox and Amazon S3.
 
-Currently, the provider API itself is read-only, and therefore all of the providers are too. When the API is updated, they can be extended to support write operations.
+All of the providers are currently read-only. The API has recently been updated to support write operations, however, and the providers will soon be updated too to reflect this.
 
 ## Current
 
@@ -58,6 +58,10 @@ The Photoshop project files for the various sizes of icon for each provider are 
 
 It will then run indefinitely in the background on port 8000. This can be changed by modifying `config.js`.
 
+## Creating new providers
+
+Please refer to the [wiki page][create-provider] for instructions on how to create your own provider. Remember to follow the [guidelines](CONTRIBUTING.md) for contributing to this repository.
+
 ## License
 
 All providers are licensed under Apache 2.0. See the LICENSE file for details.
@@ -67,3 +71,4 @@ All original source code is Copyright 2014 The Chromium Authors.
 [travis]: https://travis-ci.org/google/chromeos-filesystems
 [photoshop]: http://www.photoshop.com/
 [psdeditor]: http://www.makeuseof.com/tag/the-best-ways-to-open-a-psd-file-without-photoshop/
+[create-provider]: https://github.com/google/chromeos-filesystems/wiki/Creating-a-new-provider
