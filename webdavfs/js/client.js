@@ -86,14 +86,15 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
 /**
  * Make a HTTP GET request -- fetch an entry from the server.
  * @param {string} url The URL of the server.
+ * @param {Object=} opt_headers Any HTTP headers to set on the request.
  * @param {Function} onSuccess Function to be called with the response data
  *     from the request if it was successful.
  * @param {Function} onError Function to be called with an error message
  *     if the request failed.
  */
-WebDAVClient.prototype.get = function(url, onSuccess, onError) {
+WebDAVClient.prototype.get = function(url, opt_headers, onSuccess, onError) {
   var verb = 'GET';
-  var headers = {};
+  var headers = opt_headers || {};
   var data = null;
   var responseType = 'arraybuffer';
 

@@ -138,6 +138,10 @@ var onReadFileRequested = function(options, onSuccess, onError) {
 
   webDAVFS.readFile({
     path: path,
+    range: {
+      start: options.offset,
+      end: options.offset + options.length - 1
+    },
     onSuccess: function(data) {
       onSuccess(data, false);
     },
