@@ -8,7 +8,7 @@
 
 var onReadFileRequested = require('../../js/events/onReadFileRequested');
 var onOpenFileRequested = require('../../js/events/onOpenFileRequested');
-var onCloseFileRequested = require('../../js/events/onOpenFileRequested');
+var onCloseFileRequested = require('../../js/events/onCloseFileRequested');
 var onGetMetadataRequested = require('../../js/events/onGetMetadataRequested');
 var onReadDirectoryRequested =
   require('../../js/events/onReadDirectoryRequested');

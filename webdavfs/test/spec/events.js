@@ -10,7 +10,7 @@ var events = require('../../js/events');
 
 var onReadFileRequested = events.onReadFileRequested;
 var onOpenFileRequested = events.onOpenFileRequested;
-var onCloseFileRequested = events.onOpenFileRequested;
+var onCloseFileRequested = events.onCloseFileRequested;
 var onGetMetadataRequested = events.onGetMetadataRequested;
 var onReadDirectoryRequested = events.onReadDirectoryRequested;
 
