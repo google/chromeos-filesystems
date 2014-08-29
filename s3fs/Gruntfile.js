@@ -93,20 +93,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // Runs the unit test suite in a headless WebKit instance.
-    mocha: {
-      src: ['test/index.html'],
-      options: {
-        // Report test results in full detail, instead of the default minimal
-        // view.
-        reporter: 'Spec',
-        // Enable console.log within tests for debugging.
-        log: true,
-        // Show full error stack traces for debugging.
-        logErrors: true
-      }
-    },
-
     // Combines Polymer web components into a single file.
     vulcanize: {
       main: {
@@ -117,6 +103,12 @@ module.exports = function(grunt) {
         files: {
           'extension/build.html': 'ui/auth.html'
         }
+      }
+    },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
       }
     }
   });
@@ -131,7 +123,7 @@ module.exports = function(grunt) {
 
   // Test task lints the test specifications themselves, bundles them and runs
   // them.
-  grunt.registerTask('test', ['jshint:test', 'browserify:test', 'mocha']);
+  grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
 
   // Lints the scripts for the UI, bundles them and then combines all the web
   // component assets into a single file.
