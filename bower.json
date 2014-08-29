@@ -5,7 +5,7 @@
     "Giles Lavelle <lavelle@chromium.org>",
     "Jun Mukai <mukai@chromium.org>"
   ],
-  "license": "Apache 2",
+  "license": "BSD",
   "ignore": [
     "**/.*",
     "node_modules",
