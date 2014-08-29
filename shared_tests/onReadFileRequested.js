@@ -53,9 +53,9 @@ module.exports = function(onReadFileRequested, onOpenFileRequested) {
 
       var onOpenSuccess = function() {
         var options = {
-          openRequestId: 1,
+          length: 512,
           offset: 0,
-          length: 512
+          openRequestId: 1
         };
 
         var onReadSuccess = function(contents, hasMore) {
@@ -95,9 +95,9 @@ module.exports = function(onReadFileRequested, onOpenFileRequested) {
 
         var onOpenSuccess = function() {
           var options = {
-            openRequestId: 2,
             length: 512,
-            offset: 0
+            offset: 0,
+            openRequestId: 2
           };
 
           var onReadSuccess = function(contents, hasMore) {
