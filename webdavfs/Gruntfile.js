@@ -62,13 +62,10 @@ module.exports = function(grunt) {
         options: {}
       }
     },
-    // Runs the unit test suite in a headless Webkit instance.
-    mocha: {
-      src: ['test/index.html'],
-      options: {
-        reporter: 'Spec',
-        log: true,
-        logErrors: true
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
       }
     }
   });
@@ -78,6 +75,6 @@ module.exports = function(grunt) {
 
   // Register task aliases.
   grunt.registerTask('src', ['jshint:src', 'browserify:src']);
-  grunt.registerTask('test', ['jshint:test', 'browserify:test', 'mocha']);
+  grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
   grunt.registerTask('default', ['src']);
 };
