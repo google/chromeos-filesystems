@@ -143,6 +143,38 @@ S3.prototype.getObject = function(parameters, callback) {
   wdfs.readFile(args);
 };
 
+
+/**
+ * Implements the S3 headObject method in terms of WebDAVFS's getMetadata.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#headObject-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.headObject = function(parameters, callback) {
+  var path =  '/' + parameters.Key;
+
+  wdfs.getMetadata({
+    path: path,
+    onSuccess: function(response) {
+      var error = null;
+
+      var data = {
+        ContentLength: response.size,
+        ContentType: response.mimeType,
+        LastModified: response.modificationTime.toString()
+      };
+
+      callback(error, data);
+    },
+    onError: function(error) {
+      var data = null;
+      callback(error, data);
+    }
+  });
+};
+
 AWS.S3 = S3;
 
 module.exports = AWS;
