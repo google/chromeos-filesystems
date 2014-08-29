@@ -6,9 +6,11 @@
 
 'use strict';
 
-window.isNaN = function(obj) {
-  return typeof obj === 'number' && obj !== +obj;
-};
+if (!Number.isNaN) {
+  Number.isNaN = function(obj) {
+    return typeof obj === 'number' && obj !== +obj;
+  };
+}
 
 /**
  * Class containing methods for communicating with a WebDAV server over XHR
@@ -72,7 +74,7 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
 
   var size = parseInt(this.select(node, 'getcontentlength'), 10);
 
-  if (isNaN(size)) {
+  if (Number.isNaN(size)) {
     size = 0;
   }
 
