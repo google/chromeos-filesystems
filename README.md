@@ -3,7 +3,11 @@
 [![Build Status][travis image]][travis]
 [![Code Climate][codeclimate image]][codeclimate]
 
-This repository contains various filesystem providers for Chrome OS. They offer a way to access files stored on remote servers through the Files app, from a variety of sources. There are both *protocol* providers, that connect to arbitrary servers over a particular protocol, like WebDAV and FTP, and *cloud* providers that connect to accounts on various proprietary cloud storage services like Dropbox and Amazon S3.
+This repository contains various filesystem providers for Chrome OS. They offer a way to access files stored on remote servers through the Files app, from a variety of sources. There are two categories of provider:
+- **Protocol** providers. These connect to arbitrary servers over a particular protocol, like WebDAV or FTP.
+- **Cloud** providers. These connect to particular accounts on various proprietary cloud storage services like Dropbox and Amazon S3.
+
+Providers that mount archive files like ZIP and RAR as file systems are considered to be separate category again and are not included in this repository: they are part of core Chromium.
 
 All of the providers are currently read-only. The API has recently been updated to support write operations, however, and the providers will soon be updated too to reflect this.
 
