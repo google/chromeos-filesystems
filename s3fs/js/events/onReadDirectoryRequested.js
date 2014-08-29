@@ -33,13 +33,13 @@ module.exports = function(options, onSuccess, onError) {
     }
 
     var files = data.Contents.map(function(item) {
+      // Content type is omitted from the results as it is not present in the
+      // S3 API response.
       return {
         isDirectory: false,
         name: item.Key,
         size: item.Size,
         modificationTime: item.LastModified,
-        // TODO(lavelle): correct MIME type.
-        mimeType: 'text/plain'
       };
     });
 
