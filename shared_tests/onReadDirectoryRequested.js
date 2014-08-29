@@ -33,8 +33,12 @@ module.exports = function(onReadDirectoryRequested) {
           })[0];
           file.should.have.property('isDirectory', false);
           file.should.have.property('name', '1.txt');
-          file.should.have.property('mimeType');
-          file.mimeType.should.match(/^text\/plain/);
+
+          // MIME type is optional, but if present should still be valid.
+          if (file.mimeType) {
+            file.mimeType.should.match(/^text\/plain/);
+          }
+
           file.should.have.property('size', 1);
           file.should.have.property('modificationTime')
             .that.is.an.instanceof(Date);
