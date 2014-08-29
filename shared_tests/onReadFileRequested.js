@@ -106,8 +106,7 @@ module.exports = function(onReadFileRequested, onOpenFileRequested) {
             contents.byteLength.should.equal(512);
 
             var string = arrayBufferToString(contents);
-            var expected = new Array(513).join('1');
-            string.should.equal(expected);
+            string.should.equal(new Array(513).join('1'));
 
             done();
           };
