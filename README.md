@@ -54,7 +54,7 @@ $ node server.js &
 
 ## Icons
 
-The Photoshop project files for the various sizes of icon for each provider are contained in the `psd` directory in the provider's directory. To edit these you will need to install [Photoshop][] or a [PSD-compatible image editor][psdeditor] to edit them. Rendered icons are stored in `extension/icon`.
+The Photoshop project files for the various sizes of icon for each provider are contained in the `psd` directory in the provider's directory. You will need to install [Photoshop][] or a [PSD-compatible image editor][psdeditor] to edit them. Rendered icons are stored in `extension/icon`.
 
 It will then run indefinitely in the background on port 8000. This can be changed by modifying `config.js`.
 
