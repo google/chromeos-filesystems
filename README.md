@@ -1,6 +1,7 @@
 # ChromeOS Filesystem Providers
 
 [![Build Status][travis image]][travis]
+[![Code Climate][codeclimate image]][codeclimate]
 
 This repository contains various filesystem providers for Chrome OS. They offer a way to access files stored on remote servers through the Files app, from a variety of sources. There are both *protocol* providers, that connect to arbitrary servers over a particular protocol, like WebDAV and FTP, and *cloud* providers that connect to accounts on various proprietary cloud storage services like Dropbox and Amazon S3.
 
@@ -69,6 +70,8 @@ All original source code is Copyright 2014 The Chromium Authors.
 
 [travis image]: https://travis-ci.org/google/chromeos-filesystems.svg?branch=master
 [travis]: https://travis-ci.org/google/chromeos-filesystems
+[codeclimate image]: https://codeclimate.com/github/google/chromeos-filesystems/badges/gpa.svg
+[codeclimate]: https://codeclimate.com/github/google/chromeos-filesystems
 [photoshop]: http://www.photoshop.com/
 [psdeditor]: http://www.makeuseof.com/tag/the-best-ways-to-open-a-psd-file-without-photoshop/
 [create-provider]: https://github.com/google/chromeos-filesystems/wiki/Creating-a-new-provider
