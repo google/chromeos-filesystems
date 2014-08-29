@@ -39,7 +39,8 @@ module.exports = function(grunt) {
             should: true,
             before: true,
             webDAVFS: true,
-            arrayBufferToString: true
+            arrayBufferToString: true,
+            TextDecoder: true
           }
         }
       }
