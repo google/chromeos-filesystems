@@ -79,6 +79,8 @@ AWSValidator.prototype.bucket = function(bucket) {
   // Disallow consecutive periods.
   if (/\.\./g.test(bucket)) { return false; }
 
+  // TODO(lavelle): disallow IP addreses here.
+
   // Check for everything else mentioned above.
   return this.regexes.bucket.test(bucket);
 };

@@ -19,7 +19,7 @@ if (!chrome.i18n) {
   };
 }
 
-var keys = ['bucket', 'region', 'access', 'secret'];
+var keys = ['bucket', 'access', 'secret'];
 
 var fields = {};
 
@@ -36,15 +36,15 @@ for (var key in validator.patterns) {
 }
 
 // Populate the regions datalist with the list from the validator.
-var regionList = document.getElementById('regions');
+var regionList = document.getElementById('region');
 
 for (var i = 0; i < validator.regions.length; i++) {
   var region = validator.regions[i];
 
-  var option = document.createElement('option');
-  option.setAttribute('value', region);
+  var item = document.createElement('paper-item');
+  item.setAttribute('label', region);
 
-  regionList.appendChild(option);
+  regionList.appendChild(item);
 }
 
 // Restores previously saved credentials and autofills the text fields.
@@ -76,6 +76,7 @@ var internationalise = function() {
     switch(element.tagName.toLowerCase()) {
       case 'paper-input':
       case 'paper-button':
+      case 'paper-dropdown':
         element.setAttribute('label', messageText);
         break;
       case 'paper-toast':
@@ -90,15 +91,10 @@ var internationalise = function() {
 };
 
 var validate = function() {
-    if (!fields.bucket.checkValidity()) {
+  // Use a custom function here because it's too complex to be expressed by a
+  // single regular expression.
+  if (!validator.bucket(fields.bucket.value)) {
     document.getElementById('toast-invalid-bucket').show();
-    return false;
-  }
-
-  // Need to use the validator directly for this one because it's not using a
-  // regular expression like the others.
-  if (!validator.region(fields.region.value)) {
-    document.getElementById('toast-invalid-region').show();
     return false;
   }
 
@@ -133,6 +129,16 @@ button.addEventListener('click', function(event) {
 
   for (var key in fields) {
     request[key] = fields[key].value;
+  }
+
+  var regionSelector = document.getElementById('region');
+
+  if (regionSelector.selectedItem) {
+    request.region = .selectedItem.label;
+  }
+  else {
+    document.getElementById('toast-invalid-region').show();
+    return;
   }
 
   chrome.runtime.sendMessage(request, function(response) {
