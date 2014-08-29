@@ -9,7 +9,6 @@
 'use strict';
 
 var S3FS = require('../../js/s3fs');
-var bindFix = require('../../../third_party/bindfix/bindfix');
 // Mock the S3 API.
 window.AWS = require('./s3mock');
 
@@ -20,8 +19,6 @@ var bucket = 'chromeostest';
 
 // Register a global S3 client used by all the tests.
 window.s3fs = new S3FS(bucket, region, access, secret);
-
-bindFix();
 
 // Mock the parts of the Chrome API needed to test.
 window.chrome = {

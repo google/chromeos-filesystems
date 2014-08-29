@@ -13,14 +13,7 @@ window.webDAVFS = new WebDAVFS(config.URL);
 // Convenience method to convert ArrayBuffer responses to strings for more
 // readable assertions.
 window.arrayBufferToString = function(buffer) {
-  var bufferView = new Uint8Array(buffer);
-  var characterCodes = [];
-
-  for (var i = 0; i < bufferView.length; i++) {
-    characterCodes.push(bufferView[i]);
-  }
-
-  return String.fromCharCode.apply(null, characterCodes);
+  return new TextDecoder('utf-8').decode(new DataView(buffer));
 };
 
 // Mock the parts of the Chrome API needed to test.

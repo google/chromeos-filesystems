@@ -7,8 +7,7 @@ log.*
 
 # Library directories
 */node_modules
-third_party/*
-!third_party/bindfix
+third_party
 
 # Generated files
 */extension/build.*
