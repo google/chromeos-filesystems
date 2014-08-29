@@ -56,14 +56,14 @@ module.exports = function(fs, onOpenFileRequested) {
 
     it('should allow read-only opening of existing files', function(done) {
       var options = {
-        filePath: '/hi.txt',
+        filePath: '/1.txt',
         mode: 'READ',
         create: false,
         requestId: 1
       };
 
       var onSuccess = function() {
-        fs.openedFiles[options.requestId].should.equal(options.filePath);
+        window[fs].openedFiles[options.requestId].should.equal(options.filePath);
         done();
       };
 

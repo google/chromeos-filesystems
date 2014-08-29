@@ -40,7 +40,7 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
     onSuccess: function(metadata) {
       onSuccess(metadata, false);
     },
-    onError: function(error) {
+    onError: function() {
       onError('FAILED');
     }
   });
@@ -65,40 +65,6 @@ var onOpenFileRequested = function(options, onSuccess, onError) {
 };
 
 /**
- * Constructs an object representing a file for the file system provider.
- * @param {string} name The name of the file.
- * @return {Object} A plain object representing a file with the given name in
- *     the file system provider API.
- */
-var makeFile = function(name) {
-  // TODO(lavelle): Still returns dummy data. Default WebDAV directory listing
-  // call doesn't return the metadata of directory contents, so we need to
-  // fetch it manually for each file.
-  return {
-    isDirectory: false,
-    name: name,
-    size: 0,
-    modificationTime: new Date(0),
-    mimeType: 'text/plain'
-  };
-};
-
-/**
- * Constructs an object representing a directory for the file system provider.
- * @param {string} name The name of the directory.
- * @return {Object} A plain object representing a directory with the given name
- *     in the file system provider API.
- */
-var makeDirectory = function(name) {
-  return {
-    isDirectory: true,
-    name: name,
-    size: 0,
-    modificationTime: new Date(0)
-  };
-};
-
-/**
  * Responds to a request for the contents of a directory.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the directory was
@@ -114,7 +80,7 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
     onSuccess: function(list) {
       onSuccess(list, false);
     },
-    onError: function(error) {
+    onError: function() {
       onError('FAILED');
     }
   });
@@ -138,10 +104,14 @@ var onReadFileRequested = function(options, onSuccess, onError) {
 
   webDAVFS.readFile({
     path: path,
+    range: {
+      start: options.offset,
+      end: options.offset + options.length
+    },
     onSuccess: function(data) {
       onSuccess(data, false);
     },
-    onError: function(error) {
+    onError: function() {
       onError('FAILED');
     }
   });

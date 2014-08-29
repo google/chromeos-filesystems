@@ -12,9 +12,7 @@ module.exports = function(grunt) {
         noarg: true,
         sub: true,
         undef: true,
-        // TODO(lavelle): Reset this. Several callbacks are not used yet but
-        // will be eventually.
-        unused: false,
+        unused: true,
         boss: true,
         eqnull: true,
         expr: true,

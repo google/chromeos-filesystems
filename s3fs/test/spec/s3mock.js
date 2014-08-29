@@ -6,8 +6,6 @@
 
 'use strict';
 
-require('arraybuffer-slice');
-
 var WebDAVFS = require('../../../webdavfs/js/wdfs');
 var wdfs = new WebDAVFS('http://localhost:8000');
 
@@ -111,29 +109,15 @@ S3.prototype.listObjects = function(parameters, callback) {
 S3.prototype.getObject = function(parameters, callback) {
   var path =  '/' + parameters.Key;
 
-  wdfs.readFile({
+  var args = {
     path: path,
     onSuccess: function(buffer) {
       var error = null;
 
-      if (parameters.Range) {
-        var range = parameters.Range.replace('bytes=', '').split('-');
-        var start = parseInt(range[0], 10);
-
-        var end = range[1];
-        if (end.length > 0) {
-          end = parseInt(end, 10) + 1;
-          buffer = buffer.slice(start, end);
-        }
-        else {
-          buffer = buffer.slice(start);
-        }
-      }
-
       var data = {
         LastModified: new Date(),
         Body: new ResponseBody(buffer),
-        ContentType: 'text/plain'
+        ContentType: 'text/plain; charset=utf-8'
       };
 
       callback(error, data);
@@ -142,7 +126,21 @@ S3.prototype.getObject = function(parameters, callback) {
       var data = null;
       callback(error, data);
     }
-  });
+  };
+
+  if (parameters.Range) {
+    args.range = {};
+    var parts = parameters.Range.replace('bytes=', '').split('-');
+
+    args.range.start = parseInt(parts[0], 10);
+
+    var end = parts[1];
+    if (end.length > 0) {
+      args.range.end = parseInt(end, 10) + 1;
+    }
+  }
+
+  wdfs.readFile(args);
 };
 
 AWS.S3 = S3;

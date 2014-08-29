@@ -6,6 +6,12 @@
 
 'use strict';
 
+if (!Number.isNaN) {
+  Number.isNaN = function(obj) {
+    return typeof obj === 'number' && obj !== +obj;
+  };
+}
+
 /**
  * Class containing methods for communicating with a WebDAV server over XHR
  * and manipulating the responses.
@@ -50,8 +56,10 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
   // Extract the name of the file/directory from the href attribute.
   var name = this.select(node, 'href');
 
-  // Remove leading and trailing slashes from the name.
-  name = name.replace(/^\/|\/$/g, '').split('/').pop();
+  if (name !== '/') {
+    // Remove leading and trailing slashes from the name.
+    name = name.replace(/^\/|\/$/g, '').split('/').pop();
+  }
 
   // Extract the MIME type of the file from the getcontenttype attribute.
   var contentType = this.select(node, 'getcontenttype');
@@ -64,8 +72,11 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
   // attribute, and parse it into a Date object.
   var modificationTime = new Date(this.select(node, 'getlastmodified'));
 
-  // TODO(lavelle): get actual size.
-  var size = 0;
+  var size = parseInt(this.select(node, 'getcontentlength'), 10);
+
+  if (Number.isNaN(size)) {
+    size = 0;
+  }
 
   // Construct the entry object to be returned to the file system provider.
   var entry = {
@@ -86,14 +97,15 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
 /**
  * Make a HTTP GET request -- fetch an entry from the server.
  * @param {string} url The URL of the server.
+ * @param {Object=} opt_headers Any HTTP headers to set on the request.
  * @param {Function} onSuccess Function to be called with the response data
  *     from the request if it was successful.
  * @param {Function} onError Function to be called with an error message
  *     if the request failed.
  */
-WebDAVClient.prototype.get = function(url, onSuccess, onError) {
+WebDAVClient.prototype.get = function(url, opt_headers, onSuccess, onError) {
   var verb = 'GET';
-  var headers = {};
+  var headers = opt_headers || {};
   var data = null;
   var responseType = 'arraybuffer';
 

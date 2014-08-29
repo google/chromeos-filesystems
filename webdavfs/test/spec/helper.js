@@ -8,7 +8,6 @@
 
 var WebDAVFS = require('../../js/wdfs');
 var config = require('../../../testserver/config');
-
 window.webDAVFS = new WebDAVFS(config.URL);
 
 // Convenience method to convert ArrayBuffer responses to strings for more
@@ -27,7 +26,7 @@ window.arrayBufferToString = function(buffer) {
 // Mock the parts of the Chrome API needed to test.
 window.chrome = {
   fileSystemProvider: {
-    unmount: function(options, onSuccess, onError) {
+    unmount: function(options, onSuccess) {
       onSuccess(options);
     }
   }
@@ -40,8 +39,12 @@ before(function(){
   // exist.
   webDAVFS.readFile({
     path: '/1.txt',
-    onSuccess: function(data) { },
-    onError: function(error) {
+    range: {
+      start: 0,
+      end: 512
+    },
+    onSuccess: function() { },
+    onError: function() {
       var message = 'Could not connect to server.\nPlease start it by ' +
         'typing `node server.js &` from the testserver directory.';
       throw new Error(message);
