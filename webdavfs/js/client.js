@@ -64,8 +64,7 @@ WebDAVClient.prototype.nodeToEntry = function(node) {
   // attribute, and parse it into a Date object.
   var modificationTime = new Date(this.select(node, 'getlastmodified'));
 
-  // TODO(lavelle): get actual size.
-  var size = 0;
+  var size = parseInt(this.select(node, 'getcontentlength'), 10);
 
   // Construct the entry object to be returned to the file system provider.
   var entry = {
