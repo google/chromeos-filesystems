@@ -64,7 +64,7 @@ Please refer to the [wiki page][create-provider] for instructions on how to crea
 
 ## License
 
-All providers are licensed under Apache 2.0. See the LICENSE file for details.
+All providers are licensed under the BSD license. See the LICENSE file for details.
 All original source code is Copyright 2014 The Chromium Authors.
 
 [travis image]: https://travis-ci.org/google/chromeos-filesystems.svg?branch=master
