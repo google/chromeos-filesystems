@@ -5,3 +5,11 @@
 // https://developers.google.com/open-source/licenses/bsd
 
 'use strict';
+
+describe('MyClass', function() {
+  describe('myMethod', function() {
+    it('should do something', function() {
+      (1 + 1).should.equal(2);
+    });
+  });
+});

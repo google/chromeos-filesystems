@@ -7,13 +7,12 @@
 'use strict';
 
 /**
- * Fetches the metadata associated with the file at the given path from the
- * WebDAV server.
+ * Fetches the metadata associated with the file at the given path.
  * @param {Object} options Input options.
  * @param {function} onSuccess Function to be called if the metadata was
- *     fetched successfully.
+ *      fetched successfully.
  * @param {function} onError Function to be called if an error occured while
- *     attempting to fetch the metadata.
+ *      attempting to fetch the metadata.
  */
 module.exports = function(options, onSuccess, onError) {
 

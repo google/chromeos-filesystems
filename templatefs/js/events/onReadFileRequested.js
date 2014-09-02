@@ -10,9 +10,9 @@
  * Responds to a request for the contents of a file.
  * @param {Object} options Input options.
  * @param {function} onSuccess Function to be called if the file was
- *     read successfully.
+ *      read successfully.
  * @param {function} onError Function to be called if an error occured while
- *     attempting to read the file.
+ *      attempting to read the file.
  */
 module.exports = function(options, onSuccess, onError) {
 

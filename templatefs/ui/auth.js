@@ -16,7 +16,8 @@ if (!chrome.i18n) {
   };
 }
 
-var keys = ['bucket', 'region', 'access', 'secret'];
+// Populate with the IDs of your text fields.
+var keys = [];
 
 var fields = {};
 
