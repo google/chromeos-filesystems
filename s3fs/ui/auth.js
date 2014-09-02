@@ -29,12 +29,6 @@ keys.forEach(function(name) {
 
 var button = document.getElementById('mount');
 
-// Add validation patterns to the text fields based on patterns from the
-// validator.
-for (var key in validator.patterns) {
-  fields[key].setAttribute('pattern', validator.patterns[key]);
-}
-
 // Populate the regions datalist with the list from the validator.
 var regionList = document.getElementById('region');
 
@@ -100,11 +94,11 @@ var validate = function() {
 
   // Only show a warning for these, instead of returning false. The format is
   // not as well defined, so the check is just a guideline, not a rule.
-  if (!fields.access.checkValidity()) {
+  if (!validator.access(fields.bucket.access)) {
     document.getElementById('toast-invalid-access').show();
   }
 
-  if (!fields.secret.checkValidity()) {
+  if (!validator.secret(fields.bucket.secret)) {
     document.getElementById('toast-invalid-secret').show();
   }
 
