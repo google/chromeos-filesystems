@@ -134,9 +134,8 @@ button.addEventListener('click', function(event) {
   var regionSelector = document.getElementById('region');
 
   if (regionSelector.selectedItem) {
-    request.region = .selectedItem.label;
-  }
-  else {
+    request.region = regionSelector.selectedItem.label;
+  } else {
     document.getElementById('toast-invalid-region').show();
     return;
   }
