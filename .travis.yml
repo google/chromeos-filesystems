@@ -5,7 +5,7 @@ env:
   - DIR=s3fs
   - DIR=webdavfs
 before_install:
-  - npm install -g grunt-cli bower
+  - npm install -g grunt-cli bower mocha
   - bower install
   - cd testserver
   - npm install
