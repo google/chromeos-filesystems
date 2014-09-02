@@ -7,7 +7,7 @@ chai.should();
 var describe = test.describe;
 var it = test.it
 
-var server = new SeleniumServer('selenium.jar', {port: 4444});
+var server = new SeleniumServer('test/selenium.jar', {port: 4444});
 
 server.start();
 
