@@ -7,6 +7,8 @@
   <script src="../../third_party/platform/platform.js"></script>
   <link rel="import" href="../../third_party/paper-toast/paper-toast.html">
   <link rel="import" href="../../third_party/paper-input/paper-input.html">
+  <link rel="import" href="../../third_party/paper-dropdown/paper-dropdown.html">
+  <link rel="import" href="../../third_party/paper-item/paper-item.html">
   <link rel="import" href="../../third_party/paper-button/paper-button.html">
 
   <link rel="stylesheet" href="style.css">
@@ -15,13 +17,17 @@
   <paper-toast data-message="mountAttempt" id="toast-mount-attempt"></paper-toast>
   <paper-toast data-message="mountFail" id="toast-mount-fail"></paper-toast>
   <paper-toast data-message="mountSuccess" id="toast-mount-success"></paper-toast>
+  <paper-toast data-message="invalidBucket" id="toast-invalid-bucket"></paper-toast>
+  <paper-toast data-message="invalidRegion" id="toast-invalid-region"></paper-toast>
+  <paper-toast data-message="invalidAccess" id="toast-invalid-access"></paper-toast>
+  <paper-toast data-message="invalidSecret" id="toast-invalid-secret"></paper-toast>
 
   <div class="container">
     <h1 data-message="mountHeader"></h1>
 
     <form>
       <paper-input type="text" id="bucket" data-message="bucketName"></paper-input>
-      <paper-input type="text" id="region" data-message="bucketRegion"></paper-input>
+      <paper-dropdown data-message="bucketRegion" id="region"></paper-dropdown>
       <paper-input type="text" id="access" data-message="accessKey"></paper-input>
       <paper-input type="password" id="secret" data-message="secretKey"></paper-input>
 
