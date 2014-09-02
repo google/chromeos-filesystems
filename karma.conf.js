@@ -1,14 +1,8 @@
 // Karma configuration.
 module.exports = function(config) {
   config.set({
-    // Base path that will be used to resolve all patterns.
-    basePath: 'test',
-
     // Testing/assertion frameworks to use.
     frameworks: ['mocha', 'chai'],
-
-    // List of files / patterns to load in the browser.
-    files: ['build/*.js'],
 
     // List of files to exclude.
     exclude: [],

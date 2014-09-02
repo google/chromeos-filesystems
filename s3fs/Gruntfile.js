@@ -107,9 +107,12 @@ module.exports = function(grunt) {
     },
 
     karma: {
-      unit: {
+      options: {
+        basePath: 's3fs/test',
+        files: ['build/*.js'],
         configFile: '../karma.conf.js'
-      }
+      },
+      unit: {}
     }
   });
 
