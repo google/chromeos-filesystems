@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Giles Lavelle <lavelle@chromium.org>",
   "license": "BSD",
   "dependencies": {
     "colors": "^0.6.2",
+    "prompt": "^0.2.13",
     "shelljs": "^0.3.0",
     "underscore": "^1.7.0"
   }

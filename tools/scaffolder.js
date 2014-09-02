@@ -8,6 +8,7 @@
 
 var fs = require('fs');
 var _ = require('underscore');
+var prompt = require('prompt');
 require('shelljs/global');
 require('colors');
 
@@ -30,44 +31,62 @@ var fatal = function(message) {
   process.exit(1);
 };
 
-var name = 'cool';
-var src = '../templatefs/*';
-var out = '../' + name + 'fs';
-
-// TODO(lavelle): read these values from stdin.
-var config = {
-  name: name,
-  long_name: 'Cool',
-  description: 'a cool provider',
-  location: 'A cool cloud service'
+var schema = {
+  properties: {
+    name: {
+      required: true,
+      description: 'Name of your provider',
+      pattern: /[a-z0-9]+/
+    },
+    longName: {
+      required: true,
+      description: 'Long name'
+    },
+    description: {
+      required: true,
+      description: "Describe your provider's backend"
+    },
+    location: {
+      required: true,
+    }
+  }
 };
 
-// Ensure we won't be overwriting any existing files.
-if (fs.existsSync(out)) {
-  fatal('Error: directory ' + out + ' already exists.');
-}
+prompt.get(schema, function(error, config) {
+  if (error) {
+    fatal('Scaffolding cancelled.');
+  }
 
-// Copy the template filesystem to the new directory.
-cp('-r', src, out);
+  var src = '../templatefs/*';
+  var out = '../' + config.name + 'fs';
 
-// Run the contents of each text file through the templater to fill out values.
-ls('-R', out).forEach(function(file) {
-  // Ignore directories.
-  if (file.indexOf('.') === -1) { return; }
-  // Ignore non-text files.
-  var extension = file.split('.').pop();
-  if (textExtensions.indexOf(extension) === -1) { return; }
+  // Ensure we won't be overwriting any existing files.
+  if (fs.existsSync(out)) {
+    fatal('Error: directory ' + out + ' already exists.');
+  }
 
-  file = out + '/' + file;
+  // Copy the template filesystem to the new directory.
+  cp('-r', src, out);
 
-  // Template each file.
-  var contents = read(file);
-  var template = _.template(contents);
-  var output = template(config);
+  // Run the contents of each text file through the templater to fill out values.
+  ls('-R', out).forEach(function(file) {
+    // Ignore directories.
+    if (file.indexOf('.') === -1) { return; }
+    // Ignore non-text files.
+    var extension = file.split('.').pop();
+    if (textExtensions.indexOf(extension) === -1) { return; }
 
-  fs.writeFileSync(file, output);
+    file = out + '/' + file;
+
+    // Template each file.
+    var contents = read(file);
+    var template = _.template(contents);
+    var output = template(config);
+
+    fs.writeFileSync(file, output);
+  });
+
+  // Show a success message.
+  var message = 'Your new provider ' + config.name + ' has been generated.';
+  console.log(message.green);
 });
-
-// Show a success message.
-var message = 'Your new provider ' + name + ' has been generated.';
-console.log(message.green);
