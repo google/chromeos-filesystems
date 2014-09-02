@@ -23,4 +23,4 @@ install:
 	npm install
 
 itest:
-	mocha -t 10000 test/functional/main.js
+	./node_modules/.bin/mocha -t 10000 test/functional/main.js

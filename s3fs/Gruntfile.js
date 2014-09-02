@@ -132,6 +132,13 @@ module.exports = function(grunt) {
           port: 4000,
           keepalive: true
         }
+      },
+      webdriver: {
+        options: {
+          port: 3456,
+          keepalive: true,
+          base: 'extension'
+        }
       }
     }
   });
