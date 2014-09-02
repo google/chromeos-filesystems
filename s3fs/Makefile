@@ -20,3 +20,6 @@ clean:
 
 install:
 	npm install
+
+itest:
+	node_modules/.bin/mocha test/functional/main.js

@@ -26,3 +26,6 @@ clean:
 # Installs build tools.
 install:
 	npm install
+
+itest:
+	true
