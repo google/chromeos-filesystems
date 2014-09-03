@@ -18,7 +18,7 @@ grunt:
 # Runs the test suite.
 test:
 	cp -r ../testserver/assets ../testserver/liveassets
-	grunt test || :
+	-grunt test
 	rm -rf ../testserver/liveassets
 
 # Removes any automatically generated files.

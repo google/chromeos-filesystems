@@ -14,7 +14,7 @@ grunt: libs
 
 test:
 	cp -r ../testserver/assets ../testserver/liveassets
-	grunt test || :
+	-grunt test
 	rm -rf ../testserver/liveassets
 
 clean:
