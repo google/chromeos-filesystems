@@ -14,16 +14,21 @@ var AWSValidator = function() {
     'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1'
   ];
 
-  // Matches a single alphanumeric character
+  // Matches a single alphanumeric character.
   var singleAlnum = "[a-z0-9]{1}";
+  // Matches any decimal integer between 0 and 255.
+  var octet = "((([0-1][0-9]{2})|(2[0-4][0-9])|(25[0-5]))|([0-9]{1,2}))";
 
   this.patterns = {
     access: "^[0-9A-Z]{20}$",
     secret: "^([a-zA-Z0-9]|\\/|\\+|\\=){40}$",
-    bucket: '^' + singleAlnum + '([a-z0-9]|\\-|\\.){1,61}' + singleAlnum + '$'
+    bucket: '^' + singleAlnum + '([a-z0-9]|\\-|\\.){1,61}' + singleAlnum + '$',
+    ip: '^(' + octet + '\\.){3}' + octet + '$'
   };
 
-  this.regexes = {};
+  this.regexes = {
+    consecutivePeriods: /\.\./g
+  };
 
   for(var key in this.patterns) {
     this.regexes[key] = new RegExp(this.patterns[key]);
@@ -76,10 +81,11 @@ AWSValidator.prototype.region = function(region) {
  * @return {boolean} Whether or not the bucket name is valid.
  */
 AWSValidator.prototype.bucket = function(bucket) {
-  // Disallow consecutive periods.
-  if (/\.\./g.test(bucket)) { return false; }
+  // Disallow consecutive periods anywhere in the string.
+  if (this.regexes.consecutivePeriods.test(bucket)) { return false; }
 
-  // TODO(lavelle): disallow IP addreses here.
+  // Disallow IP addresses.
+  if (this.regexes.ip.test(bucket)) { return false; }
 
   // Check for everything else mentioned above.
   return this.regexes.bucket.test(bucket);

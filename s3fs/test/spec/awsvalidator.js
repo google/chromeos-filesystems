@@ -99,5 +99,17 @@ describe('AWSValidator', function() {
       validator.bucket('foo').should.be.true;
       validator.bucket('a-pretty-long-bucket-but-still-shorter-than-63-chars').should.be.true;
     });
+
+    it('should reject IP addresses', function() {
+      var ip = validator.regexes.ip;
+
+      '127.0.0.1'.should.match(ip);
+      '192.168.0.1'.should.match(ip);
+      '8.8.8.8'.should.match(ip);
+      '255.255.255.255'.should.match(ip);
+      '999.999.999.999'.should.not.match(ip);
+      'abc.def.hij.klm'.should.not.match(ip);
+      'abc.1.1.1'.should.not.match(ip);
+    });
   });
 });
