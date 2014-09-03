@@ -44,6 +44,7 @@ module.exports = function(onWriteFileRequested, onReadFileRequested,
           onWriteFileRequested(writeOptions, function() {
             onReadFileRequested(readOptions, function(data) {
               util.arrayBufferToString(data).should.equal(testString);
+              done();
             }, onError);
           }, onError);
         }, onError);
