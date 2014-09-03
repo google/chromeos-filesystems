@@ -1,8 +1,9 @@
 {
-  "name": "WebDAV File System",
-  "description": "Access a WebDAV server directly from the Files app.",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extName__",
   "version": "0.0.1",
   "manifest_version": 2,
+  "default_locale": "en",
   "app": {
     "background": {
       "scripts": [

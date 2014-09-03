@@ -1,0 +1,34 @@
+{
+  "extName": {
+    "message": "WebDAV File System",
+    "description": "Extension name."
+  },
+  "extDescription": {
+    "message": "Access a WebDAV server directly from the Files app.",
+    "description": "Extension description."
+  },
+  "mountAttempt": {
+    "message": "Attempting to mount instance with given credentials...",
+    "description": "Popup notifcation that informs the user that the system is attempting to mount a new instance with the credentials they provided."
+  },
+  "mountSuccess": {
+    "message": "Mounted successfully.",
+    "description": "Popup notifcation that informs the user that the system successfully mounted a new instance with the credentials they provided."
+  },
+  "mountFail": {
+    "message": "Failed to mount with given credentials.",
+    "description": "Popup notifcation that informs the user that the system failed to mount a new instance with the credentials they provided."
+  },
+  "url": {
+    "message": "Server URL",
+    "description": "Placeholder for a text field that informs the user that they should enter the URL of the WebDAV server."
+  },
+  "mountHeader": {
+    "message": "Mount a new WevDAV server",
+    "description": "Header describing the server mount form."
+  },
+  "mount": {
+    "message": "Mount",
+    "description": "Label for a button that triggers the mount action."
+  }
+}
