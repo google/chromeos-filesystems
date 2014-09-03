@@ -15,5 +15,6 @@ var stringToArrayBuffer = function(string) {
 }
 
 module.exports = {
-  arrayBufferToString: arrayBufferToString
+  arrayBufferToString: arrayBufferToString,
+  stringToArrayBuffer: stringToArrayBuffer
 };

@@ -59,12 +59,12 @@ WebDAVFS.prototype.readFile = function(options) {
 };
 
 /**
- * Returns the contents of the specified file as an ArrayBuffer.
+ * Writes the given ArrayBuffer to the file at the given path.
  * @param {Object} options Input options.
- *     @param {string} path Path to the file to be read, relative to the server
+ *     @param {string} path Path to the file to write, relative to the server
  *         root.
- *     @param {function} onSuccess Function to be called with the contents
- *         of the file if the request succeeds.
+ *     @param {ArrayBuffer} data The data to write.
+ *     @param {function} onSuccess Function to be called if the request succeeds.
  *     @param {function} onError Function to be called with the error if
  *         the request fails.
  */
@@ -72,7 +72,7 @@ WebDAVFS.prototype.writeFile = function(options) {
   var url = this.url + options.path;
   var headers = null;
 
-  client.put(url, headers, options.onSuccess, options.onError);
+  client.put(url, options.data, headers, options.onSuccess, options.onError);
 };
 
 /**

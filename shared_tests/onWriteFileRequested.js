@@ -31,7 +31,7 @@ module.exports = function(onWriteFileRequested, onReadFileRequested,
 
         var writeOptions = {
           openRequestId: id,
-          data: testString,
+          data: util.stringToArrayBuffer(testString),
           offset: 0,
           length: 512
         };

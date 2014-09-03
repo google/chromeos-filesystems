@@ -183,40 +183,16 @@ S3.prototype.headObject = function(parameters, callback) {
  *     finishes.
  */
 S3.prototype.putObject = function(parameters, callback) {
-  var path =  '/' + parameters.Key;
-
-  var args = {
-    path: path,
-    onSuccess: function(buffer) {
-      var error = null;
-
-      var data = {
-        LastModified: new Date(),
-        Body: new ResponseBody(buffer),
-        ContentType: 'text/plain; charset=utf-8'
-      };
-
-      callback(error, data);
+  wdfs.writeFile({
+    path: '/' + parameters.Key,
+    data: parameters.Body,
+    onSuccess: function() {
+      callback(null, {});
     },
     onError: function(error) {
-      var data = null;
-      callback(error, data);
+      callback(error, null);
     }
-  };
-
-  if (parameters.Range) {
-    args.range = {};
-    var parts = parameters.Range.replace('bytes=', '').split('-');
-
-    args.range.start = parseInt(parts[0], 10);
-
-    var end = parts[1];
-    if (end.length > 0) {
-      args.range.end = parseInt(end, 10) + 1;
-    }
-  }
-
-  wdfs.writeFile(args);
+  });
 };
 
 AWS.S3 = S3;

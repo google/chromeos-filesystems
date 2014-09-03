@@ -38,6 +38,7 @@ module.exports = function(options, onSuccess, onError) {
   s3fs.s3.putObject(parameters, function(error, data) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
+      console.log(error);
       onError('FAILED');
     } else {
       onSuccess();
