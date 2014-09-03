@@ -10,7 +10,7 @@
 
 module.exports = function(fs, onOpenFileRequested) {
   describe('onOpenFileRequested', function() {
-    it('should reject attempts to create files', function(done) {
+    it('should allow attempts to create files', function(done) {
       var options = {
         filePath: '/new.txt',
         mode: 'READ',
@@ -19,20 +19,18 @@ module.exports = function(fs, onOpenFileRequested) {
       };
 
       var onSuccess = function() {
-        throw new Error('Should have rejected file open.');
         done();
       };
 
       var onError = function(error) {
-        error.should.be.a('string');
-        error.should.equal('INVALID_OPERATION');
+        throw new Error(error);
         done();
       };
 
       onOpenFileRequested(options, onSuccess, onError);
     });
 
-    it('should reject attempts to write files', function(done) {
+    it('should allow attempts to write files', function(done) {
       var options = {
         filePath: '/new.txt',
         mode: 'WRITE',
@@ -41,13 +39,11 @@ module.exports = function(fs, onOpenFileRequested) {
       };
 
       var onSuccess = function() {
-        throw new Error('Should have rejected file open.');
         done();
       };
 
       var onError = function(error) {
-        error.should.be.a('string');
-        error.should.equal('INVALID_OPERATION');
+        throw new Error(error);
         done();
       };
 
