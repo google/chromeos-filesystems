@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "{{ name }}",
+    "message": "{{ displayName }}",
     "description": "Extension name."
   },
   "extDescription": {

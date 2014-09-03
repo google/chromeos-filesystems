@@ -38,6 +38,10 @@ var schema = {
       description: 'Name your provider',
       pattern: /[a-z0-9]+/
     },
+    displayName: {
+      required: true,
+      description: 'Name to be shown to users'
+    },
     description: {
       required: true,
       description: 'Describe your provider'
