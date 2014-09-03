@@ -6,6 +6,8 @@
 
 'use strict';
 
+var util = require('../../shared/util');
+
 /**
  * Responds to a request to close a file.
  * @param {object} options Input options.
@@ -55,10 +57,14 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
  *     attempting to open the file.
  */
 var onOpenFileRequested = function(options, onSuccess, onError) {
-  if (options.mode !== 'READ' || options.create) {
+  if (!util.isRequestValid(options)) {
     onError('INVALID_OPERATION');
   }
   else {
+    if (options.create) {
+      // TODO(lavelle): create file here.
+    }
+
     webDAVFS.openedFiles[options.requestId] = options.filePath;
     onSuccess();
   }

@@ -12,9 +12,18 @@ var arrayBufferToString = function(buffer) {
 
 var stringToArrayBuffer = function(string) {
   return new TextEncoder('utf-8').encode(string).buffer;
-}
+};
+
+var isRequestValid = function(options) {
+  var validModes = ['READ', 'WRITE'];
+
+  if (validModes.indexOf(options.mode) === -1) { return false; }
+
+  return true;
+};
 
 module.exports = {
   arrayBufferToString: arrayBufferToString,
-  stringToArrayBuffer: stringToArrayBuffer
+  stringToArrayBuffer: stringToArrayBuffer,
+  isRequestValid: isRequestValid
 };

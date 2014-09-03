@@ -6,13 +6,7 @@
 
 'use strict';
 
-var isRequestValid = function(options) {
-  var validModes = ['READ', 'WRITE'];
-
-  if (validModes.indexOf(options.mode) === -1) { return false; }
-
-  return true;
-};
+var util = require('../../../shared/util');
 
 /**
  * Responds to a request to open a file.
@@ -23,7 +17,7 @@ var isRequestValid = function(options) {
  *      attempting to open the file.
  */
 var onOpenFileRequested = function(options, onSuccess, onError) {
-  if (!isRequestValid(options)) {
+  if (!util.isRequestValid(options)) {
     onError('INVALID_OPERATION');
   } else {
     if (options.create) {
