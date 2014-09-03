@@ -12,6 +12,10 @@ var S3FS = require('../../js/s3fs');
 // Mock the S3 API.
 window.AWS = require('./s3mock');
 
+// Convenience method to convert ArrayBuffer responses to strings for more
+// readable assertions.
+window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
+
 var access = 'fake-key';
 var secret = 'fake-secret';
 var region = 'us-west-2';

@@ -113,6 +113,24 @@ WebDAVClient.prototype.get = function(url, opt_headers, onSuccess, onError) {
 };
 
 /**
+ * Make a HTTP PUT request -- write an entry to the server.
+ * @param {string} url The URL of the server.
+ * @param {Object} data The data to write.
+ * @param {Object=} opt_headers Any HTTP headers to set on the request.
+ * @param {Function} onSuccess Function to be called with the response data
+ *     from the request if it was successful.
+ * @param {Function} onError Function to be called with an error message
+ *     if the request failed.
+ */
+WebDAVClient.prototype.put = function(url, data, opt_headers, onSuccess, onError) {
+  var verb = 'PUT';
+  var headers = opt_headers || {};
+  var responseType = 'document';
+
+  this.request(verb, url, headers, data, responseType, onSuccess, onError);
+};
+
+/**
  * Make a HTTP PROPFIND request -- fetch the metadta for an entry from the
  * server.
  * @param {string} url The URL of the server.

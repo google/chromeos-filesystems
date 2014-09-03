@@ -143,7 +143,6 @@ S3.prototype.getObject = function(parameters, callback) {
   wdfs.readFile(args);
 };
 
-
 /**
  * Implements the S3 headObject method in terms of WebDAVFS's getMetadata.
  * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#headObject-property
@@ -173,6 +172,51 @@ S3.prototype.headObject = function(parameters, callback) {
       callback(error, data);
     }
   });
+};
+
+/**
+ * Implements the S3 putObject method in terms of WebDAVFS's writeFile.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.putObject = function(parameters, callback) {
+  var path =  '/' + parameters.Key;
+
+  var args = {
+    path: path,
+    onSuccess: function(buffer) {
+      var error = null;
+
+      var data = {
+        LastModified: new Date(),
+        Body: new ResponseBody(buffer),
+        ContentType: 'text/plain; charset=utf-8'
+      };
+
+      callback(error, data);
+    },
+    onError: function(error) {
+      var data = null;
+      callback(error, data);
+    }
+  };
+
+  if (parameters.Range) {
+    args.range = {};
+    var parts = parameters.Range.replace('bytes=', '').split('-');
+
+    args.range.start = parseInt(parts[0], 10);
+
+    var end = parts[1];
+    if (end.length > 0) {
+      args.range.end = parseInt(end, 10) + 1;
+    }
+  }
+
+  wdfs.writeFile(args);
 };
 
 AWS.S3 = S3;

@@ -18,7 +18,7 @@ var testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onWriteFileRequested');
-testSuite(onWriteFileRequested);
+testSuite(onWriteFileRequested, onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onOpenFileRequested');
 testSuite('s3fs', onOpenFileRequested);

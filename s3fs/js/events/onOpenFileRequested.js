@@ -6,6 +6,14 @@
 
 'use strict';
 
+var isRequestValid = function(options) {
+  var validModes = ['READ', 'WRITE'];
+
+  if (validModes.indexOf(options.mode) === -1) { return false; }
+
+  return true;
+};
+
 /**
  * Responds to a request to open a file.
  * @param {Object} options Input options.
@@ -15,9 +23,13 @@
  *      attempting to open the file.
  */
 var onOpenFileRequested = function(options, onSuccess, onError) {
-  if (options.mode !== 'READ' || options.create) {
+  if (!isRequestValid(options)) {
     onError('INVALID_OPERATION');
   } else {
+    if (options.create) {
+      // TODO(lavelle): create file here.
+    }
+
     s3fs.openedFiles[options.requestId] = options.filePath;
     onSuccess();
   }
