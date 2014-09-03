@@ -99,17 +99,21 @@ describe('AWSValidator', function() {
       validator.bucket('foo').should.be.true;
       validator.bucket('a-pretty-long-bucket-but-still-shorter-than-63-chars').should.be.true;
     });
+  });
 
-    it('should reject IP addresses', function() {
-      var ip = validator.regexes.ip;
+  describe('ip', function() {
+    it('should correctly identify IPV4 addresses', function() {
+      it('should reject IP addresses', function() {
+        var ip = validator.regexes.ip;
 
-      '127.0.0.1'.should.match(ip);
-      '192.168.0.1'.should.match(ip);
-      '8.8.8.8'.should.match(ip);
-      '255.255.255.255'.should.match(ip);
-      '999.999.999.999'.should.not.match(ip);
-      'abc.def.hij.klm'.should.not.match(ip);
-      'abc.1.1.1'.should.not.match(ip);
+        validator.ip('127.0.0.1').should.be.true;
+        validator.ip('192.168.0.1').should.be.true;
+        validator.ip('8.8.8.8').should.be.true;
+        validator.ip('255.255.255.255').should.be.true;
+        validator.ip('999.999.999.999').should.be.false;
+        validator.ip('abc.def.hij.klm').should.be.false;
+        validator.ip('abc.1.1.1').should.be.false;
+      });
     });
   });
 });

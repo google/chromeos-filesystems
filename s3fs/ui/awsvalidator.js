@@ -16,14 +16,11 @@ var AWSValidator = function() {
 
   // Matches a single alphanumeric character.
   var singleAlnum = "[a-z0-9]{1}";
-  // Matches any decimal integer between 0 and 255.
-  var octet = "((([0-1][0-9]{2})|(2[0-4][0-9])|(25[0-5]))|([0-9]{1,2}))";
 
   this.patterns = {
     access: "^[0-9A-Z]{20}$",
     secret: "^([a-zA-Z0-9]|\\/|\\+|\\=){40}$",
     bucket: '^' + singleAlnum + '([a-z0-9]|\\-|\\.){1,61}' + singleAlnum + '$',
-    ip: '^(' + octet + '\\.){3}' + octet + '$'
   };
 
   this.regexes = {
@@ -70,6 +67,26 @@ AWSValidator.prototype.region = function(region) {
 };
 
 /**
+ * Returns whether or not a given string is a valid IPV4 address.
+ * @param {string} region The IP address to validate.
+ * @return {boolean} Whether or not the region is valid.
+ */
+AWSValidator.prototype.ip = function(ip) {
+  if (typeof ip !== 'string') { return false; }
+
+  var parts = ip.split('.');
+  if (parts.length !== 4) { return false; }
+
+  for (var i = 0; i < 4; i++) {
+    var part = parts[i];
+    var number = parseInt(part, 10);
+    if (Number.isNan(number) || number < 0 || number > 255) { return false; }
+  }
+
+  return true;
+};
+
+/**
  * Returns whether or not a given string is a valid AWS S3 bucket name.
  *
  * A bucket name is a string of 3-63 characters (inclusive), containing only
@@ -85,7 +102,7 @@ AWSValidator.prototype.bucket = function(bucket) {
   if (this.regexes.consecutivePeriods.test(bucket)) { return false; }
 
   // Disallow IP addresses.
-  if (this.regexes.ip.test(bucket)) { return false; }
+  if (this.ip(bucket)) { return false; }
 
   // Check for everything else mentioned above.
   return this.regexes.bucket.test(bucket);
