@@ -13,7 +13,9 @@ grunt: libs
 	grunt
 
 test:
-	grunt test
+	cp -r ../testserver/assets ../testserver/liveassets
+	grunt test || :
+	rm -rf ../testserver/liveassets
 
 clean:
 	rm -rf $(ZIP) extension/vendor extension/*.js test/build docs
