@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title data-message="mountHeader"></title>
+
+  <script src="../../third_party/platform/platform.js"></script>
+  <link rel="import" href="../../third_party/paper-toast/paper-toast.html">
+  <link rel="import" href="../../third_party/paper-input/paper-input.html">
+  <link rel="import" href="../../third_party/paper-button/paper-button.html">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <paper-toast data-message="mountAttempt" id="toast-mount-attempt"></paper-toast>
+  <paper-toast data-message="mountFail" id="toast-mount-fail"></paper-toast>
+  <paper-toast data-message="mountSuccess" id="toast-mount-success"></paper-toast>
+
+  <div class="container">
+    <h1 data-message="mountHeader"></h1>
+
+    <form>
+      <!-- Add your form controls here. -->
+
+      <paper-button raisedButton id="mount" data-message="mount"></paper-button>
+    </form>
+  </div>
+
+  <script src="build.js"></script>
+</body>
+</html>
