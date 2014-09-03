@@ -16,29 +16,7 @@ if (!chrome.i18n) {
   };
 }
 
-// Populate with the IDs of your text fields.
-var keys = [];
-
-var fields = {};
-
-keys.forEach(function(name) {
-  fields[name] = document.getElementById(name);
-});
-
 var button = document.getElementById('mount');
-
-var restoreCredentials = function() {
-  if (!chrome.storage) { return; }
-  chrome.storage.sync.get(keys, function(items) {
-    for (var key in items) {
-      var value = items[key];
-
-      if (value) {
-        fields[key].value = value;
-      }
-    }
-  });
-};
 
 var internationalise = function() {
   var selector = 'data-message';
@@ -66,7 +44,6 @@ var internationalise = function() {
   }
 };
 
-restoreCredentials();
 internationalise();
 
 button.addEventListener('click', function(event) {
@@ -80,9 +57,8 @@ button.addEventListener('click', function(event) {
     type: 'mount'
   };
 
-  for (var key in fields) {
-    request[key] = fields[key].value;
-  }
+  // Add values from your form fields to the request object here that the
+  // background script can then use when mounting the new instance.
 
   chrome.runtime.sendMessage(request, function(response) {
     if (response.success) {

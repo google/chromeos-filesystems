@@ -35,19 +35,16 @@ var schema = {
   properties: {
     name: {
       required: true,
-      description: 'Name of your provider',
+      description: 'Name your provider',
       pattern: /[a-z0-9]+/
-    },
-    longName: {
-      required: true,
-      description: 'Long name'
     },
     description: {
       required: true,
-      description: "Describe your provider's backend"
+      description: 'Describe your provider'
     },
-    location: {
+    author: {
       required: true,
+      description: 'Your name'
     }
   }
 };

@@ -2,7 +2,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "name": "",
+  "name": "{{ name }}",
   "version": "0.0.1",
   "main": "js/main.js",
   "devDependencies": {
@@ -17,6 +17,6 @@
   "scripts": {
     "test": "grunt test"
   },
-  "author": "",
-  "license": "Apache 2",
+  "author": "{{ author }}",
+  "license": "BSD",
 }

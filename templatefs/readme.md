@@ -1,10 +1,8 @@
 # {{ name }}
 
-{{ name }} is a Chrome extension for Chrome OS for accessing files stored in {{ location }} directly through the Files app.
-
 ## Overview
 
-The project provides the glue between the S3 API and Chrome's `fileSystemProvider` API. Currently this API is read-only, and therefore creating or writing to files in a bucket is not supported. This will be added when the Chrome API is updated.
+Describe your provider here
 
 ## Building
 
