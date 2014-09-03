@@ -8,6 +8,8 @@
 
 var internationalise = require('../../shared/i18n');
 
+window.chrome = window.chrome || {};
+
 // Create a function for the Chrome i18n API if it doesn't exist the allow the
 // page to be tested as a normal browser page.
 if (!chrome.i18n) {
