@@ -14,16 +14,18 @@ var AWSValidator = function() {
     'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1'
   ];
 
-  // Matches a single alphanumeric character
+  // Matches a single alphanumeric character.
   var singleAlnum = "[a-z0-9]{1}";
 
   this.patterns = {
     access: "^[0-9A-Z]{20}$",
     secret: "^([a-zA-Z0-9]|\\/|\\+|\\=){40}$",
-    bucket: '^' + singleAlnum + '([a-z0-9]|\\-|\\.){1,61}' + singleAlnum + '$'
+    bucket: '^' + singleAlnum + '([a-z0-9]|\\-|\\.){1,61}' + singleAlnum + '$',
   };
 
-  this.regexes = {};
+  this.regexes = {
+    consecutivePeriods: /\.\./g
+  };
 
   for(var key in this.patterns) {
     this.regexes[key] = new RegExp(this.patterns[key]);
@@ -65,6 +67,28 @@ AWSValidator.prototype.region = function(region) {
 };
 
 /**
+ * Returns whether or not a given string is a valid IPV4 address.
+ * @param {string} region The IP address to validate.
+ * @return {boolean} Whether or not the region is valid.
+ */
+AWSValidator.prototype.ip = function(ip) {
+  if (typeof ip !== 'string') { return false; }
+
+  var parts = ip.split('.');
+  if (parts.length !== 4) { return false; }
+
+  for (var i = 0; i < 4; i++) {
+    var part = parts[i];
+    if (!(/^\d+$/.test(part))) { return false; }
+
+    var number = parseInt(part, 10);
+    if (Number.isNan(number) || number < 0 || number > 255) { return false; }
+  }
+
+  return true;
+};
+
+/**
  * Returns whether or not a given string is a valid AWS S3 bucket name.
  *
  * A bucket name is a string of 3-63 characters (inclusive), containing only
@@ -76,10 +100,11 @@ AWSValidator.prototype.region = function(region) {
  * @return {boolean} Whether or not the bucket name is valid.
  */
 AWSValidator.prototype.bucket = function(bucket) {
-  // Disallow consecutive periods.
-  if (/\.\./g.test(bucket)) { return false; }
+  // Disallow consecutive periods anywhere in the string.
+  if (this.regexes.consecutivePeriods.test(bucket)) { return false; }
 
-  // TODO(lavelle): disallow IP addreses here.
+  // Disallow IP addresses.
+  if (this.ip(bucket)) { return false; }
 
   // Check for everything else mentioned above.
   return this.regexes.bucket.test(bucket);
