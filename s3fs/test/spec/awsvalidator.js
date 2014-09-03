@@ -113,6 +113,7 @@ describe('AWSValidator', function() {
         validator.ip('999.999.999.999').should.be.false;
         validator.ip('abc.def.hij.klm').should.be.false;
         validator.ip('abc.1.1.1').should.be.false;
+        validator.ip('0abc.0abc.0abc.0abc').should.be.false;
       });
     });
   });

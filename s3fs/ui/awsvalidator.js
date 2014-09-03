@@ -79,6 +79,8 @@ AWSValidator.prototype.ip = function(ip) {
 
   for (var i = 0; i < 4; i++) {
     var part = parts[i];
+    if (!(/^\d+$/.test(part))) { return false; }
+
     var number = parseInt(part, 10);
     if (Number.isNan(number) || number < 0 || number > 255) { return false; }
   }
