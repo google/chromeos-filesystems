@@ -19,6 +19,7 @@ module.exports = function() {
     switch(element.tagName.toLowerCase()) {
       case 'paper-input':
       case 'paper-button':
+      case 'paper-dropdown':
         element.setAttribute('label', messageText);
         break;
       case 'paper-toast':
@@ -26,7 +27,8 @@ module.exports = function() {
         break;
       case 'h1':
       case 'title':
-        element.innerText = messageText;
+        var textNode = document.createTextNode(messageText);
+        element.appendChild(textNode);
         break;
     }
   }
