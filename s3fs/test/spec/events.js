@@ -7,6 +7,7 @@
 'use strict';
 
 var onReadFileRequested = require('../../js/events/onReadFileRequested');
+var onWriteFileRequested = require('../../js/events/onWriteFileRequested');
 var onOpenFileRequested = require('../../js/events/onOpenFileRequested');
 var onCloseFileRequested = require('../../js/events/onCloseFileRequested');
 var onGetMetadataRequested = require('../../js/events/onGetMetadataRequested');
@@ -15,6 +16,9 @@ var onReadDirectoryRequested =
 
 var testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
+
+testSuite = require('../../../shared_tests/onWriteFileRequested');
+testSuite(onWriteFileRequested);
 
 testSuite = require('../../../shared_tests/onOpenFileRequested');
 testSuite('s3fs', onOpenFileRequested);
@@ -27,3 +31,5 @@ testSuite(onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onReadDirectoryRequested');
 testSuite(onReadDirectoryRequested);
+
+
