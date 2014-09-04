@@ -7,24 +7,27 @@
 'use strict';
 
 /**
- * Responds to a request to delete a file or directory.
+ * Responds to a request to create a new file.
  * @param {Object} options Input options.
- * @param {function} onSuccess Function to be called if the entry was deleted
+ * @param {function} onSuccess Function to be called if the file was created
  *     successfully.
  * @param {function} onError Function to be called if an error occured while
- *     attempting to delete the entry.
+ *     attempting to create the file.
  */
 module.exports = function(options, onSuccess, onError) {
   // Strip the leading slash, since not used internally.
-  var path = options.entryPath.substring(1);
+  var path = options.filePath.substring(1);
 
   var parameters = s3fs.parameters({
     Key: path,
+    Body: new ArrayBuffer(),
+    ContentLength: 0
   });
 
-  // TODO(lavelle): handle the directory/recursive case here.
+  // TODO(lavelle): handle the case where it already exists here.
+  // Do nothing, or report an error?
 
-  s3fs.s3.deleteObject(parameters, function(error, data) {
+  s3fs.s3.putObject(parameters, function(error, data) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
       onError('FAILED');
