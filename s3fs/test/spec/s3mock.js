@@ -195,6 +195,26 @@ S3.prototype.putObject = function(parameters, callback) {
   });
 };
 
+/**
+ * Implements the S3 deleteObject method in terms of WebDAVFS's deleteEntry.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObject-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.deleteObject = function(parameters, callback) {
+  wdfs.deleteEntry({
+    path: '/' + parameters.Key,
+    onSuccess: function() {
+      callback(null, {});
+    },
+    onError: function(error) {
+      callback(error, null);
+    }
+  });
+};
+
 AWS.S3 = S3;
 
 module.exports = AWS;

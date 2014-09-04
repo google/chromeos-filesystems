@@ -11,6 +11,7 @@ var onWriteFileRequested = require('../../js/events/onWriteFileRequested');
 var onOpenFileRequested = require('../../js/events/onOpenFileRequested');
 var onCloseFileRequested = require('../../js/events/onCloseFileRequested');
 var onGetMetadataRequested = require('../../js/events/onGetMetadataRequested');
+var onDeleteEntryRequested = require('../../js/events/onDeleteEntryRequested');
 var onReadDirectoryRequested =
   require('../../js/events/onReadDirectoryRequested');
 
@@ -31,3 +32,6 @@ testSuite(onReadDirectoryRequested);
 
 testSuite = require('../../../shared_tests/onWriteFileRequested');
 testSuite(onWriteFileRequested, onReadFileRequested, onOpenFileRequested);
+
+testSuite = require('../../../shared_tests/onDeleteEntryRequested');
+testSuite(onDeleteEntryRequested);
