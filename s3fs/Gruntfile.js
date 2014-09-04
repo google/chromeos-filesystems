@@ -119,7 +119,18 @@ module.exports = function(grunt) {
       dist : {
         src: ['js/**/*.js'],
         options: {
-          destination: 'docs'
+          destination: 'docs',
+          recurse: true
+        }
+      }
+    },
+
+    connect: {
+      docs: {
+        options: {
+          base: 'docs',
+          port: 4000,
+          keepalive: true
         }
       }
     }
@@ -141,7 +152,7 @@ module.exports = function(grunt) {
   // component assets into a single file.
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
 
-  grunt.registerTask('doc', ['jsdoc'])
+  grunt.registerTask('docs', ['jsdoc']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };

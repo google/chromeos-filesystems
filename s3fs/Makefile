@@ -16,7 +16,7 @@ test:
 	grunt test
 
 clean:
-	rm -rf $(ZIP) extension/vendor extension/*.js test/build
+	rm -rf $(ZIP) extension/vendor extension/*.js test/build docs
 
 install:
 	npm install

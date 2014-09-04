@@ -23,6 +23,7 @@
   "author": "Giles Lavelle <lavelle@chromium.org>",
   "license": "BSD",
   "dependencies": {
+    "grunt-contrib-connect": "^0.8.0",
     "karma-mocha": "^0.1.9",
     "mocha": "^1.21.4"
   }
