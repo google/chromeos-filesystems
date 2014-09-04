@@ -11,7 +11,6 @@ var util = require('./util');
 /**
  * Class that encapsulates metadata for the S3 filesystem and the bucket to
  * which it connects.
- * @constructs
  * @param {string} bucket The name of the S3 bucket to connect to.
  * @param {string} region The AWS region of the bucket eg. 'us-west-2'.
  * @param {string} access The AWS access key ID used to authenticate.

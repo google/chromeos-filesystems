@@ -113,6 +113,15 @@ module.exports = function(grunt) {
         configFile: '../karma.conf.js'
       },
       unit: {}
+    },
+
+    jsdoc : {
+      dist : {
+        src: ['js/**/*.js'],
+        options: {
+          destination: 'docs'
+        }
+      }
     }
   });
 
@@ -131,6 +140,8 @@ module.exports = function(grunt) {
   // Lints the scripts for the UI, bundles them and then combines all the web
   // component assets into a single file.
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
+
+  grunt.registerTask('doc', ['jsdoc'])
 
   grunt.registerTask('default', ['src', 'ui']);
 };
