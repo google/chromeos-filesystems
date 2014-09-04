@@ -22,15 +22,20 @@ module.exports = function(onDeleteEntryRequested, onGetMetadataRequested) {
         throw new Error(error);
       };
 
+      var postDeleteSuccess = function() {
+        throw new Error('Delete operation failed to remove file.');
+      };
+
+      var postDeleteError = function(error) {
+        error.should.be.a('string');
+        error.should.equal('NOT_FOUND');
+        done();
+      };
+
       onGetMetadataRequested(statOptions, function() {
         onDeleteEntryRequested(deleteOptions, function() {
-          onGetMetadataRequested(statOptions, function() {
-            throw new Error('Delete operation failed to remove file.');
-          }, function(error) {
-            error.should.be.a('string');
-            error.should.equal('NOT_FOUND');
-            done();
-          });
+          onGetMetadataRequested(statOptions, postDeleteSuccess,
+            postDeleteError);
         }, onError);
       }, onError);
     });

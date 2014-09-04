@@ -34,4 +34,4 @@ testSuite = require('../../../shared_tests/onWriteFileRequested');
 testSuite(onWriteFileRequested, onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onDeleteEntryRequested');
-testSuite(onDeleteEntryRequested);
+testSuite(onDeleteEntryRequested, onGetMetadataRequested);

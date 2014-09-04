@@ -142,6 +142,7 @@ WebDAVClient.prototype.put = function(url, data, opt_headers, onSuccess, onError
 WebDAVClient.prototype.delete = function(url, opt_headers, onSuccess, onError) {
   var verb = 'DELETE';
   var headers = opt_headers || {};
+  var data = null;
   var responseType = 'document';
 
   this.request(verb, url, headers, data, responseType, onSuccess, onError);
@@ -182,6 +183,10 @@ WebDAVClient.prototype.propertyFind = function(url, onSuccess, onError, depth) {
  */
 WebDAVClient.prototype.request = function(verb, url, headers, data, responseType,
   onSuccess, onError) {
+    if (typeof onSuccess !== 'function') {
+      console.log(onSuccess);
+    }
+
     var xhr = new XMLHttpRequest();
 
     var processBody = function() {

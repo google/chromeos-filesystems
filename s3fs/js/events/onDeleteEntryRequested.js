@@ -15,17 +15,14 @@
  *     attempting to delete the entry.
  */
 module.exports = function(options, onSuccess, onError) {
-  if (!(options.openRequestId in s3fs.openedFiles)) {
-    onError('INVALID_OPERATION');
-    return;
-  }
-
   // Strip the leading slash, since not used internally.
-  var path = s3fs.openedFiles[options.openRequestId].substring(1);
+  var path = options.entryPath.substring(1);
 
   var parameters = s3fs.parameters({
     Key: path,
   });
+
+  // TOOD(lavelle): handle the directory/recursive case here.
 
   s3fs.s3.deleteObject(parameters, function(error, data) {
     if (error) {
