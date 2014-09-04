@@ -17,7 +17,7 @@ var util = require('../util');
  * @param {function} onError Function to be called if an error occured while
  *     attempting to fetch the metadata.
  */
-module.exports = function(options, onSuccess, onError) {
+var onGetMetadataRequested = function(options, onSuccess, onError) {
   // Remove the leading slash from the path -- this isn't used in S3 keys.
   var path = options.entryPath.substring(1);
 
@@ -69,3 +69,5 @@ module.exports = function(options, onSuccess, onError) {
     });
   });
 };
+
+module.exports = onGetMetadataRequested;

@@ -14,7 +14,7 @@
  * @param {function} onError Function to be called if an error occured while
  *     attempting to read the file.
  */
-module.exports = function(options, onSuccess, onError) {
+var onReadFileRequested = function(options, onSuccess, onError) {
   if (!(options.openRequestId in s3fs.openedFiles)) {
     onError('INVALID_OPERATION');
     return;
@@ -41,3 +41,5 @@ module.exports = function(options, onSuccess, onError) {
     }
   });
 };
+
+module.exports = onReadFileRequested;
