@@ -8,6 +8,7 @@
 
 var onReadFileRequested = require('../../js/events/onReadFileRequested');
 var onWriteFileRequested = require('../../js/events/onWriteFileRequested');
+var onCreateFileRequested = require('../../js/events/onCreateFileRequested');
 var onOpenFileRequested = require('../../js/events/onOpenFileRequested');
 var onCloseFileRequested = require('../../js/events/onCloseFileRequested');
 var onGetMetadataRequested = require('../../js/events/onGetMetadataRequested');
@@ -35,3 +36,6 @@ testSuite(onWriteFileRequested, onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onDeleteEntryRequested');
 testSuite(onDeleteEntryRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onCreateFileRequested');
+testSuite(onCreateFileRequested, onGetMetadataRequested);
