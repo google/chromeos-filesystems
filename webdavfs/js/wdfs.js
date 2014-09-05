@@ -115,6 +115,21 @@ WebDAVFS.prototype.getMetadata = function(options) {
 };
 
 /**
+ * Copies the file or directory at the source path to the target path.
+ * @param {Object} options Input options.
+ *     @param {string} sourcePath Path to the file to copy.
+ *     @param {string} targetPath Path to the file new file to copy to.
+ *     @param {function} onSuccess Function to be called if the request
+ *         succeeds.
+ *     @param {function} onError Function to be called with the error if
+ *         the request fails.
+ */
+WebDAVFS.prototype.copyEntry = function(options) {
+  client.copy(this.url + options.sourcePath, this.url + options.targetPath,
+    options.onSuccess, options.onError);
+};
+
+/**
  * Returns all files and folders that are immediate children of the specified
  *  directory.
  * @param {Object} options Input options.
