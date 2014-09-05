@@ -160,7 +160,8 @@ WebDAVClient.prototype.delete = function(url, opt_headers, onSuccess, onError) {
 WebDAVClient.prototype.copy = function(source, target, onSuccess, onError) {
     var verb = 'COPY';
     var headers = {
-      Destination: target
+      Destination: target,
+      Overwrite: 'F'
     };
     var data = null;
     var responseType = 'document';
@@ -230,7 +231,7 @@ WebDAVClient.prototype.request = function(verb, url, headers, data, responseType
       // Return an error for a non-2XX failure status code.
       if (xhr.status < 200 || xhr.status >= 300) {
         if (verb === 'COPY') {
-          console.log(xhr.status, xhr.message);
+          console.log(xhr.status, xhr.statusText);
         }
         onError('FAILED');
         return;
