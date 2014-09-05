@@ -43,7 +43,7 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
       onSuccess(metadata, false);
     },
     onError: function() {
-      onError('FAILED');
+      onError('NOT_FOUND');
     }
   });
 };
@@ -183,6 +183,34 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
 };
 
 /**
+ * Responds to a request to delete a file or directory.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the file was
+ *     read successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to read the file.
+ */
+var onDeleteEntryRequested = function(options, onSuccess, onError) {
+  var path = options.entryPath.substring(1);
+
+  if (!path) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
+  webDAVFS.deleteEntry({
+    path: path,
+    onSuccess: function() {
+      onSuccess();
+    },
+    onError: function(error) {
+      console.log(error);
+      onError('NOT_FOUND');
+    }
+  });
+};
+
+/**
  * Responds to a request to unmount the file system.
  * @param {Object} inputOptions Input options.
  * @param {Function} onSuccess Function to be called if the file system was
@@ -204,6 +232,7 @@ module.exports = {
   onReadFileRequested: onReadFileRequested,
   onCreateFileRequested: onCreateFileRequested,
   onWriteFileRequested: onWriteFileRequested,
+  onDeleteEntryRequested: onDeleteEntryRequested,
   onGetMetadataRequested: onGetMetadataRequested,
   onReadDirectoryRequested: onReadDirectoryRequested,
   onUnmountRequested: onUnmountRequested
