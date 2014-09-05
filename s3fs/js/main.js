@@ -29,11 +29,10 @@ var keys = ['bucket', 'region', 'access', 'secret'];
  *     the bucket.
  * @param {string} secret The AWS secret key for the user who is accessing
  *     the bucket.
- * @param {Object=} callbacks
- *     @param {function} onSuccess The function to be called when the bucket is
- *         mounted successfully.
- *     @param {function} onError The function to be called if the bucket fails
- *         to mount.
+ * @param {function=} callbacks.onSuccess The function to be called when the
+ *     bucket is mounted successfully.
+ * @param {function=} callbacks.onError The function to be called if the bucket
+ *     fails to mount.
  */
 var mount = function(bucket, region, access, secret, opt_callbacks) {
   window.s3fs = new S3FS(bucket, region, access, secret);
