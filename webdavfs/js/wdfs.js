@@ -12,7 +12,7 @@ var client = new WebDAVClient();
 
 /**
  * Class to encapsulate data relating to the WebDAV file system.
- * @constructs
+ * @class
  * @param {string} url The URL of the WebDAV server to which the client will
  *     connect.
  */
