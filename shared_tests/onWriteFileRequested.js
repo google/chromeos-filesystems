@@ -11,7 +11,7 @@ var util = require('../shared/util');
 module.exports = function(onWriteFileRequested, onReadFileRequested,
   onOpenFileRequested) {
     describe('onWriteFileRequested', function() {
-      it('should write the correct data to a file', function(done) {
+      it('should write the correct data to a new file', function(done) {
         var id = 987;
 
         var openOptions = {
@@ -49,5 +49,44 @@ module.exports = function(onWriteFileRequested, onReadFileRequested,
           }, onError);
         }, onError);
       });
+    });
+
+    it('should overwrite the correct data to an exisiting file', function(done) {
+      var id = 1024;
+
+      var openOptions = {
+        filePath: '/3.txt',
+        mode: 'WRITE',
+        create: false,
+        requestId: id
+      };
+
+      var readOptions = {
+        length: 512,
+        offset: 0,
+        openRequestId: id
+      };
+
+      var testString = 'OVERWRITTEN';
+
+      var writeOptions = {
+        openRequestId: id,
+        data: util.stringToArrayBuffer(testString),
+        offset: 0,
+        length: 512
+      };
+
+      var onError = function(error) {
+        throw new Error(error);
+      };
+
+      onOpenFileRequested(openOptions, function() {
+        onWriteFileRequested(writeOptions, function() {
+          onReadFileRequested(readOptions, function(data) {
+            util.arrayBufferToString(data).should.equal(testString);
+            done();
+          }, onError);
+        }, onError);
+      }, onError);
     });
 };

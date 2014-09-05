@@ -8,7 +8,7 @@
 
 module.exports = function(onCreateFileRequested, onGetMetadataRequested) {
   describe('onCreateFileRequested', function() {
-    it('should ', function(done) {
+    it('should create a new file', function(done) {
       var filename = 'new_create.txt';
 
       var statOptions = {
