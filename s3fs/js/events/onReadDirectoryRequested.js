@@ -16,7 +16,7 @@ var util = require ('../util');
  * @param {function} onError Function to be called if an error occured while
  *     attempting to read the directory.
  */
-module.exports = function(options, onSuccess, onError) {
+var onReadDirectoryRequested = function(options, onSuccess, onError) {
   // Remove the leading slash from the file path - not used in S3 bucket keys.
   var path = options.directoryPath.substring(1);
 
@@ -55,3 +55,5 @@ module.exports = function(options, onSuccess, onError) {
     onSuccess(list, false);
   });
 };
+
+module.exports = onReadDirectoryRequested;

@@ -14,7 +14,7 @@
  * @param {function} onError Function to be called if an error occured while
  *      attempting to open the file.
  */
-module.exports = function(options, onSuccess, onError) {
+var onOpenFileRequested = function(options, onSuccess, onError) {
   if (options.mode !== 'READ' || options.create) {
     onError('INVALID_OPERATION');
   } else {
@@ -22,3 +22,5 @@ module.exports = function(options, onSuccess, onError) {
     onSuccess();
   }
 };
+
+module.exports = onOpenFileRequested;

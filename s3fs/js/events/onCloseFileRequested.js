@@ -15,7 +15,8 @@
  * @param {function} onError Function to be called if an error occured while
  *     attempting to fetch the metadata.
  */
-module.exports = function(options, onSuccess, onError) {
+
+var onCloseFileRequested = function(options, onSuccess, onError) {
   if (!s3fs.openedFiles[options.openRequestId]) {
     onError('INVALID_OPERATION');
   } else {
@@ -23,3 +24,5 @@ module.exports = function(options, onSuccess, onError) {
     onSuccess();
   }
 };
+
+module.exports = onCloseFileRequested;

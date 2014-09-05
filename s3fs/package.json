@@ -9,6 +9,7 @@
     "grunt": "^0.4.5",
     "grunt-browserify": "^2.1.3",
     "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsdoc": "^0.5.7",
     "grunt-karma": "^0.8.3",
     "grunt-vulcanize": "^0.4.1",
     "karma": "^0.12.23",
@@ -22,6 +23,7 @@
   "author": "Giles Lavelle <lavelle@chromium.org>",
   "license": "BSD",
   "dependencies": {
+    "grunt-contrib-connect": "^0.8.0",
     "karma-mocha": "^0.1.9",
     "mocha": "^1.21.4"
   }
