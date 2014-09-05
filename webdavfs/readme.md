@@ -21,3 +21,7 @@ This will install all the dependencies and build the project. You can then run `
 ## Testing
 
 To run the unit test suite, run `grunt test`. Make sure you've followed all the setup instructions in the top-level readme first.
+
+## Documentation
+
+To generate HTML documentation for the provider from the JSDoc source code annotations, run `grunt docs`. The documentation will be generated to the `docs` directory. To view it, run `grunt connect:docs &` and navigate to `http://localhost:4000`.
