@@ -133,14 +133,24 @@ module.exports = function(grunt) {
           keepalive: true
         }
       },
-      webdriver: {
+      sauce: {
         options: {
           port: 3456,
-          keepalive: true,
+          keepalive: false,
           base: 'extension'
         }
       }
-    }
+    },
+
+    simplemocha: {
+      sauce: {
+        options: {
+          timeout: 60000,
+          reporter: 'spec'
+        },
+        src: ['test/functional/*.js']
+      }
+    },
   });
 
   // Load all the plugins needed to run the tasks.
@@ -160,6 +170,8 @@ module.exports = function(grunt) {
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
 
   grunt.registerTask('docs', ['jsdoc']);
+
+  grunt.registerTask('sauce', ['connect:sauce', 'simplemocha:sauce']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };

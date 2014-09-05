@@ -6,20 +6,24 @@
   "version": "0.0.1",
   "main": "js/main.js",
   "devDependencies": {
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "colors": "latest",
     "grunt": "^0.4.5",
     "grunt-browserify": "^2.1.3",
     "grunt-contrib-connect": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-jsdoc": "^0.5.7",
     "grunt-karma": "^0.8.3",
+    "grunt-simple-mocha": "^0.4.0",
     "grunt-vulcanize": "^0.4.1",
     "karma": "^0.12.23",
     "karma-chai": "^0.1.0",
     "karma-firefox-launcher": "^0.1.3",
     "load-grunt-tasks": "^0.6.0",
-    "grunt-contrib-connect": "^0.8.0",
     "karma-mocha": "^0.1.9",
-    "mocha": "^1.21.4"
+    "mocha": "^1.21.4",
+    "wd": "latest"
   },
   "scripts": {
     "test": "grunt test"
