@@ -7,14 +7,14 @@
 'use strict';
 
 /**
- * Responds to a request for the contents of a file.
+ * Responds to a request to write some data to a file.
  * @param {Object} options Input options.
  * @param {function} onSuccess Function to be called if the file was
  *     read successfully.
  * @param {function} onError Function to be called if an error occured while
  *     attempting to read the file.
  */
-module.exports = function(options, onSuccess, onError) {
+var onWriteFileRequested = function(options, onSuccess, onError) {
   if (!(options.openRequestId in s3fs.openedFiles)) {
     onError('INVALID_OPERATION');
     return;
@@ -35,7 +35,7 @@ module.exports = function(options, onSuccess, onError) {
     ContentLength: body.byteLength
   });
 
-  s3fs.s3.putObject(parameters, function(error, data) {
+  s3fs.s3.putObject(parameters, function(error) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
       onError('FAILED');
@@ -44,3 +44,5 @@ module.exports = function(options, onSuccess, onError) {
     }
   });
 };
+
+module.exports = onWriteFileRequested;
