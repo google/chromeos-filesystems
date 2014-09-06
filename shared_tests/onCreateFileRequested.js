@@ -6,6 +6,8 @@
 
 'use strict';
 
+var util = require('../shared/util');
+
 module.exports = function(onCreateFileRequested, onGetMetadataRequested) {
   describe('onCreateFileRequested', function() {
     it('should create a new file', function(done) {
@@ -28,13 +30,14 @@ module.exports = function(onCreateFileRequested, onGetMetadataRequested) {
         done();
       };
 
-      onGetMetadataRequested(statOptions, function() {
-        throw new Error('File should not exist before creating.');
-      }, function() {
-        onCreateFileRequested(createOptions, function() {
-          onGetMetadataRequested(statOptions, postCreateSuccess, onError);
-        }, onError);
-      });
+      (new Promise(onGetMetadataRequested.bind(null, statOptions)))
+          .then(function() {
+            throw new Error('File should not exist before creating.');
+          })
+          .catch(util.createPromise(onCreateFileRequested, createOptions))
+          .then(util.createPromise(onGetMetadataRequested, statOptions))
+          .then(postCreateSuccess)
+          .catch(onError);
     });
   });
 };

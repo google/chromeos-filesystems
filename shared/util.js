@@ -30,9 +30,14 @@ var isRequestValid = function(options) {
   return true;
 };
 
+var createPromise = function(func, param) {
+  return function() { return new Promise(func.bind(null, param)); }
+}
+
 module.exports = {
   arrayBufferToString: arrayBufferToString,
   stringToArrayBuffer: stringToArrayBuffer,
   blobToArrayBuffer: blobToArrayBuffer,
-  isRequestValid: isRequestValid
+  isRequestValid: isRequestValid,
+  createPromise: createPromise
 };

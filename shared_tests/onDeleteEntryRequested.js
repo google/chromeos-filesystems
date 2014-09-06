@@ -6,6 +6,8 @@
 
 'use strict';
 
+var util = require('../shared/util');
+
 module.exports = function(onDeleteEntryRequested, onGetMetadataRequested) {
   describe('onDeleteEntryRequested', function() {
     it('should remove an existing file', function(done) {
@@ -32,12 +34,11 @@ module.exports = function(onDeleteEntryRequested, onGetMetadataRequested) {
         done();
       };
 
-      onGetMetadataRequested(statOptions, function() {
-        onDeleteEntryRequested(deleteOptions, function() {
-          onGetMetadataRequested(statOptions, postDeleteSuccess,
-            postDeleteError);
-        }, onError);
-      }, onError);
+      (new Promise(onGetMetadataRequested.bind(null, statOptions)))
+          .then(util.createPromise(onDeleteEntryRequested, deleteOptions))
+          .catch(onError)
+          .then(util.createPromise(onGetMetadataRequested, statOptions))
+          .then(postDeleteSuccess, postDeleteError)
     });
   });
 };

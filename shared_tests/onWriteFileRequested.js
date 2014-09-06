@@ -40,14 +40,14 @@ module.exports = function(onWriteFileRequested, onReadFileRequested,
           throw new Error(error);
         };
 
-        onOpenFileRequested(openOptions, function() {
-          onWriteFileRequested(writeOptions, function() {
-            onReadFileRequested(readOptions, function(data) {
+        (new Promise(onOpenFileRequested.bind(null, openOptions)))
+            .then(util.createPromise(onWriteFileRequested, writeOptions))
+            .then(util.createPromise(onReadFileRequested, readOptions))
+            .then(function(data) {
               util.arrayBufferToString(data).should.equal(testString);
               done();
-            }, onError);
-          }, onError);
-        }, onError);
+            })
+            .catch(onError);
       });
     });
 
@@ -80,13 +80,13 @@ module.exports = function(onWriteFileRequested, onReadFileRequested,
         throw new Error(error);
       };
 
-      onOpenFileRequested(openOptions, function() {
-        onWriteFileRequested(writeOptions, function() {
-          onReadFileRequested(readOptions, function(data) {
+      (new Promise(onOpenFileRequested.bind(null, openOptions)))
+          .then(util.createPromise(onWriteFileRequested, writeOptions))
+          .then(util.createPromise(onReadFileRequested, readOptions))
+          .then(function(data) {
             util.arrayBufferToString(data).should.equal(testString);
             done();
-          }, onError);
-        }, onError);
-      }, onError);
+          })
+          .catch(onError);
     });
 };
