@@ -37,7 +37,7 @@ var URL = SCHEME + '://' + HOST + ':' + PORT + '/';
  * @type {string}
  * @constant
  */
-var ASSETS_DIRECTORY = '/assets';
+var ASSETS_DIRECTORY = '/liveassets';
 
 module.exports = {
   SCHEME: SCHEME,

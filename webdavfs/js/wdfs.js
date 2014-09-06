@@ -59,6 +59,40 @@ WebDAVFS.prototype.readFile = function(options) {
 };
 
 /**
+ * Writes the given ArrayBuffer to the file at the given path.
+ * @param {Object} options Input options.
+ *     @param {string} path Path to the file to write, relative to the server
+ *         root.
+ *     @param {ArrayBuffer} data The data to write.
+ *     @param {function} onSuccess Function to be called if the request succeeds.
+ *     @param {function} onError Function to be called with the error if
+ *         the request fails.
+ */
+WebDAVFS.prototype.writeFile = function(options) {
+  var url = this.url + options.path;
+  var headers = null;
+
+  client.put(url, options.data, headers, options.onSuccess, options.onError);
+};
+
+/**
+ * Deletes the file or directory at the given path.
+ * @param {Object} options Input options.
+ *     @param {string} path Path to the entry to delete, relative to the server
+ *         root.
+ *     @param {function} onSuccess Function to be called if the request succeeds.
+ *     @param {function} onError Function to be called with the error if
+ *         the request fails.
+ */
+WebDAVFS.prototype.deleteEntry = function(options) {
+  var url = this.url + options.path;
+  var headers = null;
+
+  client.delete(url, headers, options.onSuccess, options.onError);
+};
+
+
+/**
  * Returns the metadata of the specified file or directory.
  * @param {Object} options Input options.
  *     @param {string} path Path to the file to retrieve the metadata for,

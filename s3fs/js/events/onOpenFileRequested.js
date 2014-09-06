@@ -6,6 +6,8 @@
 
 'use strict';
 
+var util = require('../../../shared/util');
+
 /**
  * Responds to a request to open a file.
  * @param {Object} options Input options.
@@ -15,9 +17,13 @@
  *      attempting to open the file.
  */
 var onOpenFileRequested = function(options, onSuccess, onError) {
-  if (options.mode !== 'READ' || options.create) {
+  if (!util.isRequestValid(options)) {
     onError('INVALID_OPERATION');
   } else {
+    if (options.create) {
+      // TODO(lavelle): create file here.
+    }
+
     s3fs.openedFiles[options.requestId] = options.filePath;
     onSuccess();
   }

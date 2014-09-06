@@ -8,17 +8,6 @@
 
 'use strict';
 
-var arrayBufferToString = function(buffer) {
-  var bufferView = new Uint8Array(buffer);
-  var characterCodes = [];
-
-  for (var i = 0; i < bufferView.length; i++) {
-    characterCodes.push(bufferView[i]);
-  }
-
-  return String.fromCharCode.apply(null, characterCodes);
-};
-
 module.exports = function(onReadFileRequested, onOpenFileRequested) {
   describe('onReadFileRequested', function() {
     it('should fail for files that have not been opened yet', function(done) {

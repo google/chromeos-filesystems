@@ -12,9 +12,7 @@ window.webDAVFS = new WebDAVFS(config.URL);
 
 // Convenience method to convert ArrayBuffer responses to strings for more
 // readable assertions.
-window.arrayBufferToString = function(buffer) {
-  return new TextDecoder('utf-8').decode(new DataView(buffer));
-};
+window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
 
 // Mock the parts of the Chrome API needed to test.
 window.chrome = {

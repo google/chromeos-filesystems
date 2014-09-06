@@ -143,7 +143,6 @@ S3.prototype.getObject = function(parameters, callback) {
   wdfs.readFile(args);
 };
 
-
 /**
  * Implements the S3 headObject method in terms of WebDAVFS's getMetadata.
  * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#headObject-property
@@ -171,6 +170,47 @@ S3.prototype.headObject = function(parameters, callback) {
     onError: function(error) {
       var data = null;
       callback(error, data);
+    }
+  });
+};
+
+/**
+ * Implements the S3 putObject method in terms of WebDAVFS's writeFile.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.putObject = function(parameters, callback) {
+  wdfs.writeFile({
+    path: '/' + parameters.Key,
+    data: parameters.Body,
+    onSuccess: function() {
+      callback(null, {});
+    },
+    onError: function(error) {
+      callback(error, null);
+    }
+  });
+};
+
+/**
+ * Implements the S3 deleteObject method in terms of WebDAVFS's deleteEntry.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObject-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.deleteObject = function(parameters, callback) {
+  wdfs.deleteEntry({
+    path: '/' + parameters.Key,
+    onSuccess: function() {
+      callback(null, {});
+    },
+    onError: function(error) {
+      callback(error, null);
     }
   });
 };

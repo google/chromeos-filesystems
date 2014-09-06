@@ -6,6 +6,8 @@
 
 'use strict';
 
+var util = require('../../shared/util');
+
 /**
  * Responds to a request to close a file.
  * @param {object} options Input options.
@@ -41,7 +43,7 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
       onSuccess(metadata, false);
     },
     onError: function() {
-      onError('FAILED');
+      onError('NOT_FOUND');
     }
   });
 };
@@ -55,10 +57,14 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
  *     attempting to open the file.
  */
 var onOpenFileRequested = function(options, onSuccess, onError) {
-  if (options.mode !== 'READ' || options.create) {
+  if (!util.isRequestValid(options)) {
     onError('INVALID_OPERATION');
   }
   else {
+    if (options.create) {
+      // TODO(lavelle): create file here.
+    }
+
     webDAVFS.openedFiles[options.requestId] = options.filePath;
     onSuccess();
   }
@@ -118,6 +124,93 @@ var onReadFileRequested = function(options, onSuccess, onError) {
 };
 
 /**
+ * Responds to a request to write some data to a file.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the file was
+ *     read successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to read the file.
+ */
+var onWriteFileRequested = function(options, onSuccess, onError) {
+  var path = webDAVFS.openedFiles[options.openRequestId];
+
+  if (!path) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
+  var end = options.offset + options.length - 1;
+  var body = options.data.slice(options.offset, end);
+
+  webDAVFS.writeFile({
+    path: path,
+    data: body,
+    onSuccess: function() {
+      onSuccess();
+    },
+    onError: function() {
+      onError('FAILED');
+    }
+  });
+};
+
+/**
+ * Responds to a request to create a new file.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the file was
+ *     read successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to read the file.
+ */
+var onCreateFileRequested = function(options, onSuccess, onError) {
+  var path = options.filePath.substring(1);
+
+  if (!path) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
+  webDAVFS.writeFile({
+    path: path,
+    data: new ArrayBuffer(),
+    onSuccess: function() {
+      onSuccess();
+    },
+    onError: function() {
+      onError('FAILED');
+    }
+  });
+};
+
+/**
+ * Responds to a request to delete a file or directory.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the file was
+ *     read successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to read the file.
+ */
+var onDeleteEntryRequested = function(options, onSuccess, onError) {
+  var path = options.entryPath.substring(1);
+
+  if (!path) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
+  webDAVFS.deleteEntry({
+    path: path,
+    onSuccess: function() {
+      onSuccess();
+    },
+    onError: function(error) {
+      console.log(error);
+      onError('NOT_FOUND');
+    }
+  });
+};
+
+/**
  * Responds to a request to unmount the file system.
  * @param {Object} inputOptions Input options.
  * @param {Function} onSuccess Function to be called if the file system was
@@ -137,6 +230,9 @@ module.exports = {
   onCloseFileRequested: onCloseFileRequested,
   onOpenFileRequested: onOpenFileRequested,
   onReadFileRequested: onReadFileRequested,
+  onCreateFileRequested: onCreateFileRequested,
+  onWriteFileRequested: onWriteFileRequested,
+  onDeleteEntryRequested: onDeleteEntryRequested,
   onGetMetadataRequested: onGetMetadataRequested,
   onReadDirectoryRequested: onReadDirectoryRequested,
   onUnmountRequested: onUnmountRequested
