@@ -15,7 +15,7 @@ if (!Number.isNaN) {
 /**
  * Class containing methods for communicating with a WebDAV server over XHR
  * and manipulating the responses.
- * @constructs
+ * @class
  */
 var WebDAVClient = function() {};
 

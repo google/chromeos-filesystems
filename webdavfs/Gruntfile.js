@@ -102,6 +102,26 @@ module.exports = function(grunt) {
           'extension/build.html': 'ui/auth.html'
         }
       }
+    },
+
+    jsdoc : {
+      dist : {
+        src: ['js/**/*.js'],
+        options: {
+          destination: 'docs',
+          recurse: true
+        }
+      }
+    },
+
+    connect: {
+      docs: {
+        options: {
+          base: 'docs',
+          port: 4000,
+          keepalive: true
+        }
+      }
     }
   });
 
@@ -112,6 +132,7 @@ module.exports = function(grunt) {
   grunt.registerTask('src', ['jshint:src', 'browserify:src']);
   grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
+  grunt.registerTask('docs', ['jsdoc']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };
