@@ -57,4 +57,52 @@ module.exports = function(onTruncateFileRequested, onReadFileRequested,
           }, onError);
       });
     });
+
+    describe('onTruncateFileRequested', function() {
+      it('should truncate the contents of a file to length zero correctly',
+        function(done) {
+          var id = 998;
+          var file = '/2.txt';
+
+          var openOptions = {
+            filePath: file,
+            mode: 'WRITE',
+            create: false,
+            requestId: id
+          };
+
+          var readOptions = {
+            length: 512,
+            offset: 0,
+            openRequestId: id
+          };
+
+          var truncateOptions = {
+            filePath: file,
+            length: 0
+          };
+
+          var onError = function(error) {
+            throw new Error(error);
+          };
+
+          onOpenFileRequested(openOptions, function() {
+            onReadFileRequested(readOptions, function(data) {
+              var before = util.arrayBufferToString(data);
+              before.should.have.length(1);
+              before.should.equal('2');
+
+              onTruncateFileRequested(truncateOptions, function() {
+                onReadFileRequested(readOptions, function(data) {
+                  var after = util.arrayBufferToString(data);
+                  after.should.have.length(0);
+                  after.should.equal('');
+
+                  done();
+                }, onError);
+              }, onError);
+            }, onError);
+          }, onError);
+      });
+    });
 };
