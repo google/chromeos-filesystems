@@ -155,6 +155,43 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
 };
 
 /**
+ * Responds to a request to truncate the contents of a file.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the file was
+ *     truncated successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to truncate the file.
+ */
+var onTruncateFileRequested = function(options, onSuccess, onError) {
+  var path = options.filePath.substring(1);
+
+  if (!path) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
+  webDAVFS.readFile({
+    path: path,
+    onSuccess: function(data) {
+      var body = data.slice(0, options.length);
+      webDAVFS.writeFile({
+        path: path,
+        data: body,
+        onSuccess: function() {
+          onSuccess();
+        },
+        onError: function() {
+          onError('FAILED');
+        }
+      });
+    },
+    onError: function() {
+      onError('FAILED');
+    }
+  });
+};
+
+/**
  * Responds to a request to create a new file.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
@@ -232,6 +269,7 @@ module.exports = {
   onReadFileRequested: onReadFileRequested,
   onCreateFileRequested: onCreateFileRequested,
   onWriteFileRequested: onWriteFileRequested,
+  onTruncateFileRequested: onTruncateFileRequested,
   onDeleteEntryRequested: onDeleteEntryRequested,
   onGetMetadataRequested: onGetMetadataRequested,
   onReadDirectoryRequested: onReadDirectoryRequested,

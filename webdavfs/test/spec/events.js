@@ -14,6 +14,7 @@ var onCloseFileRequested = events.onCloseFileRequested;
 var onGetMetadataRequested = events.onGetMetadataRequested;
 var onReadDirectoryRequested = events.onReadDirectoryRequested;
 var onWriteFileRequested = events.onWriteFileRequested;
+var onTruncateFileRequested = events.onTruncateFileRequested;
 var onCreateFileRequested = events.onCreateFileRequested;
 var onDeleteEntryRequested = events.onDeleteEntryRequested;
 
@@ -42,3 +43,6 @@ testSuite(onDeleteEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onCreateFileRequested');
 testSuite(onCreateFileRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onTruncateFileRequested');
+testSuite(onTruncateFileRequested, onReadFileRequested, onOpenFileRequested);
