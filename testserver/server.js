@@ -17,10 +17,9 @@ var config = require('./config');
 
 var argv = process.argv.slice(2);
 
-console.log(argv);
-
 var flags = ['--debug', '-d'];
 
+// Enable debug mode if the command-line flag is set.
 if (argv.length > 0) {
   if (flags.indexOf(argv[0]) !== -1) {
     jsdav.debugMode = true;
