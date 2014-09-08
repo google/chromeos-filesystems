@@ -55,6 +55,6 @@ module.exports = function(onTruncateFileRequested, onReadFileRequested,
               }, onError);
             }, onError);
           }, onError);
-        });
       });
+    });
 };
