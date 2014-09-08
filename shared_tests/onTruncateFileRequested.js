@@ -11,49 +11,50 @@ var util = require('../shared/util');
 module.exports = function(onTruncateFileRequested, onReadFileRequested,
   onOpenFileRequested) {
     describe('onTruncateFileRequested', function() {
-      it('should truncate the contents of a file to the correct length', function(done) {
-        var id = 999;
-        var file = '/truncatable.txt';
+      it('should truncate the contents of a file to the correct length',
+        function(done) {
+          var id = 999;
+          var file = '/truncatable.txt';
 
-        var openOptions = {
-          filePath: file,
-          mode: 'WRITE',
-          create: false,
-          requestId: id
-        };
+          var openOptions = {
+            filePath: file,
+            mode: 'WRITE',
+            create: false,
+            requestId: id
+          };
 
-        var readOptions = {
-          length: 512,
-          offset: 0,
-          openRequestId: id
-        };
+          var readOptions = {
+            length: 512,
+            offset: 0,
+            openRequestId: id
+          };
 
-        var truncateOptions = {
-          filePath: file,
-          length: 10
-        };
+          var truncateOptions = {
+            filePath: file,
+            length: 10
+          };
 
-        var onError = function(error) {
-          throw new Error(error);
-        };
+          var onError = function(error) {
+            throw new Error(error);
+          };
 
-        onOpenFileRequested(openOptions, function() {
-          onReadFileRequested(readOptions, function(data) {
-            var before = util.arrayBufferToString(data);
-            before.should.have.length(26);
-            before.should.equal('abcdefghijklmnopqrstuvwxyz');
+          onOpenFileRequested(openOptions, function() {
+            onReadFileRequested(readOptions, function(data) {
+              var before = util.arrayBufferToString(data);
+              before.should.have.length(26);
+              before.should.equal('abcdefghijklmnopqrstuvwxyz');
 
-            onTruncateFileRequested(truncateOptions, function() {
-              onReadFileRequested(readOptions, function(data) {
-                var after = util.arrayBufferToString(data);
-                after.should.have.length(10);
-                after.should.equal('abcdefghij');
+              onTruncateFileRequested(truncateOptions, function() {
+                onReadFileRequested(readOptions, function(data) {
+                  var after = util.arrayBufferToString(data);
+                  after.should.have.length(10);
+                  after.should.equal('abcdefghij');
 
-                done();
+                  done();
+                }, onError);
               }, onError);
             }, onError);
           }, onError);
-        }, onError);
+        });
       });
-    });
 };
