@@ -14,6 +14,14 @@ var stringToArrayBuffer = function(string) {
   return new TextEncoder('utf-8').encode(string).buffer;
 };
 
+var blobToArrayBuffer = function(blob, callback) {
+  var reader = new FileReader();
+  reader.addEventListener('loadend', function() {
+    callback(reader.result);
+  });
+  reader.readAsArrayBuffer(blob);
+};
+
 var isRequestValid = function(options) {
   var validModes = ['READ', 'WRITE'];
 
@@ -25,5 +33,6 @@ var isRequestValid = function(options) {
 module.exports = {
   arrayBufferToString: arrayBufferToString,
   stringToArrayBuffer: stringToArrayBuffer,
+  blobToArrayBuffer: blobToArrayBuffer,
   isRequestValid: isRequestValid
 };

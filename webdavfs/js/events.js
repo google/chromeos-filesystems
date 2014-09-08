@@ -194,12 +194,7 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
         // Pad with null bytes.
         var diff = options.length - data.byteLength;
         var blob = new Blob([data, new Array(diff + 1).join('\0')]);
-
-        var reader = new FileReader();
-        reader.addEventListener('loadend', function() {
-          write(reader.result);
-        });
-        reader.readAsArrayBuffer(blob);
+        util.blobToArrayBuffer(blob, write);
       }
     },
     onError: function() {
