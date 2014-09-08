@@ -13,7 +13,7 @@ module.exports = function(onTruncateFileRequested, onReadFileRequested,
     describe('onTruncateFileRequested', function() {
       it('should truncate the contents of a file to the correct length', function(done) {
         var id = 999;
-        var file = '/big.txt';
+        var file = '/truncatable.txt';
 
         var openOptions = {
           filePath: file,
@@ -38,10 +38,19 @@ module.exports = function(onTruncateFileRequested, onReadFileRequested,
         };
 
         onOpenFileRequested(openOptions, function() {
-          onTruncateFileRequested(truncateOptions, function() {
-            onReadFileRequested(readOptions, function(data) {
-              util.arrayBufferToString(data).should.equal('1111111111');
-              done();
+          onReadFileRequested(readOptions, function(data) {
+            var before = util.arrayBufferToString(data);
+            before.should.have.length(26);
+            before.should.equal('abcdefghijklmnopqrstuvwxyz');
+
+            onTruncateFileRequested(truncateOptions, function() {
+              onReadFileRequested(readOptions, function(data) {
+                var after = util.arrayBufferToString(data);
+                after.should.have.length(10);
+                after.should.equal('abcdefghij');
+
+                done();
+              }, onError);
             }, onError);
           }, onError);
         }, onError);
