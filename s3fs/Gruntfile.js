@@ -154,5 +154,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('docs', ['jsdoc']);
 
+  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test', 'jshint:ui']);
+
   grunt.registerTask('default', ['src', 'ui']);
 };
