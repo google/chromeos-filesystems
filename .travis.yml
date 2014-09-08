@@ -9,8 +9,8 @@ before_install:
   - bower install
   - cd testserver
   - npm install
+  - make start &
   - cd ..
-  - node testserver/server.js &
   - sleep 5
 install:
   - cd $DIR

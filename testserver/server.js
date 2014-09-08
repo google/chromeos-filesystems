@@ -15,4 +15,16 @@
 var jsdav = require('jsDAV/lib/jsdav');
 var config = require('./config');
 
+var argv = process.argv.slice(2);
+
+console.log(argv);
+
+var flags = ['--debug', '-d'];
+
+if (argv.length > 0) {
+  if (flags.indexOf(argv[0]) !== -1) {
+    jsdav.debugMode = true;
+  }
+}
+
 jsdav.createServer({node: __dirname + config.ASSETS_DIRECTORY}, config.PORT);
