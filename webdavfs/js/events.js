@@ -170,20 +170,37 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
     return;
   }
 
+  var write = function(data) {
+    webDAVFS.writeFile({
+      path: path,
+      data: data,
+      onSuccess: function() {
+        onSuccess();
+      },
+      onError: function() {
+        onError('FAILED');
+      }
+    });
+  };
+
   webDAVFS.readFile({
     path: path,
     onSuccess: function(data) {
-      var body = data.slice(0, options.length);
-      webDAVFS.writeFile({
-        path: path,
-        data: body,
-        onSuccess: function() {
-          onSuccess();
-        },
-        onError: function() {
-          onError('FAILED');
-        }
-      });
+      var body;
+      if (options.length < data.byteLength) {
+        // Truncate.
+        write(data.slice(0, options.length));
+      } else {
+        // Pad with null bytes.
+        var diff = options.length - data.byteLength;
+        var blob = new Blob([data, new Array(diff + 1).join('\0')]);
+
+        var reader = new FileReader();
+        reader.addEventListener('loadend', function() {
+          write(reader.result);
+        });
+        reader.readAsArrayBuffer(blob);
+      }
     },
     onError: function() {
       onError('FAILED');

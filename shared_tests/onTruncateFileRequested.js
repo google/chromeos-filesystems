@@ -105,4 +105,52 @@ module.exports = function(onTruncateFileRequested, onReadFileRequested,
           }, onError);
       });
     });
+
+    describe('onTruncateFileRequested', function() {
+      it('should pad a file with null bytes when truncating with a length ' +
+        'longer than that of the original file', function(done) {
+          var id = 997;
+          var file = '/11.txt';
+
+          var openOptions = {
+            filePath: file,
+            mode: 'WRITE',
+            create: false,
+            requestId: id
+          };
+
+          var readOptions = {
+            length: 512,
+            offset: 0,
+            openRequestId: id
+          };
+
+          var truncateOptions = {
+            filePath: file,
+            length: 10
+          };
+
+          var onError = function(error) {
+            throw new Error(error);
+          };
+
+          onOpenFileRequested(openOptions, function() {
+            onReadFileRequested(readOptions, function(data) {
+              var before = util.arrayBufferToString(data);
+              before.should.have.length(2);
+              before.should.equal('11');
+
+              onTruncateFileRequested(truncateOptions, function() {
+                onReadFileRequested(readOptions, function(data) {
+                  var after = util.arrayBufferToString(data);
+                  after.should.have.length(10);
+                  after.should.equal('11\0\0\0\0\0\0\0\0');
+
+                  done();
+                }, onError);
+              }, onError);
+            }, onError);
+          }, onError);
+      });
+    });
 };
