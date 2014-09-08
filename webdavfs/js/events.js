@@ -127,9 +127,9 @@ var onReadFileRequested = function(options, onSuccess, onError) {
  * Responds to a request to write some data to a file.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
- *     read successfully.
+ *     written to successfully.
  * @param {Function} onError Function to be called if an error occured while
- *     attempting to read the file.
+ *     attempting to write to the file.
  */
 var onWriteFileRequested = function(options, onSuccess, onError) {
   var path = webDAVFS.openedFiles[options.openRequestId];
@@ -158,9 +158,9 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
  * Responds to a request to create a new file.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
- *     read successfully.
+ *     created successfully.
  * @param {Function} onError Function to be called if an error occured while
- *     attempting to read the file.
+ *     attempting to create the file.
  */
 var onCreateFileRequested = function(options, onSuccess, onError) {
   var path = options.filePath.substring(1);
@@ -186,9 +186,9 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
  * Responds to a request to delete a file or directory.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
- *     read successfully.
+ *     deleted successfully.
  * @param {Function} onError Function to be called if an error occured while
- *     attempting to read the file.
+ *     attempting to delete the file.
  */
 var onDeleteEntryRequested = function(options, onSuccess, onError) {
   var path = options.entryPath.substring(1);
