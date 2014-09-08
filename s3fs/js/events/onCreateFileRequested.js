@@ -14,7 +14,7 @@
  * @param {function} onError Function to be called if an error occured while
  *     attempting to create the file.
  */
-module.exports = function(options, onSuccess, onError) {
+var onCreateFileRequested = function(options, onSuccess, onError) {
   // Strip the leading slash, since not used internally.
   var path = options.filePath.substring(1);
 
@@ -27,7 +27,7 @@ module.exports = function(options, onSuccess, onError) {
   // TODO(lavelle): handle the case where it already exists here.
   // Do nothing, or report an error?
 
-  s3fs.s3.putObject(parameters, function(error, data) {
+  s3fs.s3.putObject(parameters, function(error) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
       onError('FAILED');
@@ -36,3 +36,5 @@ module.exports = function(options, onSuccess, onError) {
     }
   });
 };
+
+module.exports = onCreateFileRequested;

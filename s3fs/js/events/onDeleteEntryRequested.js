@@ -14,7 +14,7 @@
  * @param {function} onError Function to be called if an error occured while
  *     attempting to delete the entry.
  */
-module.exports = function(options, onSuccess, onError) {
+var onDeleteEntryRequested = function(options, onSuccess, onError) {
   // Strip the leading slash, since not used internally.
   var path = options.entryPath.substring(1);
 
@@ -24,7 +24,7 @@ module.exports = function(options, onSuccess, onError) {
 
   // TODO(lavelle): handle the directory/recursive case here.
 
-  s3fs.s3.deleteObject(parameters, function(error, data) {
+  s3fs.s3.deleteObject(parameters, function(error) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
       onError('FAILED');
@@ -33,3 +33,5 @@ module.exports = function(options, onSuccess, onError) {
     }
   });
 };
+
+module.exports = onDeleteEntryRequested;

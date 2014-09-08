@@ -13,6 +13,9 @@ var events = {
   onCloseFileRequested: require('./events/onCloseFileRequested'),
   onOpenFileRequested: require('./events/onOpenFileRequested'),
   onReadFileRequested: require('./events/onReadFileRequested'),
+  onWriteFileRequested: require('./events/onWriteFileRequested'),
+  onCreateFileRequested: require('./events/onCreateFileRequested'),
+  onDeleteEntryRequested: require('./events/onDeleteEntryRequested'),
   onGetMetadataRequested: require('./events/onGetMetadataRequested'),
   onReadDirectoryRequested: require('./events/onReadDirectoryRequested')
 };
