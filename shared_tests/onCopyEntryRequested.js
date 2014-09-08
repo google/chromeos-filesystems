@@ -9,8 +9,8 @@
 module.exports = function(onCopyEntryRequested, onGetMetadataRequested) {
   describe('onCopyEntryRequested', function() {
     it('should ', function(done) {
-      var source = '1.txt';
-      var target = '1_copied.txt';
+      var source = 'dir2/2.txt';
+      var target = '2_copied.txt';
 
       var statOptions = {
         entryPath: '/' + target
@@ -26,7 +26,7 @@ module.exports = function(onCopyEntryRequested, onGetMetadataRequested) {
       };
 
       var postCopySuccess = function(data) {
-        data.name.should.equal(filename);
+        data.name.should.equal(target);
         done();
       };
 
