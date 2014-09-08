@@ -17,7 +17,8 @@ var events = {
   onCreateFileRequested: require('./events/onCreateFileRequested'),
   onDeleteEntryRequested: require('./events/onDeleteEntryRequested'),
   onGetMetadataRequested: require('./events/onGetMetadataRequested'),
-  onReadDirectoryRequested: require('./events/onReadDirectoryRequested')
+  onReadDirectoryRequested: require('./events/onReadDirectoryRequested'),
+  onTruncateFileRequested: require('./events/onTruncateFileRequested')
 };
 
 var keys = ['bucket', 'region', 'access', 'secret'];
