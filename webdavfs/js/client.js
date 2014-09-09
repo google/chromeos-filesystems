@@ -205,10 +205,6 @@ WebDAVClient.prototype.propertyFind = function(url, onSuccess, onError, depth) {
  */
 WebDAVClient.prototype.request = function(verb, url, headers, data, responseType,
   onSuccess, onError) {
-    if (typeof onSuccess !== 'function') {
-      console.log(onSuccess);
-    }
-
     var xhr = new XMLHttpRequest();
 
     var processBody = function() {
@@ -230,9 +226,6 @@ WebDAVClient.prototype.request = function(verb, url, headers, data, responseType
 
       // Return an error for a non-2XX failure status code.
       if (xhr.status < 200 || xhr.status >= 300) {
-        if (verb === 'COPY') {
-          console.log(xhr.status, xhr.statusText);
-        }
         onError('FAILED');
         return;
       }
