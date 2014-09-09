@@ -133,6 +133,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
   grunt.registerTask('docs', ['jsdoc']);
+  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test', 'jshint:ui']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };

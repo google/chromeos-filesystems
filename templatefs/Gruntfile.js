@@ -137,5 +137,7 @@ module.exports = function(grunt) {
   // component assets into a single file.
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
 
+  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test', 'jshint:ui']);
+
   grunt.registerTask('default', ['src', 'ui']);
 };

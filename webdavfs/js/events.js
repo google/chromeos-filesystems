@@ -186,7 +186,6 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
   webDAVFS.readFile({
     path: path,
     onSuccess: function(data) {
-      var body;
       if (options.length < data.byteLength) {
         // Truncate.
         write(data.slice(0, options.length));
@@ -246,7 +245,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function(error) {
+    onError: function() {
       onError('NOT_FOUND');
     }
   });
@@ -273,7 +272,7 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function(error) {
+    onError: function() {
       onError('NOT_FOUND');
     }
   });

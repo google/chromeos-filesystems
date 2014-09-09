@@ -28,10 +28,9 @@ module.exports = function(options, onSuccess, onError) {
 
   // TODO(lavelle): handle the recursive/directory case.
 
-  s3fs.s3.copyObject(parameters, function(error, data) {
+  s3fs.s3.copyObject(parameters, function(error) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
-      console.log(error);
       onError('FAILED');
     } else {
       onSuccess();
