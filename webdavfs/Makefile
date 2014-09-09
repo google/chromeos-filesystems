@@ -1,4 +1,4 @@
-.PHONY: zip clean grunt test install
+.PHONY: zip clean grunt install
 
 # Name of this file system provider.
 NAME=webdavfs
@@ -14,12 +14,6 @@ zip: grunt
 # Builds the extension.
 grunt:
 	grunt
-
-# Runs the test suite.
-test:
-	cp -r ../testserver/assets ../testserver/liveassets
-	-grunt test
-	rm -rf ../testserver/liveassets
 
 # Removes any automatically generated files.
 clean:

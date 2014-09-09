@@ -1,4 +1,4 @@
-.PHONY: zip clean grunt test install
+.PHONY: zip clean grunt install
 
 NAME={{ name }}
 ZIP=$(NAME).zip
@@ -8,9 +8,6 @@ zip: grunt
 
 grunt:
 	grunt
-
-test:
-	grunt test
 
 clean:
 	rm -rf $(ZIP) extension/vendor extension/*.js test/build
