@@ -18,4 +18,5 @@ This will install all the dependencies and build the project. You can then run `
 
 ## Testing
 
-To run the unit test suite, run `grunt test`. Make sure you've followed all the setup instructions in the top-level readme first.
+To run the unit test suite, run `tools/test.sh {{ name }}` from the top-level directory. Make sure you've followed all the setup instructions in the top-level readme first.
+
