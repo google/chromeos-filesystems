@@ -8,7 +8,7 @@
 
 module.exports = function(onCopyEntryRequested, onGetMetadataRequested) {
   describe('onCopyEntryRequested', function() {
-    it('should ', function(done) {
+    it('should be able to copy files to locations that do not yet exist', function(done) {
       var source = 'dir2/2.txt';
       var target = '2_copied.txt';
 
