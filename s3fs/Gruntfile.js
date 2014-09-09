@@ -133,6 +133,14 @@ module.exports = function(grunt) {
           keepalive: true
         }
       }
+    },
+
+    copy: {
+      main: {
+        files: {
+          'extension/aws-sdk.js': '../third_party/aws-sdk/dist/aws-sdk.min.js'
+        }
+      }
     }
   });
 

@@ -14,7 +14,7 @@ before_install:
   - sleep 5
 install:
   - cd $DIR
-  - make install
+  - npm install
   - cd ..
 before_script:
   - export DISPLAY=:99.0

@@ -12,11 +12,11 @@ First clone and configure this repository as described in the main readme. Then 
 
 ```bash
 $ cd webdavfs
-$ make install
+$ npm install
 $ grunt
 ```
 
-This will install all the dependencies and build the project. You can then run `make zip` to bundle the extension up into a ZIP archive, or install the extension for testing as an unpacked extension by selecting the `extension` directory from Chrome's 'Load unpacked extension' dialog.
+This will install all the dependencies and build the project. You can then compress the `extension` directory to a ZIP archive, or install the extension for testing as an unpacked extension by selecting the `extension` directory from Chrome's 'Load unpacked extension' dialog.
 
 ## Testing
 
