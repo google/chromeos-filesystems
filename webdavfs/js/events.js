@@ -232,6 +232,27 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
 };
 
 /**
+ * Responds to a request to copy a file or directory to a new location.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the entry was
+ *     copied successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to copy the entry.
+ */
+var onCopyEntryRequested = function(options, onSuccess, onError) {
+  webDAVFS.copyEntry({
+    sourcePath: options.sourcePath.substring(1),
+    targetPath: options.targetPath.substring(1),
+    onSuccess: function() {
+      onSuccess();
+    },
+    onError: function(error) {
+      onError('NOT_FOUND');
+    }
+  });
+};
+
+/**
  * Responds to a request to delete a file or directory.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
@@ -253,7 +274,6 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
       onSuccess();
     },
     onError: function(error) {
-      console.log(error);
       onError('NOT_FOUND');
     }
   });
@@ -283,6 +303,7 @@ module.exports = {
   onWriteFileRequested: onWriteFileRequested,
   onTruncateFileRequested: onTruncateFileRequested,
   onDeleteEntryRequested: onDeleteEntryRequested,
+  onCopyEntryRequested: onCopyEntryRequested,
   onGetMetadataRequested: onGetMetadataRequested,
   onReadDirectoryRequested: onReadDirectoryRequested,
   onUnmountRequested: onUnmountRequested

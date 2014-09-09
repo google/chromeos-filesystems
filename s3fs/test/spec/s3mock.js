@@ -215,6 +215,27 @@ S3.prototype.deleteObject = function(parameters, callback) {
   });
 };
 
+/**
+ * Implements the S3 copyObject method in terms of WebDAVFS's copyEntry.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#copyObject-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.copyObject = function(parameters, callback) {
+  wdfs.copyEntry({
+    sourcePath: '/' + decodeURIComponent(parameters.CopySource).split('/').pop(),
+    targetPath: '/' + parameters.Key,
+    onSuccess: function() {
+      callback(null, {});
+    },
+    onError: function(error) {
+      callback(error, null);
+    }
+  });
+};
+
 AWS.S3 = S3;
 
 module.exports = AWS;
