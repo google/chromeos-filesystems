@@ -20,10 +20,8 @@ var argv = process.argv.slice(2);
 var flags = ['--debug', '-d'];
 
 // Enable debug mode if the command-line flag is set.
-if (argv.length > 0) {
-  if (flags.indexOf(argv[0]) !== -1) {
-    jsdav.debugMode = true;
-  }
+if (argv.length > 0 && flags.indexOf(argv[0]) !== -1) {
+  jsdav.debugMode = true;
 }
 
 jsdav.createServer({node: __dirname + config.ASSETS_DIRECTORY}, config.PORT);
