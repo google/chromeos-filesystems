@@ -40,10 +40,10 @@ module.exports = function(onMoveEntryRequested, onGetMetadataRequested) {
         onMoveEntryRequested(copyOptions, function() {
           onGetMetadataRequested(statTarget, function(data) {
             onGetMetadataRequested(statSource, function() {
-              postMoveSuccess(data);
-            }, function() {
               throw new Error('File should not be at source location after ' +
                 'moving.');
+            }, function() {
+              postMoveSuccess(data);
             })
           }, function() {
             throw new Error('File should be at target location after moving.');

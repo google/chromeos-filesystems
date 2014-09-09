@@ -252,6 +252,27 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
 };
 
 /**
+ * Responds to a request to move a file or directory to a new location.
+ * @param {Object} options Input options.
+ * @param {Function} onSuccess Function to be called if the entry was
+ *     copied successfully.
+ * @param {Function} onError Function to be called if an error occured while
+ *     attempting to copy the entry.
+ */
+var onMoveEntryRequested = function(options, onSuccess, onError) {
+  webDAVFS.moveEntry({
+    sourcePath: options.sourcePath.substring(1),
+    targetPath: options.targetPath.substring(1),
+    onSuccess: function() {
+      onSuccess();
+    },
+    onError: function(error) {
+      onError('NOT_FOUND');
+    }
+  });
+};
+
+/**
  * Responds to a request to delete a file or directory.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
@@ -303,6 +324,7 @@ module.exports = {
   onTruncateFileRequested: onTruncateFileRequested,
   onDeleteEntryRequested: onDeleteEntryRequested,
   onCopyEntryRequested: onCopyEntryRequested,
+  onMoveEntryRequested: onMoveEntryRequested,
   onGetMetadataRequested: onGetMetadataRequested,
   onReadDirectoryRequested: onReadDirectoryRequested,
   onUnmountRequested: onUnmountRequested

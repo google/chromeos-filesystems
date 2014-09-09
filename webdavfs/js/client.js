@@ -149,7 +149,7 @@ WebDAVClient.prototype.delete = function(url, opt_headers, onSuccess, onError) {
 };
 
 /**
- * Make a HTTP COPY request -- remove an entry from one location to another.
+ * Make a HTTP COPY request -- copy an entry from one location to another.
  * @param {string} url The URL of the server.
  * @param {string} target The path to copy the file to.
  * @param {Function} onSuccess Function to be called with the response data
@@ -169,6 +169,26 @@ WebDAVClient.prototype.copy = function(source, target, onSuccess, onError) {
     this.request(verb, source, headers, data, responseType, onSuccess, onError);
 };
 
+/**
+ * Make a HTTP MOVE request -- move an entry from one location to another.
+ * @param {string} url The URL of the server.
+ * @param {string} target The path to copy the file to.
+ * @param {Function} onSuccess Function to be called with the response data
+ *     from the request if it was successful.
+ * @param {Function} onError Function to be called with an error message
+ *     if the request failed.
+ */
+WebDAVClient.prototype.move = function(source, target, onSuccess, onError) {
+    var verb = 'MOVE';
+    var headers = {
+      Destination: target,
+      Overwrite: 'F'
+    };
+    var data = null;
+    var responseType = 'document';
+
+    this.request(verb, source, headers, data, responseType, onSuccess, onError);
+};
 
 /**
  * Make a HTTP PROPFIND request -- fetch the metadta for an entry from the
