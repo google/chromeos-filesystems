@@ -6,7 +6,7 @@
 
 'use strict';
 
-var util = require('./util');
+var util = require('../../shared/util');
 
 /**
  * Class that encapsulates metadata for the S3 filesystem and the bucket to
