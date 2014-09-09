@@ -6,6 +6,8 @@
 
 'use strict';
 
+var util = require('../../../shared/util');
+
 /**
  * Responds to a request to truncate the contents of a file.
  * @param {Object} options Input options.
@@ -28,21 +30,32 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
       onError('FAILED');
     } else {
       var buffer = data.Body.toArrayBuffer();
-      var truncated = buffer.slice(0, options.length);
 
-      var writeParameters = s3fs.parameters({
-        Key: path,
-        Body: truncated,
-        ContentLength: truncated.byteLength
-      });
+      var write = function(data) {
+        var writeParameters = s3fs.parameters({
+          Key: path,
+          Body: data,
+          ContentLength: data.byteLength
+        });
 
-      s3fs.s3.putObject(writeParameters, function(error, data) {
-        if (error) {
-          onError('FAILED');
-        } else {
-          onSuccess();
-        }
-      });
+        s3fs.s3.putObject(writeParameters, function(error, data) {
+          if (error) {
+            onError('FAILED');
+          } else {
+            onSuccess();
+          }
+        });
+      };
+
+      if (options.length < buffer.byteLength) {
+        // Truncate.
+        write(buffer.slice(0, options.length));
+      } else {
+        // Pad with null bytes.
+        var diff = options.length - buffer.byteLength;
+        var blob = new Blob([buffer, new Array(diff + 1).join('\0')]);
+        util.blobToArrayBuffer(blob, write);
+      }
     }
   });
 };
