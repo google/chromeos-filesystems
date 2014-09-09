@@ -1,4 +1,4 @@
-.PHONY: zip clean build grunt test install
+.PHONY: zip clean build grunt install
 
 NAME=s3fs
 ZIP=$(NAME).zip
@@ -11,11 +11,6 @@ zip: grunt
 
 grunt: libs
 	grunt
-
-test:
-	cp -r ../testserver/assets ../testserver/liveassets
-	-grunt test
-	rm -rf ../testserver/liveassets
 
 clean:
 	rm -rf $(ZIP) extension/vendor extension/*.js test/build docs
