@@ -48,3 +48,6 @@ testSuite(onTruncateFileRequested, onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onCopyEntryRequested');
 testSuite(onCopyEntryRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onMoveEntryRequested');
+testSuite(onMoveEntryRequested, onGetMetadataRequested);
