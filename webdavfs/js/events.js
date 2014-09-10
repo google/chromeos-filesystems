@@ -42,9 +42,7 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
     onSuccess: function(metadata) {
       onSuccess(metadata, false);
     },
-    onError: function() {
-      onError('NOT_FOUND');
-    }
+    onError: onError
   });
 };
 
@@ -86,9 +84,7 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
     onSuccess: function(list) {
       onSuccess(list, false);
     },
-    onError: function() {
-      onError('FAILED');
-    }
+    onError: onError
   });
 };
 
@@ -117,9 +113,7 @@ var onReadFileRequested = function(options, onSuccess, onError) {
     onSuccess: function(data) {
       onSuccess(data, false);
     },
-    onError: function() {
-      onError('FAILED');
-    }
+    onError: onError
   });
 };
 
@@ -148,9 +142,7 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function() {
-      onError('FAILED');
-    }
+    onError: onError
   });
 };
 
@@ -177,9 +169,7 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
       onSuccess: function() {
         onSuccess();
       },
-      onError: function() {
-        onError('FAILED');
-      }
+      onError: onError
     });
   };
 
@@ -196,9 +186,7 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
         util.blobToArrayBuffer(blob, write);
       }
     },
-    onError: function() {
-      onError('FAILED');
-    }
+    onError: onError
   });
 };
 
@@ -224,9 +212,7 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function() {
-      onError('FAILED');
-    }
+    onError: onError
   });
 };
 
@@ -245,9 +231,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function() {
-      onError('NOT_FOUND');
-    }
+    onError:  onError
   });
 };
 
@@ -266,9 +250,7 @@ var onMoveEntryRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function(error) {
-      onError('NOT_FOUND');
-    }
+    onError: onError
   });
 };
 
@@ -293,9 +275,7 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
     onSuccess: function() {
       onSuccess();
     },
-    onError: function() {
-      onError('NOT_FOUND');
-    }
+    onError: onError
   });
 };
 

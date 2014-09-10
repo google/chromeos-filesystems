@@ -6,6 +6,8 @@
 
 'use strict';
 
+var getError = require('./errors');
+
 if (!Number.isNaN) {
   Number.isNaN = function(obj) {
     return typeof obj === 'number' && obj !== +obj;
@@ -246,7 +248,7 @@ WebDAVClient.prototype.request = function(verb, url, headers, data, responseType
 
       // Return an error for a non-2XX failure status code.
       if (xhr.status < 200 || xhr.status >= 300) {
-        onError('FAILED');
+        onError(getError(xhr.status));
         return;
       }
 
