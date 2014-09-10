@@ -315,7 +315,7 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
           ContentLength: data.byteLength
         });
 
-        s3fs.s3.putObject(writeParameters, function(error, data) {
+        s3fs.s3.putObject(writeParameters, function(error) {
           if (error) {
             onError('FAILED');
           } else {
