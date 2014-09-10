@@ -13,15 +13,15 @@
  * @type {Object}
  */
 var ERROR_MAP = {
-  '201': 'OK',
-  '204': 'OK',
-  '403': 'INVALID_OPERATION',
-  '404': 'NOT_FOUND',
-  '409': 'FAILED',
-  '412': 'EXISTS',
-  '423': 'IN_USE',
-  '502': 'ACCESS_DENIED',
-  '507': 'NO_SPACE'
+  201: 'OK',
+  204: 'OK',
+  403: 'INVALID_OPERATION',
+  404: 'NOT_FOUND',
+  409: 'FAILED',
+  412: 'EXISTS',
+  423: 'IN_USE',
+  502: 'ACCESS_DENIED',
+  507: 'NO_SPACE'
 };
 
 /**
@@ -30,12 +30,7 @@ var ERROR_MAP = {
  * @return {string} The FSP error code.
  */
 var getError = function(code) {
-  code = '' + code;
-  if (code in ERROR_MAP) {
-    return ERROR_MAP[code];
-  } else {
-    return 'FAILED';
-  }
+  return ERROR_MAP[code] || 'FAILED';
 };
 
 module.exports = getError;
