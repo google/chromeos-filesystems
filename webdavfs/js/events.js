@@ -17,6 +17,11 @@ var util = require('../../shared/util');
  *     attempting to close the file.
  */
 var onCloseFileRequested = function(options, onSuccess, onError) {
+  if (!('openRequestId' in options)) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
   if (!webDAVFS.openedFiles[options.openRequestId]) {
     onError('INVALID_OPERATION');
   } else {
@@ -35,6 +40,11 @@ var onCloseFileRequested = function(options, onSuccess, onError) {
  *     attempting to fetch the metadata.
  */
 var onGetMetadataRequested = function(options, onSuccess, onError) {
+  if (!('entryPath' in options)) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
   var path = options.entryPath;
 
   webDAVFS.getMetadata({
@@ -77,10 +87,13 @@ var onOpenFileRequested = function(options, onSuccess, onError) {
  *     attempting to read the directory.
  */
 var onReadDirectoryRequested = function(options, onSuccess, onError) {
-  var path = options.directoryPath;
+  if (!('directoryPath' in options)) {
+    onError('INVALID_OPERATION');
+    return;
+  }
 
   webDAVFS.readDirectory({
-    path: path,
+    path: options.directoryPath,
     onSuccess: function(list) {
       onSuccess(list, false);
     },
@@ -89,7 +102,7 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
 };
 
 /**
- * Responds to a request for the contents of a file.
+ * Responds to a request to read the contents of a file.
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
  *     read successfully.
@@ -97,6 +110,11 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
  *     attempting to read the file.
  */
 var onReadFileRequested = function(options, onSuccess, onError) {
+  if (!('openRequestId' in options)) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
   var path = webDAVFS.openedFiles[options.openRequestId];
 
   if (!path) {
@@ -126,6 +144,11 @@ var onReadFileRequested = function(options, onSuccess, onError) {
  *     attempting to write to the file.
  */
 var onWriteFileRequested = function(options, onSuccess, onError) {
+  if (!('openRequestId' in options)) {
+    onError('INVALID_OPERATION');
+    return;
+  }
+
   var path = webDAVFS.openedFiles[options.openRequestId];
 
   if (!path) {
@@ -139,9 +162,7 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
   webDAVFS.writeFile({
     path: path,
     data: body,
-    onSuccess: function() {
-      onSuccess();
-    },
+    onSuccess: onSuccess,
     onError: onError
   });
 };
@@ -154,21 +175,20 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
  * @param {Function} onError Function to be called if an error occured while
  *     attempting to truncate the file.
  */
-var onTruncateRequested = function(options, onSuccess, onError) {
-  var path = options.filePath.substring(1);
 
-  if (!path) {
+var onTruncateRequested = function(options, onSuccess, onError) {
+    if (!('filePath' in options)) {
     onError('INVALID_OPERATION');
     return;
   }
+
+  var path = options.filePath.substring(1);
 
   var write = function(data) {
     webDAVFS.writeFile({
       path: path,
       data: data,
-      onSuccess: function() {
-        onSuccess();
-      },
+      onSuccess: onSuccess,
       onError: onError
     });
   };
@@ -199,19 +219,15 @@ var onTruncateRequested = function(options, onSuccess, onError) {
  *     attempting to create the file.
  */
 var onCreateFileRequested = function(options, onSuccess, onError) {
-  var path = options.filePath.substring(1);
-
-  if (!path) {
+  if (!('filePath' in options)) {
     onError('INVALID_OPERATION');
     return;
   }
 
   webDAVFS.writeFile({
-    path: path,
+    path: options.filePath.substring(1),
     data: new ArrayBuffer(),
-    onSuccess: function() {
-      onSuccess();
-    },
+    onSuccess: onSuccess,
     onError: onError
   });
 };
@@ -228,9 +244,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
   webDAVFS.copyEntry({
     sourcePath: options.sourcePath.substring(1),
     targetPath: options.targetPath.substring(1),
-    onSuccess: function() {
-      onSuccess();
-    },
+    onSuccess: onSuccess,
     onError:  onError
   });
 };
@@ -247,9 +261,7 @@ var onMoveEntryRequested = function(options, onSuccess, onError) {
   webDAVFS.moveEntry({
     sourcePath: options.sourcePath.substring(1),
     targetPath: options.targetPath.substring(1),
-    onSuccess: function() {
-      onSuccess();
-    },
+    onSuccess: onSuccess,
     onError: onError
   });
 };
@@ -263,19 +275,15 @@ var onMoveEntryRequested = function(options, onSuccess, onError) {
  *     attempting to delete the file.
  */
 var onDeleteEntryRequested = function(options, onSuccess, onError) {
-  var path = options.entryPath.substring(1);
-
-  if (!path) {
+  if (!('entryPath' in options)) {
     onError('INVALID_OPERATION');
     return;
   }
 
   webDAVFS.deleteEntry({
-    path: path,
-    onSuccess: function() {
-      onSuccess();
-    },
-    onError: onError
+    path: options.entryPath.substring(1),
+    onError: onError,
+    onSuccess: onSuccess
   });
 };
 
