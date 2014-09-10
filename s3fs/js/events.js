@@ -52,7 +52,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
   s3fs.s3.copyObject(parameters, function(error) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError('NOT_FOUND');
     } else {
       onSuccess();
     }
