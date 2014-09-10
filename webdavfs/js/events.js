@@ -17,7 +17,7 @@ var util = require('../../shared/util');
  *     attempting to close the file.
  */
 var onCloseFileRequested = function(options, onSuccess, onError) {
-  if (!('openRequestId' in options)) {
+  if (!options.openRequestId) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -40,7 +40,7 @@ var onCloseFileRequested = function(options, onSuccess, onError) {
  *     attempting to fetch the metadata.
  */
 var onGetMetadataRequested = function(options, onSuccess, onError) {
-  if (!('entryPath' in options)) {
+  if (!options.entryPath) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -87,7 +87,7 @@ var onOpenFileRequested = function(options, onSuccess, onError) {
  *     attempting to read the directory.
  */
 var onReadDirectoryRequested = function(options, onSuccess, onError) {
-  if (!('directoryPath' in options)) {
+  if (!options.directoryPath) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -110,7 +110,7 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
  *     attempting to read the file.
  */
 var onReadFileRequested = function(options, onSuccess, onError) {
-  if (!('openRequestId' in options)) {
+  if (!options.openRequestId) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -144,7 +144,7 @@ var onReadFileRequested = function(options, onSuccess, onError) {
  *     attempting to write to the file.
  */
 var onWriteFileRequested = function(options, onSuccess, onError) {
-  if (!('openRequestId' in options)) {
+  if (!options.openRequestId) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -177,7 +177,7 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
  */
 
 var onTruncateRequested = function(options, onSuccess, onError) {
-    if (!('filePath' in options)) {
+  if (!options.filePath) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -219,7 +219,7 @@ var onTruncateRequested = function(options, onSuccess, onError) {
  *     attempting to create the file.
  */
 var onCreateFileRequested = function(options, onSuccess, onError) {
-  if (!('filePath' in options)) {
+  if (!options.filePath) {
     onError('INVALID_OPERATION');
     return;
   }
@@ -275,7 +275,7 @@ var onMoveEntryRequested = function(options, onSuccess, onError) {
  *     attempting to delete the file.
  */
 var onDeleteEntryRequested = function(options, onSuccess, onError) {
-  if (!('entryPath' in options)) {
+  if (!options.entryPath) {
     onError('INVALID_OPERATION');
     return;
   }
