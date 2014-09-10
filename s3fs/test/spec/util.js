@@ -7,7 +7,7 @@
 'use strict';
 
 var assert = require('assert');
-var util = require('../../js/util');
+var util = require('../../../shared/util');
 
 describe('extend', function() {
   var result;
@@ -47,4 +47,3 @@ describe('extend', function() {
     result.a.should.equal(1);
   });
 });
-

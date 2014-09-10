@@ -9,17 +9,7 @@
 var S3FS = require('./s3fs');
 
 // Import all the functions to handle the various file system events.
-var events = {
-  onCloseFileRequested: require('./events/onCloseFileRequested'),
-  onOpenFileRequested: require('./events/onOpenFileRequested'),
-  onReadFileRequested: require('./events/onReadFileRequested'),
-  onWriteFileRequested: require('./events/onWriteFileRequested'),
-  onCreateFileRequested: require('./events/onCreateFileRequested'),
-  onDeleteEntryRequested: require('./events/onDeleteEntryRequested'),
-  onGetMetadataRequested: require('./events/onGetMetadataRequested'),
-  onReadDirectoryRequested: require('./events/onReadDirectoryRequested'),
-  onTruncateFileRequested: require('./events/onTruncateFileRequested')
-};
+var events = require('./events');
 
 var keys = ['bucket', 'region', 'access', 'secret'];
 

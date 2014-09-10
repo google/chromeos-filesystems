@@ -6,17 +6,18 @@
 
 'use strict';
 
-var onReadFileRequested = require('../../js/events/onReadFileRequested');
-var onWriteFileRequested = require('../../js/events/onWriteFileRequested');
-var onTruncateFileRequested = require('../../js/events/onTruncateFileRequested');
-var onCreateFileRequested = require('../../js/events/onCreateFileRequested');
-var onOpenFileRequested = require('../../js/events/onOpenFileRequested');
-var onCloseFileRequested = require('../../js/events/onCloseFileRequested');
-var onGetMetadataRequested = require('../../js/events/onGetMetadataRequested');
-var onDeleteEntryRequested = require('../../js/events/onDeleteEntryRequested');
-var onCopyEntryRequested = require('../../js/events/onCopyEntryRequested');
-var onReadDirectoryRequested =
-  require('../../js/events/onReadDirectoryRequested');
+var events = require('../../js/events');
+
+var onReadFileRequested = events.onReadFileRequested;
+var onOpenFileRequested = events.onOpenFileRequested;
+var onCloseFileRequested = events.onCloseFileRequested;
+var onGetMetadataRequested = events.onGetMetadataRequested;
+var onReadDirectoryRequested = events.onReadDirectoryRequested;
+var onWriteFileRequested = events.onWriteFileRequested;
+var onTruncateFileRequested = events.onTruncateFileRequested;
+var onCreateFileRequested = events.onCreateFileRequested;
+var onDeleteEntryRequested = events.onDeleteEntryRequested;
+var onCopyEntryRequested = events.onCopyEntryRequested;
 
 var testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
