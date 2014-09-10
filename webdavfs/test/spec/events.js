@@ -18,6 +18,7 @@ var onTruncateFileRequested = events.onTruncateFileRequested;
 var onCreateFileRequested = events.onCreateFileRequested;
 var onDeleteEntryRequested = events.onDeleteEntryRequested;
 var onCopyEntryRequested = events.onCopyEntryRequested;
+var onMoveEntryRequested = events.onMoveEntryRequested;
 
 var testSuite;
 
@@ -50,3 +51,6 @@ testSuite(onTruncateFileRequested, onReadFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onCopyEntryRequested');
 testSuite(onCopyEntryRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onMoveEntryRequested');
+testSuite(onMoveEntryRequested, onGetMetadataRequested);

@@ -52,7 +52,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
   s3fs.s3.copyObject(parameters, function(error) {
     if (error) {
       // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError('NOT_FOUND');
     } else {
       onSuccess();
     }
@@ -376,6 +376,50 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
   });
 };
 
+/**
+ * Responds to a request to move an entry.
+ * @param {Object} options Input options.
+ * @param {function} onSuccess Function to be called if the entry was copied
+ *     successfully.
+ * @param {function} onError Function to be called if an error occured while
+ *     attempting to copy the entry.
+ */
+var onMoveEntryRequested = function(options, onSuccess, onError) {
+  // Strip the leading slash, since not used internally.
+  var targetPath = options.targetPath.substring(1);
+
+  var copySource = encodeURIComponent(s3fs.defaultParameters.Bucket +
+    options.sourcePath);
+
+  // The AWS SDK has no moveObject method, so we emulate it with a copy from A
+  // to B followed by a delete of A.
+
+  var copyParameters = s3fs.parameters({
+    Key: targetPath,
+    CopySource: copySource
+  });
+
+  var deleteParameters = s3fs.parameters({
+    Key: options.sourcePath.substring(1)
+  });
+
+  // TODO(lavelle): handle the recursive/directory case.
+
+  s3fs.s3.copyObject(copyParameters, function(error) {
+    if (error) {
+      // TODO(lavelle): add logic for returning more specific error codes.
+      onError('FAILED');
+    } else {
+      s3fs.s3.deleteObject(deleteParameters, function(error) {
+        if (error) {
+          onError('FAILED');
+        }
+        onSuccess();
+      });
+    }
+  });
+};
+
 module.exports = {
   onCloseFileRequested: onCloseFileRequested,
   onOpenFileRequested: onOpenFileRequested,
@@ -385,6 +429,7 @@ module.exports = {
   onTruncateFileRequested: onTruncateFileRequested,
   onDeleteEntryRequested: onDeleteEntryRequested,
   onCopyEntryRequested: onCopyEntryRequested,
+  onMoveEntryRequested: onMoveEntryRequested,
   onGetMetadataRequested: onGetMetadataRequested,
   onReadDirectoryRequested: onReadDirectoryRequested
 };

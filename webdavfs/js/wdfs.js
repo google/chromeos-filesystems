@@ -130,6 +130,21 @@ WebDAVFS.prototype.copyEntry = function(options) {
 };
 
 /**
+ * Moves the file or directory at the source path to the target path.
+ * @param {Object} options Input options.
+ *     @param {string} sourcePath Path to the entry to move.
+ *     @param {string} targetPath Path to the location to the move the entry to.
+ *     @param {function} onSuccess Function to be called if the request
+ *         succeeds.
+ *     @param {function} onError Function to be called with the error if
+ *         the request fails.
+ */
+WebDAVFS.prototype.moveEntry = function(options) {
+  client.move(this.url + options.sourcePath, this.url + options.targetPath,
+    options.onSuccess, options.onError);
+};
+
+/**
  * Returns all files and folders that are immediate children of the specified
  *  directory.
  * @param {Object} options Input options.
