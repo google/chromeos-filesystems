@@ -18,6 +18,7 @@ var onTruncateFileRequested = events.onTruncateFileRequested;
 var onCreateFileRequested = events.onCreateFileRequested;
 var onDeleteEntryRequested = events.onDeleteEntryRequested;
 var onCopyEntryRequested = events.onCopyEntryRequested;
+var onMoveEntryRequested = events.onMoveEntryRequested;
 
 var testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
