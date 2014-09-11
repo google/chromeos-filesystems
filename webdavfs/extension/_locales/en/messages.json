@@ -31,12 +31,8 @@
     "message": "Mount",
     "description": "Label for a button that triggers the mount action."
   },
-  "invalidURLTitle": {
-    "message": "Invalid URL",
-    "description": "Title of a notification to be displayed if the user enters an invalid server URL."
-  },
-  "invalidURLMessage": {
-    "message": "The URL you entered for the WebDAV server is invalid",
+  "invalidURL": {
+    "message": "The URL you entered for the WebDAV server is invalid.",
     "description": "Message body of a notification to be displayed if the user enters an invalid server URL."
   }
 }

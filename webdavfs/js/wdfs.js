@@ -18,7 +18,7 @@ var client = new WebDAVClient();
  */
 var WebDAVFS = function(url) {
   if (url === '') {
-    throw new Error('Invalid host URL: string must not be empty.');
+    throw new Error(chrome.i18n.getMessage('invalidURL'));
   }
 
   if (url.charAt(url.length - 1) !== '/') {

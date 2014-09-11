@@ -13,7 +13,7 @@ var WebDAVFS = require('../../js/wdfs');
 describe('WebDAV Filesystem', function() {
   it('should throw an error with an invalid URL', function() {
     var construct = function() { new WebDAVFS(''); };
-    construct.should.throw('Invalid host URL: string must not be empty.');
+    construct.should.throw('invalidURL');
   });
 
   it('should have the correct ID', function() {
