@@ -288,7 +288,7 @@ var onReadFileRequested = function(options, onSuccess, onError) {
  * @param {function} onError Function to be called if an error occured while
  *     attempting to read the file.
  */
-var onTruncateFileRequested = function(options, onSuccess, onError) {
+var onTruncateRequested = function(options, onSuccess, onError) {
   // Strip the leading slash, since not used internally.
   var path = options.filePath.substring(1);
 
@@ -420,7 +420,7 @@ module.exports = {
   onReadFileRequested: onReadFileRequested,
   onCreateFileRequested: onCreateFileRequested,
   onWriteFileRequested: onWriteFileRequested,
-  onTruncateFileRequested: onTruncateFileRequested,
+  onTruncateRequested: onTruncateRequested,
   onDeleteEntryRequested: onDeleteEntryRequested,
   onCopyEntryRequested: onCopyEntryRequested,
   onMoveEntryRequested: onMoveEntryRequested,

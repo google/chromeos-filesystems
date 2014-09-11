@@ -54,11 +54,11 @@ var testFactory = function(open, read, truncate) {
   };
 };
 
-module.exports = function(onTruncateFileRequested, onReadFileRequested,
+module.exports = function(onTruncateRequested, onReadFileRequested,
   onOpenFileRequested) {
-    describe('onTruncateFileRequested', function() {
+    describe('onTruncateRequested', function() {
       var testTruncate = testFactory(onOpenFileRequested,
-        onReadFileRequested, onTruncateFileRequested);
+        onReadFileRequested, onTruncateRequested);
 
       it('should truncate the contents of a file to the correct length',
         testTruncate('/truncatable.txt', 999, 10, {
