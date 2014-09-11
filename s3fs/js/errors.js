@@ -6,8 +6,6 @@
 
 'use strict';
 
-// "OK", "FAILED", "IN_USE", "EXISTS", "NOT_FOUND", "ACCESS_DENIED", "TOO_MANY_OPENED", "NO_MEMORY", "NO_SPACE", "NOT_A_DIRECTORY", "INVALID_OPERATION", "SECURITY", "NOT_A_FILE", "NOT_EMPTY", "INVALID_URL", or "IO"
-
 /**
  * WebDAV error code map.
  * All taken from http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html
