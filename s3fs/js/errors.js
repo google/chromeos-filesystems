@@ -95,11 +95,11 @@ var ERROR_MAP = {
 
 /**
  * Converts an AWS SDK error code into its equivalent code for the FSP API.
- * @param {string} code The AWS SDK error code.
+ * @param {Error} code The AWS SDK error object.
  * @return {string} The FSP error code.
  */
-var getError = function(code) {
-  return ERROR_MAP[code] || 'FAILED';
+var getError = function(error) {
+  return ERROR_MAP[error.code] || 'FAILED';
 };
 
 module.exports = getError;
