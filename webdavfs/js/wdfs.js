@@ -17,6 +17,14 @@ var client = new WebDAVClient();
  *     connect.
  */
 var WebDAVFS = function(url) {
+  if (url === '') {
+    throw new Error(chrome.i18n.getMessage('invalidURL'));
+  }
+
+  if (url.charAt(url.length - 1) !== '/') {
+    url += '/';
+  }
+
   this.url = url;
 
   this.options = {

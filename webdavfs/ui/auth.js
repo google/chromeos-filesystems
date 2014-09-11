@@ -69,7 +69,11 @@ button.addEventListener('click', function(event) {
         window.close();
       }, 2000);
     } else {
-      document.getElementById('toast-mount-fail').show();
+      var toast = document.getElementById('toast-mount-fail');
+      if (response.error) {
+        toast.setAttribute('text', response.error);
+      }
+      toast.show();
       button.removeAttribute('disabled');
     }
   });

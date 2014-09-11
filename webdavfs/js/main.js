@@ -15,21 +15,29 @@ var events = require('./events');
  * Mounts a new instance of the WebDAV provider that connects to the server at
  * the given URL.
  * @param {string} url The URL of the server to connect to.
+ * @param {function=} callbacks.onSuccess Function to call if the server was
+ *     mounted successfully.
+ * @param {function=} callbacks.onError Function to call if an error occured
+ *     while attempting to mount the server.
  */
-var mount = function(url) {
-  window.webDAVFS = new WebDAVFS(url);
+var mount = function(url, callbacks) {
+  var onSuccess = callbacks.onSuccess || function() { };
+
+  var onError = callbacks.onError || function() {
+    console.error('Failed to mount.');
+  };
+
+  try {
+    window.webDAVFS = new WebDAVFS(url);
+  } catch(error) {
+    onError(error.message);
+    return;
+  }
 
   // Register each of the event listeners to the file system provider.
   for (var name in events) {
     chrome.fileSystemProvider[name].addListener(events[name]);
   }
-
-  // Callback for when the file system has been successfully mounted.
-  var onSuccess = function() { };
-
-  var onError = function() {
-    console.error('Failed to mount.');
-  };
 
   // Mount the file system.
   chrome.fileSystemProvider.mount(webDAVFS.options, onSuccess, onError);
