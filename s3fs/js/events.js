@@ -51,8 +51,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.copyObject(parameters, function(error) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('NOT_FOUND');
+      onError(error);
     } else {
       onSuccess();
     }
@@ -82,8 +81,7 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.putObject(parameters, function(error) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError(error);
     } else {
       onSuccess();
     }
@@ -110,8 +108,7 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.deleteObject(parameters, function(error) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError(error);
     } else {
       onSuccess();
     }
@@ -161,7 +158,7 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
       // If there's still an error, it's not a file or a directory, so call
       // the error callback.
       if (error) {
-        onError('NOT_FOUND');
+        onError(error);
         return;
       }
 
@@ -220,8 +217,7 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.listObjects(parameters, function(error, data) {
     if (error) {
-      // TODO(lavelle): add logic to return more specific error codes.
-      onError('FAILED');
+      onError(error);
       return;
     }
 
@@ -277,8 +273,7 @@ var onReadFileRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.getObject(parameters, function(error, data) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError(error);
     } else {
       onSuccess(data.Body.toArrayBuffer(), false);
     }
@@ -303,8 +298,7 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.getObject(readParameters, function(error, data) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError(error);
     } else {
       var buffer = data.Body.toArrayBuffer();
 
@@ -317,7 +311,7 @@ var onTruncateFileRequested = function(options, onSuccess, onError) {
 
         s3fs.s3.putObject(writeParameters, function(error) {
           if (error) {
-            onError('FAILED');
+            onError(error);
           } else {
             onSuccess();
           }
@@ -368,8 +362,7 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.putObject(parameters, function(error) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError(error);
     } else {
       onSuccess();
     }
@@ -407,14 +400,15 @@ var onMoveEntryRequested = function(options, onSuccess, onError) {
 
   s3fs.s3.copyObject(copyParameters, function(error) {
     if (error) {
-      // TODO(lavelle): add logic for returning more specific error codes.
-      onError('FAILED');
+      onError(error);
     } else {
       s3fs.s3.deleteObject(deleteParameters, function(error) {
         if (error) {
-          onError('FAILED');
+          onError(error);
         }
-        onSuccess();
+        else {
+          onSuccess();
+        }
       });
     }
   });
