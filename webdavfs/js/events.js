@@ -154,7 +154,7 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
  * @param {Function} onError Function to be called if an error occured while
  *     attempting to truncate the file.
  */
-var onTruncateFileRequested = function(options, onSuccess, onError) {
+var onTruncateRequested = function(options, onSuccess, onError) {
   var path = options.filePath.substring(1);
 
   if (!path) {
@@ -301,7 +301,7 @@ module.exports = {
   onReadFileRequested: onReadFileRequested,
   onCreateFileRequested: onCreateFileRequested,
   onWriteFileRequested: onWriteFileRequested,
-  onTruncateFileRequested: onTruncateFileRequested,
+  onTruncateRequested: onTruncateRequested,
   onDeleteEntryRequested: onDeleteEntryRequested,
   onCopyEntryRequested: onCopyEntryRequested,
   onMoveEntryRequested: onMoveEntryRequested,
