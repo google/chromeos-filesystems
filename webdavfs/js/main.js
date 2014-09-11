@@ -17,7 +17,16 @@ var events = require('./events');
  * @param {string} url The URL of the server to connect to.
  */
 var mount = function(url) {
-  window.webDAVFS = new WebDAVFS(url);
+  try {
+    window.webDAVFS = new WebDAVFS(url);
+  } catch(error) {
+    chrome.notifications.create('', {
+      type: 'basic',
+      title: chrome.i18n.getMessage('invalidURLTitle'),
+      message: chrome.i18n.getMessage('invalidURLMessage')
+    });
+    return;
+  }
 
   // Register each of the event listeners to the file system provider.
   for (var name in events) {

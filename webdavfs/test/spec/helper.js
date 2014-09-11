@@ -8,6 +8,10 @@
 
 var WebDAVFS = require('../../js/wdfs');
 var config = require('../../../testserver/config');
+
+// No need to try/catch here: If the URL is invalid the tests will abort and
+// the error message will be displayed in the console, which is desired
+// behaviour.
 window.webDAVFS = new WebDAVFS(config.URL);
 
 // Convenience method to convert ArrayBuffer responses to strings for more
