@@ -9,6 +9,8 @@
 'use strict';
 
 var S3FS = require('../../js/s3fs');
+var servercheck = require('../../../shared_tests/servercheck');
+
 // Mock the S3 API.
 window.AWS = require('./s3mock');
 
@@ -32,3 +34,5 @@ window.chrome = {
     }
   }
 };
+
+servercheck();

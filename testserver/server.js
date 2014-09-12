@@ -13,7 +13,10 @@
 'use strict';
 
 var jsdav = require('jsDAV/lib/jsdav');
+var server = require('jsDAV/lib/DAV/server');
 var config = require('./config');
+var util = require('jsDAV/lib/shared/util');
+var cors = require('jsDAV/lib/DAV/plugins/cors');
 
 var argv = process.argv.slice(2);
 
@@ -24,4 +27,9 @@ if (argv.length > 0 && flags.indexOf(argv[0]) !== -1) {
   jsdav.debugMode = true;
 }
 
-jsdav.createServer({node: __dirname + config.ASSETS_DIRECTORY}, config.PORT);
+var plugins = util.extend(server.DEFAULT_PLUGINS, {cors: cors});
+
+jsdav.createServer({
+  node: __dirname + config.ASSETS_DIRECTORY,
+  plugins: plugins
+}, config.PORT);

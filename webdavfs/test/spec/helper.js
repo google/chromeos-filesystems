@@ -8,6 +8,11 @@
 
 var WebDAVFS = require('../../js/wdfs');
 var config = require('../../../testserver/config');
+var servercheck = require('../../../shared_tests/servercheck');
+
+// Convenience method to convert ArrayBuffer responses to strings for more
+// readable assertions.
+window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
 
 // Mock the parts of the Chrome API needed to test.
 window.chrome = {
@@ -28,26 +33,5 @@ window.chrome = {
 // behaviour.
 window.webDAVFS = new WebDAVFS(config.URL);
 
-// Convenience method to convert ArrayBuffer responses to strings for more
-// readable assertions.
-window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
-
 // Run initialisation code to prepare the environment for testing.
-before(function(){
-  // Test the connection to the server by attempting to read a known file and
-  // show an error message prompting the user to start the server if it doesn't
-  // exist.
-  webDAVFS.readFile({
-    path: '/1.txt',
-    range: {
-      start: 0,
-      end: 512
-    },
-    onSuccess: function() { },
-    onError: function() {
-      var message = 'Could not connect to server.\nPlease start it by ' +
-        'typing `node server.js &` from the testserver directory.';
-      throw new Error(message);
-    }
-  });
-});
+servercheck();
