@@ -10,13 +10,9 @@ var WebDAVFS = require('../../js/wdfs');
 var config = require('../../../testserver/config');
 var servercheck = require('../../../shared_tests/servercheck');
 
-window.webDAVFS = new WebDAVFS(config.URL);
-
 // Convenience method to convert ArrayBuffer responses to strings for more
 // readable assertions.
-window.arrayBufferToString = function(buffer) {
-  return new TextDecoder('utf-8').decode(new DataView(buffer));
-};
+window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
 
 // Mock the parts of the Chrome API needed to test.
 window.chrome = {
@@ -32,15 +28,10 @@ window.chrome = {
   }
 };
 
-<<<<<<< HEAD
 // No need to try/catch here: If the URL is invalid the tests will abort and
 // the error message will be displayed in the console, which is desired
 // behaviour.
 window.webDAVFS = new WebDAVFS(config.URL);
-
-// Convenience method to convert ArrayBuffer responses to strings for more
-// readable assertions.
-window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
 
 // Run initialisation code to prepare the environment for testing.
 servercheck();
