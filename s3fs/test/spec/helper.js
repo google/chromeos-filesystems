@@ -12,6 +12,9 @@ var S3FS = require('../../js/s3fs');
 // Mock the S3 API.
 window.AWS = require('./s3mock');
 
+var chromemock = require('../../../shared_tests/chromemock');
+chromemock();
+
 // Convenience method to convert ArrayBuffer responses to strings for more
 // readable assertions.
 window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
@@ -26,15 +29,6 @@ var makeClient = function() {
 };
 
 makeClient();
-
-// Mock the parts of the Chrome API needed to test.
-window.chrome = {
-  fileSystemProvider: {
-    unmount: function(options, onSuccess, onError) {
-      onSuccess(options);
-    }
-  }
-};
 
 before(function(done){
   s3fs.s3.wdfs.checkConnection(done);

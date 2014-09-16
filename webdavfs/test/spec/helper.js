@@ -9,19 +9,8 @@
 var WebDAVFS = require('../../js/wdfs');
 var config = require('../../../testserver/config');
 
-// Mock the parts of the Chrome API needed to test.
-window.chrome = {
-  fileSystemProvider: {
-    unmount: function(options, onSuccess) {
-      onSuccess(options);
-    }
-  },
-  i18n: {
-    getMessage: function(name) {
-      return name;
-    }
-  }
-};
+var chromemock = require('../../../shared_tests/chromemock');
+chromemock();
 
 var makeClient = function() {
   // No need to try/catch here: If the URL is invalid the tests will abort and
