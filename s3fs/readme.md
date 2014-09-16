@@ -21,7 +21,7 @@ This will install all the dependencies and build the project. You can then compr
 
 ## Testing
 
-To run the unit test suite, run `tools/test.sh s3fs` from the top-level directory. Make sure you've followed all the setup instructions in the top-level readme first.
+To run the unit test suite, run `grunt test` from the this directory. Make sure you've followed all the setup instructions in the top-level readme first.
 
 ## Documentation
 
