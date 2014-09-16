@@ -32,3 +32,11 @@ window.chrome = {
     }
   }
 };
+
+before(function(done){
+  s3fs.s3.wdfs.checkConnection(done);
+});
+
+beforeEach(function(done) {
+  s3fs.s3.wdfs.reset(done);
+});
