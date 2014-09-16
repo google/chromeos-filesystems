@@ -208,4 +208,29 @@ WebDAVFS.prototype.reset = function(callback) {
     onResponse);
 };
 
+/**
+ * Test the connection to the server by attempting to read a known file and
+ * show an error message prompting the developer to start the server if it
+ * doesn't exist.
+ * @private
+ * @param {function} callback Mocha `done` callback.
+ */
+WebDAVFS.prototype.checkConnection = function(callback) {
+  this.readFile({
+    path: '/1.txt',
+    range: {
+      start: 0,
+      end: 512
+    },
+    onSuccess: function() {
+      callback();
+    },
+    onError: function() {
+      var message = 'Could not connect to server.\nPlease start it by ' +
+        'typing `node server.js &` from the testserver directory.';
+      throw new Error(message);
+    }
+  });
+}
+
 module.exports = WebDAVFS;
