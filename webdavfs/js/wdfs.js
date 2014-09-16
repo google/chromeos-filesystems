@@ -194,4 +194,10 @@ WebDAVFS.prototype.readDirectory = function(options) {
   client.propertyFind(this.url + options.path, onSuccess, options.onError, depth);
 };
 
+WebDAVFS.prototype.reset = function(callback) {
+  client.request('RESET', this.url, {}, null, 'document', callback, function(error) {
+    throw new Error(error);
+  });
+};
+
 module.exports = WebDAVFS;

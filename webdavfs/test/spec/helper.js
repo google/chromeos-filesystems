@@ -33,7 +33,7 @@ window.webDAVFS = new WebDAVFS(config.URL);
 window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
 
 // Run initialisation code to prepare the environment for testing.
-before(function(){
+before(function(done){
   // Test the connection to the server by attempting to read a known file and
   // show an error message prompting the user to start the server if it doesn't
   // exist.
@@ -43,11 +43,17 @@ before(function(){
       start: 0,
       end: 512
     },
-    onSuccess: function() { },
+    onSuccess: function() {
+      done();
+    },
     onError: function() {
       var message = 'Could not connect to server.\nPlease start it by ' +
         'typing `node server.js &` from the testserver directory.';
       throw new Error(message);
     }
   });
+});
+
+beforeEach(function(done) {
+  webDAVFS.reset(done);
 });
