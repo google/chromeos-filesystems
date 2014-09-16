@@ -122,6 +122,12 @@ module.exports = function(grunt) {
           keepalive: true
         }
       }
+    },
+
+    jsonlint: {
+      all: {
+        src: ['package.json', 'extension/manifest.json', '../bower.json']
+      }
     }
   });
 
@@ -133,7 +139,8 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
   grunt.registerTask('docs', ['jsdoc']);
-  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test', 'jshint:ui']);
+  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test',
+    'jshint:ui', 'jsonlint']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };
