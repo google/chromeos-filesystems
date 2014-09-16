@@ -21,8 +21,11 @@ var secret = 'fake-secret';
 var region = 'us-west-2';
 var bucket = 'chromeostest';
 
-// Register a global S3 client used by all the tests.
-window.s3fs = new S3FS(bucket, region, access, secret);
+var makeClient = function() {
+  window.s3fs = new S3FS(bucket, region, access, secret);
+};
+
+makeClient();
 
 // Mock the parts of the Chrome API needed to test.
 window.chrome = {
@@ -38,5 +41,6 @@ before(function(done){
 });
 
 beforeEach(function(done) {
+  makeClient();
   s3fs.s3.wdfs.reset(done);
 });

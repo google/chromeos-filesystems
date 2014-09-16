@@ -8,47 +8,49 @@
 
 var events = require('../../js/events');
 
-var onReadFileRequested = events.onReadFileRequested;
-var onOpenFileRequested = events.onOpenFileRequested;
-var onCloseFileRequested = events.onCloseFileRequested;
-var onGetMetadataRequested = events.onGetMetadataRequested;
-var onReadDirectoryRequested = events.onReadDirectoryRequested;
-var onWriteFileRequested = events.onWriteFileRequested;
-var onTruncateRequested = events.onTruncateRequested;
-var onCreateFileRequested = events.onCreateFileRequested;
-var onDeleteEntryRequested = events.onDeleteEntryRequested;
 var onCopyEntryRequested = events.onCopyEntryRequested;
+var onCreateFileRequested = events.onCreateFileRequested;
+var onCloseFileRequested = events.onCloseFileRequested;
+var onDeleteEntryRequested = events.onDeleteEntryRequested;
+var onGetMetadataRequested = events.onGetMetadataRequested;
 var onMoveEntryRequested = events.onMoveEntryRequested;
+var onOpenFileRequested = events.onOpenFileRequested;
+var onReadFileRequested = events.onReadFileRequested;
+var onReadDirectoryRequested = events.onReadDirectoryRequested;
+var onTruncateRequested = events.onTruncateRequested;
+var onWriteFileRequested = events.onWriteFileRequested;
 
-var testSuite = require('../../../shared_tests/onReadFileRequested');
-testSuite(onReadFileRequested, onOpenFileRequested);
-
-testSuite = require('../../../shared_tests/onOpenFileRequested');
-testSuite('s3fs', onOpenFileRequested);
-
-testSuite = require('../../../shared_tests/onCloseFileRequested');
-testSuite('s3fs', onCloseFileRequested);
-
-testSuite = require('../../../shared_tests/onGetMetadataRequested');
-testSuite(onGetMetadataRequested);
-
-testSuite = require('../../../shared_tests/onReadDirectoryRequested');
-testSuite(onReadDirectoryRequested);
-
-testSuite = require('../../../shared_tests/onWriteFileRequested');
-testSuite(onWriteFileRequested, onReadFileRequested, onOpenFileRequested);
-
-testSuite = require('../../../shared_tests/onDeleteEntryRequested');
-testSuite(onDeleteEntryRequested, onGetMetadataRequested);
-
-testSuite = require('../../../shared_tests/onCreateFileRequested');
-testSuite(onCreateFileRequested, onGetMetadataRequested);
-
-testSuite = require('../../../shared_tests/onTruncateRequested');
-testSuite(onTruncateRequested, onReadFileRequested, onOpenFileRequested);
+var testSuite;
 
 testSuite = require('../../../shared_tests/onCopyEntryRequested');
 testSuite(onCopyEntryRequested, onGetMetadataRequested);
 
+testSuite = require('../../../shared_tests/onCreateFileRequested');
+testSuite(onCreateFileRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onCloseFileRequested');
+testSuite('s3fs', onCloseFileRequested, onOpenFileRequested);
+
+testSuite = require('../../../shared_tests/onDeleteEntryRequested');
+testSuite(onDeleteEntryRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onGetMetadataRequested');
+testSuite(onGetMetadataRequested);
+
 testSuite = require('../../../shared_tests/onMoveEntryRequested');
 testSuite(onMoveEntryRequested, onGetMetadataRequested);
+
+testSuite = require('../../../shared_tests/onOpenFileRequested');
+testSuite('s3fs', onOpenFileRequested);
+
+testSuite = require('../../../shared_tests/onReadFileRequested');
+testSuite(onReadFileRequested, onOpenFileRequested);
+
+testSuite = require('../../../shared_tests/onReadDirectoryRequested');
+testSuite(onReadDirectoryRequested);
+
+testSuite = require('../../../shared_tests/onTruncateRequested');
+testSuite(onTruncateRequested, onReadFileRequested, onOpenFileRequested);
+
+testSuite = require('../../../shared_tests/onWriteFileRequested');
+testSuite(onWriteFileRequested, onReadFileRequested, onOpenFileRequested);
