@@ -10,6 +10,7 @@
   "author": "Giles Lavelle <lavelle@chromium.org>",
   "license": "BSD",
   "dependencies": {
-    "jsDAV": "^0.3.2"
+    "jsDAV": "^0.3.2",
+    "mock-fs": "^2.3.1"
   }
 }

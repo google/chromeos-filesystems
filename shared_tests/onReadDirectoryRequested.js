@@ -15,7 +15,7 @@ module.exports = function(onReadDirectoryRequested) {
         };
 
         var onSuccess = function(list, hasMore) {
-          list.should.have.length(12);
+          list.should.have.length(11);
 
           var directory = list.filter(function(entry) {
             return entry.name === 'dir1';
