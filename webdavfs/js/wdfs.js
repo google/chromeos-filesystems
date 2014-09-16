@@ -231,6 +231,6 @@ WebDAVFS.prototype.checkConnection = function(callback) {
       throw new Error(message);
     }
   });
-}
+};
 
 module.exports = WebDAVFS;
