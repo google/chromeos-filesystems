@@ -244,10 +244,6 @@ WebDAVClient.prototype.request = function(verb, url, headers, data, responseType
     // Register the callback to to be called when the request sucessfully
     // completes.
     xhr.onreadystatechange = function() {
-      if (verb === 'RESET') {
-        console.log(xhr.status);
-      }
-
       if(xhr.readyState !== 4) { return; }
 
       // Return an error for a non-2XX failure status code.
