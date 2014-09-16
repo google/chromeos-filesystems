@@ -194,10 +194,18 @@ WebDAVFS.prototype.readDirectory = function(options) {
   client.propertyFind(this.url + options.path, onSuccess, options.onError, depth);
 };
 
+/**
+ * Makes a request for a special file on the test WebDAV server that causes it
+ * to reset its contents. Used by the test suite to ensure each test has a
+ * consistent environment.
+ * @private
+ * @param {function} callback Mocha `done` callback.
+ */
 WebDAVFS.prototype.reset = function(callback) {
-  client.request('RESET', this.url, {}, null, 'document', callback, function(error) {
-    throw new Error(error);
-  });
+  var onResponse = function() { callback(); };
+
+  client.request('GET', this.url + 'reset', {}, null, 'document', onResponse,
+    onResponse);
 };
 
 module.exports = WebDAVFS;
