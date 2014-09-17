@@ -280,11 +280,32 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
     return;
   }
 
-  webDAVFS.deleteEntry({
-    path: options.entryPath.substring(1),
-    onError: onError,
-    onSuccess: onSuccess
-  });
+  var path = options.entryPath.substring(1);
+
+  var doDelete = function() {
+    webDAVFS.deleteEntry({
+      path: path,
+      onError: onError,
+      onSuccess: onSuccess
+    });
+  };
+
+  if (options.recursive) {
+    doDelete();
+  } else {
+    webDAVFS.getMetadata({
+      path: path,
+      onError: onError,
+      onSuccess: function(metadata) {
+        if (metadata.isDirectory) {
+          onError('NOT_A_FILE');
+          return;
+        }
+
+        doDelete();
+      }
+    });
+  }
 };
 
 /**
