@@ -90,10 +90,10 @@ module.exports = function(grunt) {
         configFile: '../karma.conf.js'
       },
       local: {
-        browsers: ['Chrome', 'Firefox']
+        browsers: ['Chrome']
       },
       travis: {
-        browsers: ['Firefox']
+        browsers: ['ChromeTravis']
       }
     },
 
