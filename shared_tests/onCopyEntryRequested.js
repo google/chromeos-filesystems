@@ -38,5 +38,62 @@ module.exports = function(onCopyEntryRequested, onGetMetadataRequested) {
         }, onError);
       });
     });
+
+    it('should be able to copy directories to locations that do not yet exist', function(done) {
+      var source = 'dir2';
+      var target = 'dir2_copied';
+
+      var statOptions = {
+        entryPath: '/' + target
+      };
+
+      var copyOptions = {
+        sourcePath: '/' + source,
+        targetPath: '/' + target
+      };
+
+      var onError = function(error) {
+        throw new Error(error);
+      };
+
+      var postCopySuccess = function(data) {
+        data.name.should.equal(target);
+        done();
+      };
+
+      onGetMetadataRequested(statOptions, function() {
+        throw new Error('Directory should not exist before copying.');
+      }, function() {
+        onCopyEntryRequested(copyOptions, function() {
+          onGetMetadataRequested(statOptions, postCopySuccess, onError);
+        }, onError);
+      });
+    });
+
+    it('should be not overwrite existing files/directories', function(done) {
+      var source = 'dir2';
+      var target = 'dir1';
+
+      var statOptions = {
+        entryPath: '/' + target
+      };
+
+      var copyOptions = {
+        sourcePath: '/' + source,
+        targetPath: '/' + target
+      };
+
+      onGetMetadataRequested(statOptions, function() {
+        onCopyEntryRequested(copyOptions, function() {
+          throw new Error('Should have rejected copy to existing location');
+        }, function(error) {
+          error.should.be.a('string');
+          error.should.equal('EXISTS');
+          done();
+        });
+      }, function() {
+        throw new Error('Target should exist before copying.');
+      });
+    });
   });
 };

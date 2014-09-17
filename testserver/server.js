@@ -67,8 +67,10 @@ structure[config.ASSETS_DIRECTORY] = {
 var rebuilder = plugin.extend({
   name: 'rebuilder',
   initialize: function(handler) {
-    handler.addEventListener('beforeMethod', function(event) {
-      // mockfs(structure);
+    handler.addEventListener('beforeMethod', function(event, method, file) {
+      if (method === 'GET' && file === 'reset') {
+        mockfs(structure);
+      }
       event.next();
     });
   }

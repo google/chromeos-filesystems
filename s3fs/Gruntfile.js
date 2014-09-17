@@ -44,6 +44,8 @@ module.exports = function(grunt) {
             // Global functions exposed by the Mocha test framework.
             it: true,
             describe: true,
+            before: true,
+            beforeEach: true,
             // Global functions exposed by the Chai assertion library.
             should: true,
             // Application globals.

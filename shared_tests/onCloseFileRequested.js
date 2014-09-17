@@ -8,7 +8,7 @@
 
 'use strict';
 
-module.exports = function(fs, onCloseFileRequested) {
+module.exports = function(fs, onCloseFileRequested, onOpenFileRequested) {
   describe('onCloseFileRequested', function() {
     it('should reject attempts to close unopened files', function(done) {
       var options = {
@@ -30,12 +30,20 @@ module.exports = function(fs, onCloseFileRequested) {
     });
 
     it('should close previously opened files', function(done) {
-      var options = {
+      var openOptions = {
+        filePath: '/new.txt',
+        mode: 'READ',
+        create: false,
+        requestId: 1
+      };
+
+      var closeOptions = {
         openRequestId: 1
       };
 
       var onSuccess = function() {
-        window[fs].openedFiles.should.not.have.property(options.openRequestId);
+        window[fs].openedFiles.should.not.have
+          .property(closeOptions.openRequestId);
         done();
       };
 
@@ -44,7 +52,9 @@ module.exports = function(fs, onCloseFileRequested) {
         done();
       };
 
-      onCloseFileRequested(options, onSuccess, onError);
+      onOpenFileRequested(openOptions, function() {
+        onCloseFileRequested(closeOptions, onSuccess, onError);
+      }, onError);
     });
   });
 };

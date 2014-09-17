@@ -7,8 +7,6 @@
 'use strict';
 
 var WebDAVFS = require('../../../webdavfs/js/wdfs');
-var wdfs = new WebDAVFS('http://localhost:8000');
-
 /**
  * Mocks the parts of the official AWS JavaScript SDK that are used by the S3
  * filesystem for testing without needing to connect to a real S3 bucket.
@@ -43,7 +41,9 @@ ResponseBody.prototype.toArrayBuffer = function() {
 /**
  * Class for S3-specific methods within the AWS namespace.
  */
-var S3 = function() {};
+var S3 = function() {
+  this.wdfs = new WebDAVFS('http://localhost:8000');
+};
 
 /**
  * Implements the S3 listObjects method in terms of WebDAVFS's readDirectory.
@@ -63,7 +63,7 @@ S3.prototype.listObjects = function(parameters, callback) {
     return;
   }
 
-  wdfs.readDirectory({
+  this.wdfs.readDirectory({
     path: path,
     onSuccess: function(response) {
       var error = null;
@@ -140,7 +140,7 @@ S3.prototype.getObject = function(parameters, callback) {
     }
   }
 
-  wdfs.readFile(args);
+  this.wdfs.readFile(args);
 };
 
 /**
@@ -154,7 +154,7 @@ S3.prototype.getObject = function(parameters, callback) {
 S3.prototype.headObject = function(parameters, callback) {
   var path =  '/' + parameters.Key;
 
-  wdfs.getMetadata({
+  this.wdfs.getMetadata({
     path: path,
     onSuccess: function(response) {
       var error = null;
@@ -183,7 +183,7 @@ S3.prototype.headObject = function(parameters, callback) {
  *     finishes.
  */
 S3.prototype.putObject = function(parameters, callback) {
-  wdfs.writeFile({
+  this.wdfs.writeFile({
     path: '/' + parameters.Key,
     data: parameters.Body,
     onSuccess: function() {
@@ -204,7 +204,7 @@ S3.prototype.putObject = function(parameters, callback) {
  *     finishes.
  */
 S3.prototype.deleteObject = function(parameters, callback) {
-  wdfs.deleteEntry({
+  this.wdfs.deleteEntry({
     path: '/' + parameters.Key,
     onSuccess: function() {
       callback(null, {});
@@ -224,7 +224,7 @@ S3.prototype.deleteObject = function(parameters, callback) {
  *     finishes.
  */
 S3.prototype.copyObject = function(parameters, callback) {
-  wdfs.copyEntry({
+  this.wdfs.copyEntry({
     sourcePath: '/' + decodeURIComponent(parameters.CopySource).split('/').pop(),
     targetPath: '/' + parameters.Key,
     onSuccess: function() {

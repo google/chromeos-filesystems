@@ -38,6 +38,7 @@ module.exports = function(grunt) {
             describe: true,
             should: true,
             before: true,
+            beforeEach: true,
             webDAVFS: true,
             arrayBufferToString: true,
             TextDecoder: true

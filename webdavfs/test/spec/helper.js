@@ -23,31 +23,25 @@ window.chrome = {
   }
 };
 
-// No need to try/catch here: If the URL is invalid the tests will abort and
-// the error message will be displayed in the console, which is desired
-// behaviour.
-window.webDAVFS = new WebDAVFS(config.URL);
+var makeClient = function() {
+  // No need to try/catch here: If the URL is invalid the tests will abort and
+  // the error message will be displayed in the console, which is desired
+  // behaviour.
+  window.webDAVFS = new WebDAVFS(config.URL);
+};
+
+makeClient();
 
 // Convenience method to convert ArrayBuffer responses to strings for more
 // readable assertions.
 window.arrayBufferToString = require('../../../shared/util').arrayBufferToString;
 
 // Run initialisation code to prepare the environment for testing.
-before(function(){
-  // Test the connection to the server by attempting to read a known file and
-  // show an error message prompting the user to start the server if it doesn't
-  // exist.
-  webDAVFS.readFile({
-    path: '/1.txt',
-    range: {
-      start: 0,
-      end: 512
-    },
-    onSuccess: function() { },
-    onError: function() {
-      var message = 'Could not connect to server.\nPlease start it by ' +
-        'typing `node server.js &` from the testserver directory.';
-      throw new Error(message);
-    }
-  });
+before(function(done){
+  webDAVFS.checkConnection(done);
+});
+
+beforeEach(function(done) {
+  makeClient();
+  webDAVFS.reset(done);
 });
