@@ -39,5 +39,25 @@ module.exports = function(onDeleteEntryRequested, onGetMetadataRequested) {
         }, onError);
       }, onError);
     });
+
+    it('should refuse to remove a directory without the recursive flag',
+      function(done) {
+        var deleteOptions = {
+          entryPath: 'dir1',
+          recursive: false
+        };
+
+        onDeleteEntryRequested(deleteOptions, function() {
+          throw new Error('Should have rejected directory delete without ' +
+            'the recursive flag set.');
+        }, function(error) {
+          error.should.be.a('string');
+          // TODO(lavelle): this doesn't seem right, but it's what the WebDAV
+          // server returns. Maybe should be NOT_A_FILE instead? Don't know
+          // how to handle this case without more info from the server.
+          error.should.equal('NOT_FOUND');
+          done();
+        });
+    });
   });
 };
