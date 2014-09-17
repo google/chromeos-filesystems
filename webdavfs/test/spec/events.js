@@ -6,6 +6,8 @@
 
 'use strict';
 
+var fs = 'webDAVFS';
+
 var events = require('../../js/events');
 
 var onCopyEntryRequested = events.onCopyEntryRequested;
@@ -29,10 +31,10 @@ testSuite = require('../../../shared_tests/onCreateFileRequested');
 testSuite(onCreateFileRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onCloseFileRequested');
-testSuite(webDAVFS, onCloseFileRequested, onOpenFileRequested);
+testSuite(fs, onCloseFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onDeleteEntryRequested');
-testSuite(webDAVFS, onDeleteEntryRequested, onGetMetadataRequested);
+testSuite(fs, onDeleteEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onGetMetadataRequested');
 testSuite(onGetMetadataRequested);
@@ -41,7 +43,7 @@ testSuite = require('../../../shared_tests/onMoveEntryRequested');
 testSuite(onMoveEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onOpenFileRequested');
-testSuite(webDAVFS, onOpenFileRequested);
+testSuite(fs, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);

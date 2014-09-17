@@ -59,7 +59,7 @@ module.exports = function(fs, onOpenFileRequested) {
       };
 
       var onSuccess = function() {
-        fs.openedFiles[options.requestId].should.equal(options.filePath);
+        window[fs].openedFiles[options.requestId].should.equal(options.filePath);
         done();
       };
 

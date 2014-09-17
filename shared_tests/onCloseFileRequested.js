@@ -42,7 +42,7 @@ module.exports = function(fs, onCloseFileRequested, onOpenFileRequested) {
       };
 
       var onSuccess = function() {
-        fs.openedFiles.should.not.have.property(closeOptions.openRequestId);
+        window[fs].openedFiles.should.not.have.property(closeOptions.openRequestId);
         done();
       };
 
