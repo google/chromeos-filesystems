@@ -83,15 +83,6 @@ module.exports = function(onCopyEntryRequested, onGetMetadataRequested) {
         targetPath: '/' + target
       };
 
-      var onError = function(error) {
-        throw new Error(error);
-      };
-
-      var postCopySuccess = function(data) {
-        data.name.should.equal(target);
-        done();
-      };
-
       onGetMetadataRequested(statOptions, function() {
         onCopyEntryRequested(copyOptions, function() {
           throw new Error('Should have rejected copy to existing location');
