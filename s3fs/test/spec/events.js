@@ -32,7 +32,7 @@ testSuite = require('../../../shared_tests/onCloseFileRequested');
 testSuite('s3fs', onCloseFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onDeleteEntryRequested');
-testSuite(onDeleteEntryRequested, onGetMetadataRequested);
+testSuite('s3fs', onDeleteEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onGetMetadataRequested');
 testSuite(onGetMetadataRequested);

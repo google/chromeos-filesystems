@@ -6,7 +6,7 @@
 
 'use strict';
 
-module.exports = function(onDeleteEntryRequested, onGetMetadataRequested) {
+module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
   describe('onDeleteEntryRequested', function() {
     it('should remove an existing file', function(done) {
       var statOptions = {
@@ -39,6 +39,10 @@ module.exports = function(onDeleteEntryRequested, onGetMetadataRequested) {
         }, onError);
       }, onError);
     });
+
+    if (!window[fs].supportsRecursive) {
+      return;
+    }
 
     it('should remove an existing directory', function(done) {
       var statOptions = {

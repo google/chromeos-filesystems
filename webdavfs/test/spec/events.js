@@ -32,7 +32,7 @@ testSuite = require('../../../shared_tests/onCloseFileRequested');
 testSuite('webDAVFS', onCloseFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onDeleteEntryRequested');
-testSuite(onDeleteEntryRequested, onGetMetadataRequested);
+testSuite('webDAVFS', onDeleteEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onGetMetadataRequested');
 testSuite(onGetMetadataRequested);
