@@ -44,39 +44,73 @@ module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
       return;
     }
 
-    it('should remove an existing directory', function(done) {
-      var statOptions = {
-        entryPath: '/dir1'
-      };
+    it('should remove an empty directory without needing the recursive flag',
+      function(done) {
+        var statOptions = {
+          entryPath: '/empty'
+        };
 
-      var deleteOptions = {
-        entryPath: '/dir1',
-        recursive: true
-      };
+        var deleteOptions = {
+          entryPath: '/empty',
+          recursive: false
+        };
 
-      var onError = function(error) {
-        throw new Error(error);
-      };
+        var onError = function(error) {
+          throw new Error(error);
+        };
 
-      var postDeleteSuccess = function() {
-        throw new Error('Delete operation failed to remove directory.');
-      };
+        var postDeleteSuccess = function() {
+          throw new Error('Delete operation failed to remove empty directory.');
+        };
 
-      var postDeleteError = function(error) {
-        error.should.be.a('string');
-        error.should.equal('NOT_FOUND');
-        done();
-      };
+        var postDeleteError = function(error) {
+          error.should.be.a('string');
+          error.should.equal('NOT_FOUND');
+          done();
+        };
 
-      onGetMetadataRequested(statOptions, function() {
-        onDeleteEntryRequested(deleteOptions, function() {
-          onGetMetadataRequested(statOptions, postDeleteSuccess,
-            postDeleteError);
+        onGetMetadataRequested(statOptions, function() {
+          onDeleteEntryRequested(deleteOptions, function() {
+            onGetMetadataRequested(statOptions, postDeleteSuccess,
+              postDeleteError);
+          }, onError);
         }, onError);
-      }, onError);
     });
 
-    it('should refuse to remove a directory without the recursive flag',
+    it('should remove a non-empty directory with the recursive flag',
+      function(done) {
+        var statOptions = {
+          entryPath: '/dir1'
+        };
+
+        var deleteOptions = {
+          entryPath: '/dir1',
+          recursive: true
+        };
+
+        var onError = function(error) {
+          throw new Error(error);
+        };
+
+        var postDeleteSuccess = function() {
+          throw new Error('Delete operation failed to remove directory.');
+        };
+
+        var postDeleteError = function(error) {
+          error.should.be.a('string');
+          error.should.equal('NOT_FOUND');
+          done();
+        };
+
+        onGetMetadataRequested(statOptions, function() {
+          onDeleteEntryRequested(deleteOptions, function() {
+            onGetMetadataRequested(statOptions, postDeleteSuccess,
+              postDeleteError);
+          }, onError);
+        }, onError);
+    });
+
+    it('should refuse to remove a non-empty directory without the recursive flag',
       function(done) {
         var deleteOptions = {
           entryPath: '/dir1',
@@ -84,11 +118,11 @@ module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
         };
 
         onDeleteEntryRequested(deleteOptions, function() {
-          throw new Error('Should have rejected directory delete without ' +
-            'the recursive flag set.');
+          throw new Error('Should have rejected an attempt to delete a ' +
+            'non-empty directory without the recursive flag set.');
         }, function(error) {
           error.should.be.a('string');
-          error.should.equal('NOT_A_FILE');
+          error.should.equal('NOT_EMPTY');
           done();
         });
     });
