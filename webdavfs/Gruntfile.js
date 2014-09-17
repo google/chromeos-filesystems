@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         browsers: ['Chrome', 'Firefox']
       },
       travis: {
-        browsers: ['Chrome']
+        browsers: ['Firefox']
       }
     },
 
