@@ -52,7 +52,51 @@ module.exports = function(onMoveEntryRequested, onGetMetadataRequested) {
       });
     });
 
-    it('should be able to move a directory ', function(done) {
+    it('should be able to move a directory', function(done) {
+      var source = 'dir11';
+      var target = '11_moved';
+
+      var statSource = {
+        entryPath: '/' + source
+      };
+
+      var statTarget = {
+        entryPath: '/' + target
+      };
+
+      var copyOptions = {
+        sourcePath: '/' + source,
+        targetPath: '/' + target
+      };
+
+      var onError = function(error) {
+        throw new Error(error);
+      };
+
+      var postMoveSuccess = function(data) {
+        data.name.should.equal(target);
+        done();
+      };
+
+      onGetMetadataRequested(statTarget, function() {
+        throw new Error('Directory should not be at target location before moving.');
+      }, function() {
+        onMoveEntryRequested(copyOptions, function() {
+          onGetMetadataRequested(statTarget, function(data) {
+            onGetMetadataRequested(statSource, function() {
+              throw new Error('Directory should not be at source location after ' +
+                'moving.');
+            }, function() {
+              postMoveSuccess(data);
+            })
+          }, function() {
+            throw new Error('Directory should be at target location after moving.');
+          });
+        }, onError);
+      });
+    });
+
+  it('should not overwrite existing files/directories', function(done) {
       var source = 'dir11';
       var target = '11_moved';
 
