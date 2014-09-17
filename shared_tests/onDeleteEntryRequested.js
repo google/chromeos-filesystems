@@ -40,7 +40,7 @@ module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
       }, onError);
     });
 
-    if (!window[fs].supportsRecursive) {
+    if (fs.supportsRecursive) {
       return;
     }
 

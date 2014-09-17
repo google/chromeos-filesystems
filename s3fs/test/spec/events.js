@@ -29,10 +29,10 @@ testSuite = require('../../../shared_tests/onCreateFileRequested');
 testSuite(onCreateFileRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onCloseFileRequested');
-testSuite('s3fs', onCloseFileRequested, onOpenFileRequested);
+testSuite(s3fs, onCloseFileRequested, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onDeleteEntryRequested');
-testSuite('s3fs', onDeleteEntryRequested, onGetMetadataRequested);
+testSuite(s3fs, onDeleteEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onGetMetadataRequested');
 testSuite(onGetMetadataRequested);
@@ -41,7 +41,7 @@ testSuite = require('../../../shared_tests/onMoveEntryRequested');
 testSuite(onMoveEntryRequested, onGetMetadataRequested);
 
 testSuite = require('../../../shared_tests/onOpenFileRequested');
-testSuite('s3fs', onOpenFileRequested);
+testSuite(s3fs, onOpenFileRequested);
 
 testSuite = require('../../../shared_tests/onReadFileRequested');
 testSuite(onReadFileRequested, onOpenFileRequested);
