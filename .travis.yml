@@ -22,4 +22,4 @@ before_script:
 script:
   - cd $DIR
   - grunt lint
-  - grunt test
+  - grunt citest

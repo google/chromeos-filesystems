@@ -28,13 +28,6 @@ module.exports = function(config) {
     // changes.
     autoWatch: true,
 
-    // Start these browsers.
-    // Available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    // Only use Firefox because it's the only one that works on Travis CI.
-    // TODO(lavelle): add separate build test targets so that Chrome and
-    // Firefox are used locally, and only Firefox on Travis.
-    browsers: ['Firefox'],
-
     // Continuous Integration mode.
     // If true, Karma captures browsers, runs the tests and exits.
     singleRun: true

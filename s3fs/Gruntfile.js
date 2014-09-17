@@ -114,7 +114,12 @@ module.exports = function(grunt) {
         files: ['build/*.js'],
         configFile: '../karma.conf.js'
       },
-      unit: {}
+      local: {
+        browsers: ['Chrome', 'Firefox']
+      },
+      travis: {
+        browsers: ['Chrome']
+      }
     },
 
     jsdoc : {
@@ -160,9 +165,14 @@ module.exports = function(grunt) {
   // Src task lints the source code and bundles it for distribution.
   grunt.registerTask('src', ['jshint:src', 'browserify:src']);
 
+  grunt.registerTask('pretest', ['jshint:test', 'browserify:test']);
+
   // Test task lints the test specifications themselves, bundles them and runs
   // them.
-  grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
+  grunt.registerTask('test', ['pretest', 'karma:local']);
+
+  // Custom test task for running on Travis CI.
+  grunt.registerTask('citest', ['pretest', 'karma:travis']);
 
   // Lints the scripts for the UI, bundles them and then combines all the web
   // component assets into a single file.

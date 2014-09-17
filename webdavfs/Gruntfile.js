@@ -89,7 +89,12 @@ module.exports = function(grunt) {
         files: ['build/*.js'],
         configFile: '../karma.conf.js'
       },
-      unit: {}
+      local: {
+        browsers: ['Chrome', 'Firefox']
+      },
+      travis: {
+        browsers: ['Chrome']
+      }
     },
 
     // Combines Polymer web components into a single file.
@@ -137,7 +142,15 @@ module.exports = function(grunt) {
 
   // Register task aliases.
   grunt.registerTask('src', ['jshint:src', 'browserify:src']);
-  grunt.registerTask('test', ['jshint:test', 'browserify:test', 'karma']);
+
+  grunt.registerTask('pretest', ['jshint:test', 'browserify:test']);
+
+  // Test task lints the test specifications themselves, bundles them and runs
+  // them.
+  grunt.registerTask('test', ['pretest', 'karma:local']);
+
+  // Custom test task for running on Travis CI.
+  grunt.registerTask('citest', ['pretest', 'karma:travis']);
   grunt.registerTask('ui', ['jshint:ui', 'browserify:ui', 'vulcanize']);
   grunt.registerTask('docs', ['jsdoc']);
   grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test',
