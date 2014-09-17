@@ -143,6 +143,12 @@ module.exports = function(grunt) {
           'extension/aws-sdk.js': '../third_party/aws-sdk/dist/aws-sdk.min.js'
         }
       }
+    },
+
+    jsonlint: {
+      all: {
+        src: ['package.json', 'extension/manifest.json', '../bower.json']
+      }
     }
   });
 
@@ -164,7 +170,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('docs', ['jsdoc']);
 
-  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test', 'jshint:ui']);
+  grunt.registerTask('lint', ['jshint:gruntfile', 'jshint:src', 'jshint:test',
+    'jshint:ui', 'jsonlint']);
 
   grunt.registerTask('default', ['src', 'ui']);
 };
