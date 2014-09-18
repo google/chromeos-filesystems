@@ -6,6 +6,8 @@
 
 'use strict';
 
+var async = require('async');
+
 var WebDAVFS = require('../../../webdavfs/js/wdfs');
 /**
  * Mocks the parts of the official AWS JavaScript SDK that are used by the S3
@@ -232,6 +234,35 @@ S3.prototype.copyObject = function(parameters, callback) {
     },
     onError: function(error) {
       callback(error, null);
+    }
+  });
+};
+
+/**
+ * Implements the S3 deleteObjects method in terms of WebDAVFS's deleteEntry.
+ * See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObjects-property
+ *
+ * @param {Object} parameters The S3 API parameters for this function.
+ * @param {function} callback The callback to be executed when the operation
+ *     finishes.
+ */
+S3.prototype.deleteObjects = function(parameters, callback) {
+  var wdfs = this.wdfs;
+
+  async.eachSeries(parameters.Delete, function(item, eachCallback) {
+    console.log(item.Key);
+
+    wdfs.deleteEntry({
+      path: item.Key.substring(1),
+      onSuccess: eachCallback,
+      onError: eachCallback
+    });
+  }, function(error) {
+    if (error) {
+      callback(error, null);
+    }
+    else {
+      callback(null, {});
     }
   });
 };

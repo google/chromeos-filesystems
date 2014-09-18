@@ -89,33 +89,6 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
 };
 
 /**
- * Responds to a request to delete a file or directory.
- * @param {Object} options Input options.
- * @param {function} onSuccess Function to be called if the entry was deleted
- *     successfully.
- * @param {function} onError Function to be called if an error occured while
- *     attempting to delete the entry.
- */
-var onDeleteEntryRequested = function(options, onSuccess, onError) {
-  // Strip the leading slash, since not used internally.
-  var path = options.entryPath.substring(1);
-
-  var parameters = s3fs.parameters({
-    Key: path,
-  });
-
-  // TODO(lavelle): handle the directory/recursive case here.
-
-  s3fs.s3.deleteObject(parameters, function(error) {
-    if (error) {
-      onError(error);
-    } else {
-      onSuccess();
-    }
-  });
-};
-
-/**
  * Fetches the metadata associated with the file at the given path from the
  * WebDAV server.
  * @param {Object} options Input options.
@@ -175,6 +148,88 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
       onSuccess(metadata, false);
     });
   });
+};
+
+/**
+ * @private
+ */
+var deleteFile = function(path, onSuccess, onError) {
+  var parameters = s3fs.parameters({
+    Key: path
+  });
+
+  s3fs.s3.deleteObject(parameters, function(error) {
+    if (error) {
+      onError(error);
+    } else {
+      onSuccess();
+    }
+  });
+};
+
+/**
+ * @private
+ */
+var deleteRecursive = function(entryPath, onSuccess, onError) {
+  onReadDirectoryRequested({directoryPath: entryPath}, function(list) {
+    console.log(list);
+
+    var parameters = s3fs.parameters({
+      Delete: list.map(function(item) {
+        return {Key: entryPath + '/' + item.name};
+      })
+    });
+
+    s3fs.s3.deleteObjects(parameters, function(error) {
+      if (error) {
+        console.log(error);
+        onError(error);
+      } else {
+        onSuccess();
+      }
+    });
+  });
+};
+
+/**
+ * Responds to a request to delete a file or directory.
+ * @param {Object} options Input options.
+ * @param {function} onSuccess Function to be called if the entry was deleted
+ *     successfully.
+ * @param {function} onError Function to be called if an error occured while
+ *     attempting to delete the entry.
+ */
+var onDeleteEntryRequested = function(options, onSuccess, onError) {
+  // Strip the leading slash, since not used internally.
+  var path = options.entryPath.substring(1);
+
+  if (options.recursive) {
+    // Always delete any entry with the recursive flag.
+    deleteRecursive(options.entryPath, onSuccess, onError);
+    return;
+  }
+
+  onGetMetadataRequested({entryPath: options.entryPath}, function(metadata) {
+    if (metadata.isDirectory) {
+      onReadDirectoryRequested({directoryPath: options.entryPath}, function(list) {
+        if (list.length === 0) {
+          // Empty directory case will never happen in S3, because of the flat
+          // filesystem - when the last file with a given prefix is removed,
+          // the 'directory' will no longer appear in any of our wrapper methods
+          // (readDirectory, getMetadata etc). So all that needs to be done here
+          // is to report a success.
+          onSuccess();
+        }
+        else {
+          // Refuse to delete non-empty directories without the recursive flag.
+          onError('NOT_EMPTY');
+        }
+      }, onError);
+    } else {
+      // Always delete files without the recursive flag.
+      deleteFile(path, onSuccess, onError);
+    }
+  }, onError);
 };
 
 /**

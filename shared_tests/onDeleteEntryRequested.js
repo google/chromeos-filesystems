@@ -40,10 +40,6 @@ module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
       }, onError);
     });
 
-    if (!window[fs].supportsRecursive) {
-      return;
-    }
-
     it('should remove an empty directory without needing the recursive flag',
       function(done) {
         var statOptions = {
@@ -89,6 +85,7 @@ module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
         };
 
         var onError = function(error) {
+          console.log(error.documentElement);
           throw new Error(error);
         };
 
