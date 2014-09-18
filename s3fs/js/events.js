@@ -7,6 +7,7 @@
 'use strict';
 
 var util = require('../../shared/util');
+var getError = require('./errors');
 
 /**
  * Fetches the metadata associated with the file at the given path from the
@@ -172,8 +173,6 @@ var deleteFile = function(path, onSuccess, onError) {
  */
 var deleteRecursive = function(entryPath, onSuccess, onError) {
   onReadDirectoryRequested({directoryPath: entryPath}, function(list) {
-    console.log(list);
-
     var parameters = s3fs.parameters({
       Delete: list.map(function(item) {
         return {Key: entryPath + '/' + item.name};
@@ -182,7 +181,6 @@ var deleteRecursive = function(entryPath, onSuccess, onError) {
 
     s3fs.s3.deleteObjects(parameters, function(error) {
       if (error) {
-        console.log(error);
         onError(error);
       } else {
         onSuccess();

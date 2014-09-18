@@ -96,7 +96,6 @@ WebDAVFS.prototype.writeFile = function(options) {
  */
 WebDAVFS.prototype.deleteEntry = function(options) {
   var url = this.url + options.path;
-  console.log(url);
   var headers = null;
 
   client.delete(url, headers, options.onSuccess, options.onError);

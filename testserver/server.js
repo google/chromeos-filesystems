@@ -71,6 +71,10 @@ var rebuilder = plugin.extend({
     handler.addEventListener('beforeMethod', function(event, method, file) {
       if (method === 'GET' && file === 'reset') {
         mockfs(structure);
+        console.log('\nResetting filesystem contents');
+      }
+      else {
+        console.log(method + ' ' + file);
       }
       event.next();
     });

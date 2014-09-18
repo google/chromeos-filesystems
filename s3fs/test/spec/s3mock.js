@@ -159,7 +159,17 @@ S3.prototype.headObject = function(parameters, callback) {
   this.wdfs.getMetadata({
     path: path,
     onSuccess: function(response) {
-      var error = null;
+      var error;
+      if (response.isDirectory) {
+        // headObject only applies to files.
+        // error = new Error();
+        // error.code = 'NoSuchKey';
+        error = 'NOT_FOUND';
+        callback(error, null);
+        return;
+      }
+
+      error = null;
 
       var data = {
         ContentLength: response.size,
@@ -250,11 +260,11 @@ S3.prototype.deleteObjects = function(parameters, callback) {
   var wdfs = this.wdfs;
 
   async.eachSeries(parameters.Delete, function(item, eachCallback) {
-    console.log(item.Key);
-
     wdfs.deleteEntry({
       path: item.Key.substring(1),
-      onSuccess: eachCallback,
+      onSuccess: function() {
+        eachCallback();
+      },
       onError: eachCallback
     });
   }, function(error) {

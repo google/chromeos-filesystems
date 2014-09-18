@@ -85,11 +85,11 @@ module.exports = function(fs, onDeleteEntryRequested, onGetMetadataRequested) {
         };
 
         var onError = function(error) {
-          console.log(error.documentElement);
           throw new Error(error);
         };
 
-        var postDeleteSuccess = function() {
+        var postDeleteSuccess = function(metadata) {
+          console.log(metadata);
           throw new Error('Delete operation failed to remove directory.');
         };
 
