@@ -1,4 +1,4 @@
-# ChromeOS Filesystem Providers
+# Chrome OS Filesystem Providers
 
 [![Build Status][travis image]][travis]
 [![Code Climate][codeclimate image]][codeclimate]
@@ -9,14 +9,16 @@ This repository contains various filesystem providers for Chrome OS. They offer 
 
 Providers that mount archive files like ZIP and RAR as file systems are considered to be separate category again and are not included in this repository: they are part of core Chromium.
 
-All of the providers are currently read-only. The API has recently been updated to support write operations, however, and the providers will soon be updated too to reflect this.
-
 ## Current
 
 Work has started on the following providers
 
 - WebDAV
+  - Supports all read and write operations.
+  - Authentication not supported at this time.
 - Amazon S3
+  - Supports all read operations and all non-recursive write operations.
+  - Authentication supported through access and secret key.
 - Dropbox
 
 They can be found in their respective directories with this repository. Please refer to each provider's own readme for installation and usage instructions.
