@@ -127,7 +127,12 @@ module.exports = function(grunt) {
 
     jsonlint: {
       all: {
-        src: ['package.json', 'extension/manifest.json', '../bower.json']
+        src: [
+          'package.json',
+          '../bower.json',
+          'extension/manifest.json',
+          'extension/_locales/**/*.json'
+        ]
       }
     }
   });
