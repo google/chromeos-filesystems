@@ -85,8 +85,13 @@ module.exports = function(grunt) {
 
     karma: {
       options: {
-        basePath: 'webdavfs/test',
-        files: ['build/*.js'],
+        basePath: 'webdavfs/test/build',
+        files: [
+          'helper.js',
+          'client.js',
+          'wdfs.js',
+          'events.js'
+        ],
         configFile: '../karma.conf.js'
       },
       unit: {}

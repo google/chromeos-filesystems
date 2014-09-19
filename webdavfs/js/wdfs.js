@@ -32,6 +32,8 @@ var WebDAVFS = function(url) {
     displayName: 'WebDAV'
   };
 
+  this.supportsRecursive = true;
+
   this.openedFiles = {};
 };
 

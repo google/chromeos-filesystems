@@ -35,6 +35,8 @@ var S3FS = function(bucket, region, access, secret) {
     displayName: 'Amazon S3 Bucket: ' + bucket
   };
 
+  this.supportsRecursive = false;
+
   // Stores a record of all opened files.
   this.openedFiles = {};
 

@@ -53,6 +53,7 @@ structure[config.ASSETS_DIRECTORY] = {
     },
     '1.txt': '1'
   },
+  empty: {},
   '1.txt': '1',
   '11.txt': '11',
   '2.txt': '2',

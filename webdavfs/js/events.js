@@ -280,10 +280,47 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
     return;
   }
 
-  webDAVFS.deleteEntry({
-    path: options.entryPath.substring(1),
+  var path = options.entryPath.substring(1);
+
+  var doDelete = function() {
+    webDAVFS.deleteEntry({
+      path: path,
+      onError: onError,
+      onSuccess: onSuccess
+    });
+  };
+
+  // Delete always works if recursive flag is passed.
+  if (options.recursive) {
+    doDelete();
+    return;
+  }
+
+  var onMetadataSuccess = function(metadata) {
+    if (metadata.isDirectory) {
+      webDAVFS.readDirectory({
+        path: path,
+        onSuccess: function(list) {
+          if (list.length === 0) {
+            // Delete works without recursive flag for empty directories
+            doDelete();
+          } else {
+            // Delete fails without recursive flag for non-empty directories.
+            onError('NOT_EMPTY');
+          }
+        },
+        onError: onError
+      });
+    } else {
+      // Delete works without recursive flag for files.
+      doDelete();
+    }
+  };
+
+  webDAVFS.getMetadata({
+    path: path,
     onError: onError,
-    onSuccess: onSuccess
+    onSuccess: onMetadataSuccess
   });
 };
 
