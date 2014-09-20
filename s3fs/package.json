@@ -20,14 +20,12 @@
     "karma-mocha": "^0.1.9",
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^1.21.4",
-    "grunt-jsonlint": "^1.0.4"
+    "grunt-jsonlint": "^1.0.4",
+    "async": "^0.9.0"
   },
   "scripts": {
     "test": "grunt test"
   },
   "author": "Giles Lavelle <lavelle@chromium.org>",
-  "license": "BSD",
-  "dependencies": {
-    "async": "^0.9.0"
-  }
+  "license": "BSD"
 }
