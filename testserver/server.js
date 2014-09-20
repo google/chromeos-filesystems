@@ -18,13 +18,17 @@ var util = require("jsDAV/lib/shared/util");
 var plugin = require("jsDAV/lib/DAV/plugin");
 var mockfs = require('mock-fs');
 var config = require('./config');
+var argv = require('optimist')
+  .alias('v', 'verbosity')
+  .default('v', 0)
+  .argv;
 
-var argv = process.argv.slice(2);
+// Verbosity levels:
+// 0 (default): no logging
+// 1: logs incoming request type and target file/directory
+// 2: enables JSDAV internal debug mode which logs a ton of stuff
 
-var flags = ['--debug', '-d'];
-
-// Enable debug mode if the command-line flag is set.
-if (argv.length > 0 && flags.indexOf(argv[0]) !== -1) {
+if (argv.verbosity >= 2) {
   jsdav.debugMode = true;
 }
 
@@ -71,10 +75,14 @@ var rebuilder = plugin.extend({
     handler.addEventListener('beforeMethod', function(event, method, file) {
       if (method === 'GET' && file === 'reset') {
         mockfs(structure);
-        console.log('\nResetting filesystem contents');
+        if (argv.verbosity >= 1) {
+          console.log('\nResetting filesystem contents');
+        }
       }
       else {
-        console.log(method + ' ' + file);
+        if (argv.verbosity >= 1) {
+          console.log(method + ' ' + file);
+        }
       }
       event.next();
     });

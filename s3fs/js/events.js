@@ -7,7 +7,7 @@
 'use strict';
 
 var util = require('../../shared/util');
-var getError = require('./errors');
+// var getError = require('./errors');
 
 /**
  * Fetches the metadata associated with the file at the given path from the
@@ -152,6 +152,54 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
 };
 
 /**
+ * Responds to a request for the contents of a directory.
+ * @param {Object} options Input options.
+ * @param {function} onSuccess Function to be called if the directory was
+ *     read successfully.
+ * @param {function} onError Function to be called if an error occured while
+ *     attempting to read the directory.
+ */
+var onReadDirectoryRequested = function(options, onSuccess, onError) {
+  // Remove the leading slash from the file path - not used in S3 bucket keys.
+  var path = options.directoryPath.substring(1);
+
+  var parameters = s3fs.parameters({
+    Prefix: path,
+    Delimiter: '/'
+  });
+
+  s3fs.s3.listObjects(parameters, function(error, data) {
+    if (error) {
+      onError(error);
+      return;
+    }
+
+    var files = data.Contents.map(function(item) {
+      // Content type is omitted from the results as it is not present in the
+      // S3 API response.
+      return {
+        isDirectory: false,
+        name: item.Key,
+        size: item.Size,
+        modificationTime: item.LastModified,
+      };
+    });
+
+    var directories = data.CommonPrefixes.map(function(item) {
+      var name = item.Prefix.substring(0, item.Prefix.length - 1);
+
+      return util.makeDirectory(name);
+    });
+
+    var list = directories.concat(files);
+
+    // Return it to the API.
+    onSuccess(list, false);
+  });
+};
+
+/**
+ * Deletes a single "file" (S3 object).
  * @private
  */
 var deleteFile = function(path, onSuccess, onError) {
@@ -169,6 +217,8 @@ var deleteFile = function(path, onSuccess, onError) {
 };
 
 /**
+ * Recursively deletes a whole "directory" (set of S3 objects with the same
+ * prefix).
  * @private
  */
 var deleteRecursive = function(entryPath, onSuccess, onError) {
@@ -249,53 +299,6 @@ var onOpenFileRequested = function(options, onSuccess, onError) {
     s3fs.openedFiles[options.requestId] = options.filePath;
     onSuccess();
   }
-};
-
-/**
- * Responds to a request for the contents of a directory.
- * @param {Object} options Input options.
- * @param {function} onSuccess Function to be called if the directory was
- *     read successfully.
- * @param {function} onError Function to be called if an error occured while
- *     attempting to read the directory.
- */
-var onReadDirectoryRequested = function(options, onSuccess, onError) {
-  // Remove the leading slash from the file path - not used in S3 bucket keys.
-  var path = options.directoryPath.substring(1);
-
-  var parameters = s3fs.parameters({
-    Prefix: path,
-    Delimiter: '/'
-  });
-
-  s3fs.s3.listObjects(parameters, function(error, data) {
-    if (error) {
-      onError(error);
-      return;
-    }
-
-    var files = data.Contents.map(function(item) {
-      // Content type is omitted from the results as it is not present in the
-      // S3 API response.
-      return {
-        isDirectory: false,
-        name: item.Key,
-        size: item.Size,
-        modificationTime: item.LastModified,
-      };
-    });
-
-    var directories = data.CommonPrefixes.map(function(item) {
-      var name = item.Prefix.substring(0, item.Prefix.length - 1);
-
-      return util.makeDirectory(name);
-    });
-
-    var list = directories.concat(files);
-
-    // Return it to the API.
-    onSuccess(list, false);
-  });
 };
 
 /**
