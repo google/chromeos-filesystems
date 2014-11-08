@@ -13,7 +13,7 @@ var util = require('../../shared/util');
  * @param {object} options Input options.
  * @param {function} onSuccess Function to be called if the file was closed
  *     successfully.
- * @param {function} onError Function to be called if an error occured while
+ * @param {function} onError Function to be called if an error occurred while
  *     attempting to close the file.
  */
 var onCloseFileRequested = function(options, onSuccess, onError) {
@@ -36,7 +36,7 @@ var onCloseFileRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the metadata was
  *     fetched successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to fetch the metadata.
  */
 var onGetMetadataRequested = function(options, onSuccess, onError) {
@@ -61,7 +61,7 @@ var onGetMetadataRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was opened
  *     successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to open the file.
  */
 var onOpenFileRequested = function(options, onSuccess, onError) {
@@ -83,7 +83,7 @@ var onOpenFileRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the directory was
  *     read successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to read the directory.
  */
 var onReadDirectoryRequested = function(options, onSuccess, onError) {
@@ -106,7 +106,7 @@ var onReadDirectoryRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
  *     read successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to read the file.
  */
 var onReadFileRequested = function(options, onSuccess, onError) {
@@ -140,7 +140,7 @@ var onReadFileRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
  *     written to successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to write to the file.
  */
 var onWriteFileRequested = function(options, onSuccess, onError) {
@@ -172,7 +172,7 @@ var onWriteFileRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
  *     truncated successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to truncate the file.
  */
 
@@ -215,7 +215,7 @@ var onTruncateRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
  *     created successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to create the file.
  */
 var onCreateFileRequested = function(options, onSuccess, onError) {
@@ -237,7 +237,7 @@ var onCreateFileRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the entry was
  *     copied successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to copy the entry.
  */
 var onCopyEntryRequested = function(options, onSuccess, onError) {
@@ -254,7 +254,7 @@ var onCopyEntryRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the entry was
  *     copied successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to copy the entry.
  */
 var onMoveEntryRequested = function(options, onSuccess, onError) {
@@ -271,7 +271,7 @@ var onMoveEntryRequested = function(options, onSuccess, onError) {
  * @param {Object} options Input options.
  * @param {Function} onSuccess Function to be called if the file was
  *     deleted successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to delete the file.
  */
 var onDeleteEntryRequested = function(options, onSuccess, onError) {
@@ -329,7 +329,7 @@ var onDeleteEntryRequested = function(options, onSuccess, onError) {
  * @param {Object} inputOptions Input options.
  * @param {Function} onSuccess Function to be called if the file system was
  *     unmounted successfully.
- * @param {Function} onError Function to be called if an error occured while
+ * @param {Function} onError Function to be called if an error occurred while
  *     attempting to umount the file system.
  */
 var onUnmountRequested = function(inputOptions, onSuccess, onError) {

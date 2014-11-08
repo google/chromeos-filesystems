@@ -241,7 +241,7 @@ WebDAVClient.prototype.request = function(verb, url, headers, data, responseType
       return body;
     };
 
-    // Register the callback to to be called when the request sucessfully
+    // Register the callback to to be called when the request successfully
     // completes.
     xhr.onreadystatechange = function() {
       if(xhr.readyState !== 4) { return; }

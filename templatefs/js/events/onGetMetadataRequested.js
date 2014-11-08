@@ -11,7 +11,7 @@
  * @param {Object} options Input options.
  * @param {function} onSuccess Function to be called if the metadata was
  *      fetched successfully.
- * @param {function} onError Function to be called if an error occured while
+ * @param {function} onError Function to be called if an error occurred while
  *      attempting to fetch the metadata.
  */
 module.exports = function(options, onSuccess, onError) {
