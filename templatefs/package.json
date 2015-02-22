@@ -18,5 +18,5 @@
     "test": "grunt test"
   },
   "author": "{{ author }}",
-  "license": "BSD",
+  "license": "BSD"
 }
