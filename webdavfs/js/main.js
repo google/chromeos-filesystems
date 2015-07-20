@@ -17,7 +17,7 @@ var events = require('./events');
  * @param {string} url The URL of the server to connect to.
  * @param {function=} callbacks.onSuccess Function to call if the server was
  *     mounted successfully.
- * @param {function=} callbacks.onError Function to call if an error occured
+ * @param {function=} callbacks.onError Function to call if an error occurred
  *     while attempting to mount the server.
  */
 var mount = function(url, callbacks) {

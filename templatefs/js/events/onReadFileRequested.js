@@ -11,7 +11,7 @@
  * @param {Object} options Input options.
  * @param {function} onSuccess Function to be called if the file was
  *      read successfully.
- * @param {function} onError Function to be called if an error occured while
+ * @param {function} onError Function to be called if an error occurred while
  *      attempting to read the file.
  */
 module.exports = function(options, onSuccess, onError) {
