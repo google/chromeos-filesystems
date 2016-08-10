@@ -1,0 +1,18 @@
+{
+  "name": "toastmanager",
+  "main": "toastmanager.js",
+  "version": "0.0.1",
+  "authors": [
+    "Giles Lavelle <lavelle@chromium.org>"
+  ],
+  "description": "Manage Polymer toasts",
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ]
+}
